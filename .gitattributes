@@ -1,0 +1,1 @@
+tests/fixtures/storage/engine/25.2.1/FastExecuteScriptProtected.x64.zip filter=lfs diff=lfs merge=lfs -text
