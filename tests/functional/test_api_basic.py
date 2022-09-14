@@ -5,7 +5,7 @@ import shutil
 
 import pytest
 
-from bas_api import BasApi, BasApiSettings, BrowserOptions, RemoteTransportOptions
+from bas_api import BasApi, BasApiSettings, BrowserOptions
 
 
 def test_api_basic_env_set(transport_options):
