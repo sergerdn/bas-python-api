@@ -116,6 +116,7 @@ class Browser(AbstractBrowser):
                     break
             if pid > 0:
                 break
+
         if pid == 0:
             raise Exception("pid of running browser not found: %s" % self._options.profile_folder_path)
 
