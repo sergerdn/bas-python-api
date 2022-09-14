@@ -3,17 +3,27 @@ from typing import Union, Optional, Dict
 from bas_remote.runners import BasFunction
 
 from bas_api.browser import Browser
+from bas_api.settings import BasApiSettings
 from bas_api.transport import RemoteTransport, RemoteTransportOptions
 
 
 class BasApi:
-    _options: RemoteTransportOptions
+    _transport_options: RemoteTransportOptions
+    _settings: BasApiSettings
     _tr: Union[RemoteTransport]
     browser: Browser
 
-    def __init__(self, options: RemoteTransportOptions):
-        self._options = options
-        self._tr = RemoteTransport(options=self._options)
+    def __init__(self, transport_options: RemoteTransportOptions, bas_api_settings: Optional[BasApiSettings] = None):
+
+        if bas_api_settings is not None:
+            self._settings = bas_api_settings
+        else:
+            self._settings = BasApiSettings()
+
+        self._transport_options = transport_options
+        self._transport_options.working_dir = self._settings.working_dir
+
+        self._tr = RemoteTransport(options=self._transport_options)
         self.browser = Browser(tr=self._tr)
 
     async def connect_transport(self):

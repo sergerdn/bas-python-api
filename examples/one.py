@@ -25,12 +25,12 @@ remote_script_password = os.environ.get("TEST_REMOTE_SCRIPT_PASSWORD", None)
 
 
 async def main():
-    options = RemoteTransportOptions(
+    transport_options = RemoteTransportOptions(
         remote_script_name=remote_script_name,
         remote_script_user=remote_script_user,
         remote_script_password=remote_script_password,
     )
-    api = BasApi(options=options)
+    api = BasApi(transport_options=transport_options)
     await api.connect_transport()
 
     await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
