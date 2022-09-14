@@ -8,7 +8,7 @@ tests:
 	poetry run pytest
 
 tests_coverage:
-	poetry run pytest --cov-report term --cov=myproj tests/
+	poetry run pytest --cov-report html --cov=bas_api tests/
 
 lint:
 	poetry run black . --check

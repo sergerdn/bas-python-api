@@ -51,7 +51,7 @@ class TestApiBasic:
 
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir(
-            self, remote_script_name, remote_script_user, remote_script_password, working_dir
+        self, remote_script_name, remote_script_user, remote_script_password, working_dir
     ):
         transport_options = RemoteTransportOptions(
             remote_script_name=remote_script_name,
