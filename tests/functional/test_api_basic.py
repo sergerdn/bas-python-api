@@ -27,3 +27,19 @@ class TestApiBasic:
         await api.set_up()
 
         await api.close_transport()
+
+    @pytest.mark.asyncio
+    async def test_api_browser_load(self, remote_script_name, remote_script_user, remote_script_password, working_dir):
+        transport_options = RemoteTransportOptions(
+            remote_script_name=remote_script_name,
+            remote_script_user=remote_script_user,
+            remote_script_password=remote_script_password,
+            working_dir=working_dir,
+        )
+        api = BasApi(transport_options=transport_options)
+        await api.set_up()
+
+        await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
+        current_url = await api.browser.current_url()
+        assert current_url == "https://www.google.com/"
+        await api.close_transport()
