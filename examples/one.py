@@ -33,7 +33,6 @@ async def main():
     api = BasApi(transport_options=transport_options)
     await api.set_up()
 
-
     await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
     current_url = await api.browser.current_url()
     print(current_url)

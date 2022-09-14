@@ -17,10 +17,10 @@ class BasApi:
     browser_options: BrowserOptions
 
     def __init__(
-            self,
-            transport_options: RemoteTransportOptions,
-            bas_api_settings: Optional[BasApiSettings] = None,
-            browser_options: Optional[BrowserOptions] = None,
+        self,
+        transport_options: RemoteTransportOptions,
+        bas_api_settings: Optional[BasApiSettings] = None,
+        browser_options: Optional[BrowserOptions] = None,
     ):
 
         if bas_api_settings is not None:
