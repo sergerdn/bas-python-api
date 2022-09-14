@@ -1,3 +1,4 @@
+import asyncio
 import os.path
 import random
 import shutil
@@ -16,6 +17,17 @@ def test_api_basic_env_set(remote_script_name, remote_script_user, remote_script
     assert os.path.isdir(working_dir) is True
 
 
+async def clean_dir(dir_path):
+    for _ in range(0, 60):
+        try:
+            shutil.rmtree(dir_path)
+        except PermissionError:
+            await asyncio.sleep(1)
+            continue
+
+    return True
+
+
 class TestApiBasic:
     @pytest.mark.asyncio
     async def test_api_basic(self, remote_script_name, remote_script_user, remote_script_password, working_dir):
@@ -32,11 +44,11 @@ class TestApiBasic:
         await api.close_transport()
 
         browser_options = api.browser.options_get()
-        shutil.rmtree(browser_options.profile_folder_path)
+        await clean_dir(browser_options.profile_folder_path)
 
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir(
-        self, remote_script_name, remote_script_user, remote_script_password, working_dir
+            self, remote_script_name, remote_script_user, remote_script_password, working_dir
     ):
         transport_options = RemoteTransportOptions(
             remote_script_name=remote_script_name,
@@ -61,4 +73,5 @@ class TestApiBasic:
         await api.browser.close_browser()
         await api.close_transport()
 
-        shutil.rmtree(profile_dir)
+        browser_options = api.browser.options_get()
+        await clean_dir(browser_options.profile_folder_path)

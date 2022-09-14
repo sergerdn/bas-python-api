@@ -144,6 +144,7 @@ class Browser(AbstractBrowser):
         if self._options.worker_pid > 0:
             p = psutil.Process(self._options.worker_pid)
             p.terminate()
+
         return result
 
     async def load(self, url: str, referer: Optional[str]) -> BasFunction:
