@@ -21,6 +21,10 @@ lint_fix:
 	poetry run black .
 
 clean:
+	rm -rf ./.pytest_cache || echo ""
+	rm -rf ./.tox || echo ""
+	rm -rf ./htmlcov || echo ""
+	rm -rf ./dist || echo ""
 	rm -rf ./tests/.tests_data || echo ""
 	rm -rf ./tests/functional/.pytest_cache || echo ""
 
