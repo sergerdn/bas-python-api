@@ -24,6 +24,9 @@ clean:
 	rm -rf ./tests/.tests_data || echo ""
 	rm -rf ./tests/functional/.pytest_cache || echo ""
 
+poetry_upgrade:
+	poetryup
+
 build:
 	poetry build -f wheel -n
 	poetry build -f sdist -n
