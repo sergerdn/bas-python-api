@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Union, Optional, Dict
 
 from bas_remote import BasRemoteClient, Options
+from bas_remote.runners import BasThread
 
 from bas_api.function import BasFunction
 
@@ -28,10 +29,10 @@ class RemoteTransportOptions:
     working_dir: Union[str, None] = None
 
     def __init__(
-        self,
-        remote_script_name: Union[str, None] = None,
-        remote_script_user: Union[str, None] = None,
-        remote_script_password: Union[str, None] = None,
+            self,
+            remote_script_name: Union[str, None] = None,
+            remote_script_user: Union[str, None] = None,
+            remote_script_password: Union[str, None] = None,
     ):
         if remote_script_name is not None:
             self.remote_script_name = remote_script_name
@@ -47,6 +48,7 @@ class RemoteTransportOptions:
 class RemoteTransport(AbstractTransport):
     _options: RemoteTransportOptions
     _client: BasRemoteClient
+    _thread: BasThread
 
     def __init__(self, options: RemoteTransportOptions):
         self._client = BasRemoteClient(
@@ -60,6 +62,7 @@ class RemoteTransport(AbstractTransport):
 
     async def connect(self):
         await self._client.start()
+        self._thread = self._client.create_thread()
 
     async def close(self):
         await self._client.close()

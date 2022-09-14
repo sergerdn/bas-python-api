@@ -20,9 +20,24 @@ class AbstractBrowser(ABC):
         """
         pass
 
-    def current_url(self) -> str:
+    def current_url(self) -> BasFunction:
         """
         Get current url from browser address bar.
+        :return:
+        """
+        pass
+
+    def previous_page(self) -> BasFunction:
+        """
+        Loads previous url from a history list.
+        :return:
+        """
+        pass
+
+    def page_html(self) -> BasFunction:
+        """
+        Get page source and save it to variable. This action saves current source with all changes but not the initial
+        returned by server.
         :return:
         """
         pass
@@ -43,5 +58,11 @@ class Browser(AbstractBrowser):
     def load(self, url: str, referer: Optional[str]) -> BasFunction:
         return self._tr.run_function("_basBrowserLoad", {"url": url, referer: referer})
 
-    def current_url(self) -> str:
-        pass
+    def current_url(self) -> BasFunction:
+        return self._tr.run_function("_basBrowserCurrentUrl")
+
+    def previous_page(self) -> BasFunction:
+        return self._tr.run_function("_basBrowserPreviousPage")
+
+    def page_html(self) -> BasFunction:
+        return self._tr.run_function("_basPageHtml")

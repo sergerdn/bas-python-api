@@ -5,18 +5,69 @@
 
    section_end()!
 
+   section_start("\u007b\u0022n\u0022:\u0022_basBrowserCurrentUrl\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 378479761)!
+   function _basBrowserCurrentUrl()
+   {
+   section_insert()
+      section_start("", 857488678)!
+      /*Dat:eyJzIjoidXJsIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlNhdmVVcmwiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IkNVUlJFTlRfVVJMIn1dfQ==*/
+      /*Browser*/
+      url()!
+      VAR_CURRENT_URL = _result()
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Finish function and set result\u0022,\u0022c\u0022:\u00221\u0022\u007d", 75191641)!
+      /*Dat:eyJzIjoicmV0dXJuIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlJldHVyblZhbHVlIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJbW0NVUlJFTlRfVVJMXV0iLCJjbGFzcyI6InN0cmluZyJ9XX0=*/
+      _function_return(VAR_CURRENT_URL)
+      section_end()!
+
+   }
+   section_end()!
+
+   section_start("\u007b\u0022n\u0022:\u0022_basPageHtml\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 404829584)!
+   function _basPageHtml()
+   {
+   section_insert()
+      section_start("", 134556782)!
+      /*Dat:eyJzIjoiaHRtbCIsInYiOjEsImYiOltdLCJ1dyI6IjAiLCJ1dCI6IjAiLCJ1dG8iOiIwIiwidW0iOiIwIiwiZCI6W3siaWQiOiJTYXZlIiwidHlwZSI6InZhciIsImRhdGEiOiJTQVZFRF9QQUdFX0hUTUwifV19*/
+      /*Browser*/
+      page().script("document.documentElement.outerHTML")!
+      VAR_SAVED_PAGE_HTML = _result()
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Finish function and set result\u0022,\u0022c\u0022:\u00221\u0022\u007d", 799969386)!
+      /*Dat:eyJzIjoicmV0dXJuIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlJldHVyblZhbHVlIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJbW1NBVkVEX1BBR0VfSFRNTF1dIiwiY2xhc3MiOiJzdHJpbmcifV19*/
+      _function_return(VAR_SAVED_PAGE_HTML)
+      section_end()!
+
+   }
+   section_end()!
+
+   section_start("\u007b\u0022n\u0022:\u0022_basBrowserPreviousPage\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:false,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 587195708)!
+   function _basBrowserPreviousPage()
+   {
+   section_insert()
+      section_start("", 236025893)!
+      /*Dat:eyJzIjoibmF2aWdhdGViYWNrIiwidiI6MSwiZiI6W10sInV3IjoiMSIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbXX0=*/
+      navigate_back(true)!
+      wait_async_load()!
+      section_end()!
+
+   }
+   section_end()!
+
    section_start("\u007b\u0022n\u0022:\u0022_basBrowserLoad\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022referer\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d,\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022url\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d]\u007d\u0022\u007d", 660716600)!
    function _basBrowserLoad()
    {
    section_insert()
-      section_start("\u007b\u0022n\u0022:\u0022Obtaining function parameter\u0022,\u0022c\u0022:\u00222\u0022\u007d", 478838322)!
-      /*Dat:eyJzIjoiZ2V0ZnVuY3Rpb25wYXJhbWV0ZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiUGFyYW1ldGVyTmFtZSIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoicmVmZXJlciIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlNhdmUiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IlJFRkVSRVIifV19*/
-      VAR_REFERER = _function_argument("referer")
-      section_end()!
-
       section_start("\u007b\u0022n\u0022:\u0022Obtaining function parameter\u0022,\u0022c\u0022:\u00222\u0022\u007d", 96400924)!
       /*Dat:eyJzIjoiZ2V0ZnVuY3Rpb25wYXJhbWV0ZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiUGFyYW1ldGVyTmFtZSIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoidXJsIiwiY2xhc3MiOiJzdHJpbmcifSx7ImlkIjoiU2F2ZSIsInR5cGUiOiJ2YXIiLCJkYXRhIjoiVVJMIn1dfQ==*/
       VAR_URL = _function_argument("url")
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Obtaining function parameter\u0022,\u0022c\u0022:\u00222\u0022\u007d", 69085430)!
+      /*Dat:eyJzIjoiZ2V0ZnVuY3Rpb25wYXJhbWV0ZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiUGFyYW1ldGVyTmFtZSIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoicmVmZXJlciIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlNhdmUiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IlJFRkVSRVIifV19*/
+      VAR_REFERER = _function_argument("referer")
       section_end()!
 
       section_start("", 511365373)!
@@ -47,6 +98,13 @@
    _result_function()
    section_end()!
 
+   section_start("", 856547702)!
+   /*Dat:eyJzIjoidXJsIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlNhdmVVcmwiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IkNVUlJFTlRfVVJMIn1dfQ==*/
+   /*Browser*/
+   url()!
+   VAR_CURRENT_URL = _result()
+   section_end()!
+
 })!]]></Script>
      <ModuleInfo><![CDATA[{
 }
@@ -74,6 +132,38 @@
      <ScriptVersion>0.0.2</ScriptVersion>
      <AvailableLanguages>en,ru</AvailableLanguages>
      <EngineVersion>25.2.1</EngineVersion>
+     <SettingsWorker>EnableFlash=false
+EnableWidevine=false
+AutostartDebug=false
+SaveBrowserLog=false
+ProfilesCaching=true
+ToolboxHeight=514
+MaxBrowserStartSimultaneously=3
+MinFreeMemoryToStartBrowser=1500
+MinUnusedCpu=35
+ScenarioWidth=500
+Zoom=100
+IsMaximized=false
+Restart=true
+UseHumanLikeMouseMoves=true
+DebugToolbox=false
+DebugScenario=false
+Languages=&quot;&quot;
+Modules=&quot;&quot;
+Canvas=&quot;enable&quot;
+CanvasNoise=&quot;&quot;
+Audio=&quot;enable&quot;
+QUIC=&quot;disable&quot;
+AudioNoise=&quot;&quot;
+MaxFPS=30
+Webrtc=&quot;enable&quot;
+WebrtcIps=&quot;&quot;
+Webgl=&quot;enable&quot;
+WebglNoise=&quot;&quot;
+WebglRenderer=&quot;&quot;
+WebglVendor=&quot;&quot;
+Detector=true
+</SettingsWorker>
      <ChromeCommandLine>--disk-cache-size=1
 --disable-gpu-program-cache
 --disable-gpu-shader-disk-cache
@@ -96,7 +186,7 @@
     &quot;MailDeprecated&quot;: false
 }
 </ModulesMetaJson>
-     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
+     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
      <OutputTitle1 ru="First Results" en="First Results"/>
      <OutputTitle2 ru="Second Results" en="Second Results"/>
      <OutputTitle3 ru="Third Results" en="Third Results"/>
