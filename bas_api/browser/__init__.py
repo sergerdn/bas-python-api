@@ -7,12 +7,10 @@ from bas_api.transport import AbstractTransport
 
 class BrowserOptions:
     profile_dir: str
-    base_profile_dir: str
-    fingerprint: str
     running_pid: int
 
-    def __init__(self, profile_dir, fingerprint):
-        pass
+    def __init__(self, profile_dir: str):
+        self.profile_dir = profile_dir
 
 
 class AbstractBrowser(ABC):
@@ -58,11 +56,12 @@ class Browser(AbstractBrowser):
     _tr: Union[AbstractTransport]
     _options: BrowserOptions
 
-    def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
+    def __init__(self, tr: Union[AbstractTransport], _options: BrowserOptions = None, *args, **kwargs):
         self._tr = tr
+        self._options = _options
         super().__init__(tr=self._tr, *args, **kwargs)
 
-    def _set_up(self):
+    def set_options(self):
         pass
 
     async def load(self, url: str, referer: Optional[str]) -> BasFunction:

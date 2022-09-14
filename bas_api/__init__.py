@@ -2,7 +2,7 @@ from typing import Union, Optional, Dict
 
 from bas_remote.runners import BasFunction
 
-from bas_api.browser import Browser
+from bas_api.browser import Browser, BrowserOptions
 from bas_api.settings import BasApiSettings
 from bas_api.transport import RemoteTransport, RemoteTransportOptions
 
@@ -24,10 +24,12 @@ class BasApi:
         self._transport_options.working_dir = self._settings.working_dir
 
         self._tr = RemoteTransport(options=self._transport_options)
-        self.browser = Browser(tr=self._tr)
+        browser_options = BrowserOptions(profile_dir=self._settings.profile_dir)
+        self.browser = Browser(tr=self._tr, browser_option=browser_options)
 
     async def connect_transport(self):
         await self._tr.connect()
+        self.browser.set_options()
 
     async def close_transport(self):
         await self._tr.close()
