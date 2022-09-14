@@ -8,13 +8,13 @@ import pytest
 from bas_api import BasApi, BasApiSettings, BrowserOptions, RemoteTransportOptions
 
 
-def test_api_basic_env_set(remote_script_name, remote_script_user, remote_script_password, working_dir):
-    assert remote_script_name is not None
-    assert remote_script_user is not None
-    assert remote_script_password is not None
-    assert working_dir is not None
-    assert os.path.exists(working_dir) is True
-    assert os.path.isdir(working_dir) is True
+def test_api_basic_env_set(transport_options):
+    assert transport_options.remote_script_name is not None
+    assert transport_options.remote_script_user is not None
+    assert transport_options.remote_script_password is not None
+    assert transport_options.working_dir is not None
+    assert os.path.exists(transport_options.working_dir) is True
+    assert os.path.isdir(transport_options.working_dir) is True
 
 
 async def clean_dir(dir_path):
