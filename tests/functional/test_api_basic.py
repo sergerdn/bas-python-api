@@ -1,5 +1,6 @@
 import os.path
 import random
+import shutil
 
 import pytest
 
@@ -27,8 +28,11 @@ class TestApiBasic:
         api = BasApi(transport_options=transport_options)
 
         await api.set_up()
-
+        await api.browser.close_browser()
         await api.close_transport()
+
+        browser_options = api.browser.options_get()
+        shutil.rmtree(browser_options.profile_folder_path)
 
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir(
@@ -49,5 +53,12 @@ class TestApiBasic:
             transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
         )
         await api.set_up()
+        # profile creates
+        assert os.path.exists(profile_dir) is True
+        assert os.path.isdir(profile_dir) is True
+        assert os.path.isfile(os.path.join(profile_dir, "lockfile"))
 
+        await api.browser.close_browser()
         await api.close_transport()
+
+        shutil.rmtree(profile_dir)

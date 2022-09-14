@@ -36,6 +36,8 @@ class BasApi:
         if browser_options is None:
             profile_dir = os.path.join(self._settings.working_profile_dir, "%s" % random.randint(10000, 99999))
             self.browser_options = BrowserOptions(profile_folder_path=profile_dir)
+        else:
+            self.browser_options = browser_options
 
         self.browser = Browser(tr=self._tr, options=self.browser_options)
 

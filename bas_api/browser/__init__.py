@@ -1,3 +1,4 @@
+import asyncio
 from abc import ABC, abstractmethod
 from typing import Optional, Union
 
@@ -16,10 +17,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -86,6 +87,9 @@ class Browser(AbstractBrowser):
         self._options = options
         super().__init__(tr=self._tr, *args, **kwargs)
 
+    def options_get(self):
+        return self._options
+
     async def options_set(self):
         """
         Tells browser to use specified folder as a place to store cookies, cache, localstorage, etc.
@@ -130,8 +134,17 @@ class Browser(AbstractBrowser):
         self.options_update()
         window_set_visible(self._options.worker_pid)
 
-    async def open_browser(self):
-        await self._tr.run_function_thread("_basOpenBrowser")
+    async def open_browser(self) -> BasFunction:
+        return await self._tr.run_function_thread("_basOpenBrowser")
+
+    async def close_browser(self) -> BasFunction:
+        result = await self._tr.run_function_thread("_basCloseBrowser")
+
+        await asyncio.sleep(1)
+        if self._options.worker_pid > 0:
+            p = psutil.Process(self._options.worker_pid)
+            p.terminate()
+        return result
 
     async def load(self, url: str, referer: Optional[str]) -> BasFunction:
         return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
