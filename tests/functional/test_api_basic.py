@@ -8,7 +8,7 @@ def test_api_basic_env_set(remote_script_name, remote_script_user, remote_script
 
 
 class TestApiBasic:
-    def test_api_basic(self, remote_script_name, remote_script_user, remote_script_password):
+    async def test_api_basic(self, remote_script_name, remote_script_user, remote_script_password):
         transport_options = RemoteTransportOptions(
             remote_script_name=remote_script_name,
             remote_script_user=remote_script_user,
