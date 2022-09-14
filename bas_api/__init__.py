@@ -1,4 +1,3 @@
-import asyncio
 from typing import Union, Optional, Dict
 
 from bas_remote.runners import BasFunction
@@ -25,23 +24,3 @@ class BasApi:
 
     def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         return self._tr.run_function(function_name=function_name, function_params=function_params)
-
-
-async def main():
-    options = RemoteTransportOptions(
-        remote_script_name="remote_script_name",
-        remote_script_user="remote_script_user",
-        remote_script_password="remote_script_password",
-    )
-    api = BasApi(options=options)
-    await api.connect()
-
-    await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
-    current_url = api.browser.current_url()
-    print(current_url)
-
-    await api.close_transport()
-
-
-if __name__ == "__main__":
-    asyncio.run(main())

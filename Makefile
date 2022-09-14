@@ -10,7 +10,7 @@ tests:
 lint:
 	poetry run black . --check
 	poetry run flake8
-	mypy bas_python_api/
+	mypy bas_api/
 
 lint_fix:
 	poetry run black .
