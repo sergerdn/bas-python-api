@@ -17,13 +17,8 @@ lint_fix:
 	poetry run black .
 
 clean:
-	rm -rf ./build || echo ""
-	rm -rf ./.tox || echo ""
-	rm -rf ./bas_remote_python.egg-info || echo ""
-	rm -rf ./.bas-remote-app-* || echo ""
-	rm -rf ./.pytest_cache || echo ""
-	rm -rf ./.mypy_cache || echo ""
-	rm -rf ./dist || echo ""
+	rm -rf ./tests/.tests_data || echo ""
+	rm -rf ./tests/functional/.pytest_cache || echo ""
 
 build:
 	poetry build -f wheel -n
