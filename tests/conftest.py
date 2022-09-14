@@ -27,7 +27,7 @@ def remote_script_password():
 
 @pytest.fixture(scope="module")
 def working_dir():
-    if not os.path.exists:
-        os.makedirs(DATA_DIR)
+    if not os.path.exists(DATA_DIR):
+        os.mkdir(DATA_DIR)
 
     return DATA_DIR
