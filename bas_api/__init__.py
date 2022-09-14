@@ -22,13 +22,13 @@ class BasApi:
         bas_api_settings: Optional[BasApiSettings] = None,
         browser_options: Optional[BrowserOptions] = None,
     ):
+        self._transport_options = transport_options
 
         if bas_api_settings is not None:
             self._settings = bas_api_settings
         else:
-            self._settings = BasApiSettings()
+            self._settings = BasApiSettings(working_dir=self._transport_options.working_dir)
 
-        self._transport_options = transport_options
         self._transport_options.working_dir = self._settings.working_dir
 
         self._tr = RemoteTransport(options=self._transport_options)
@@ -36,6 +36,8 @@ class BasApi:
         if browser_options is None:
             profile_dir = os.path.join(self._settings.working_profile_dir, "%s" % random.randint(10000, 99999))
             self.browser_options = BrowserOptions(profile_folder_path=profile_dir)
+        else:
+            self.browser_options = browser_options
 
         self.browser = Browser(tr=self._tr, options=self.browser_options)
 

@@ -5,7 +5,11 @@ tests_tox:
 	poetry run tox
 
 tests:
-	pytest tests
+	poetry run pytest
+
+tests_coverage:
+	poetry run pytest --cov-report html --cov=bas_api tests/
+	start "./htmlcov/index.html"
 
 lint:
 	poetry run black . --check
@@ -13,17 +17,12 @@ lint:
 	mypy bas_api/
 
 lint_fix:
-	isort bas_api/
+	isort bas_api/ tests/
 	poetry run black .
 
 clean:
-	rm -rf ./build || echo ""
-	rm -rf ./.tox || echo ""
-	rm -rf ./bas_remote_python.egg-info || echo ""
-	rm -rf ./.bas-remote-app-* || echo ""
-	rm -rf ./.pytest_cache || echo ""
-	rm -rf ./.mypy_cache || echo ""
-	rm -rf ./dist || echo ""
+	rm -rf ./tests/.tests_data || echo ""
+	rm -rf ./tests/functional/.pytest_cache || echo ""
 
 build:
 	poetry build -f wheel -n
