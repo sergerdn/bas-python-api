@@ -11,7 +11,7 @@ class AbstractBrowser(ABC):
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
 
-    def load(self, url: str, referer: Optional[str]):
+    async def load(self, url: str, referer: Optional[str]):
         """
         Loads specified url into browser. Examples: Load google.com, Load instagram.com.
         :param url:
@@ -20,21 +20,21 @@ class AbstractBrowser(ABC):
         """
         pass
 
-    def current_url(self) -> BasFunction:
+    async def current_url(self) -> BasFunction:
         """
         Get current url from browser address bar.
         :return:
         """
         pass
 
-    def previous_page(self) -> BasFunction:
+    async def previous_page(self) -> BasFunction:
         """
         Loads previous url from a history list.
         :return:
         """
         pass
 
-    def page_html(self) -> BasFunction:
+    async def page_html(self) -> BasFunction:
         """
         Get page source and save it to variable. This action saves current source with all changes but not the initial
         returned by server.
@@ -43,10 +43,17 @@ class AbstractBrowser(ABC):
         pass
 
 
+class BrowserOptions:
+    profile_dir: str
+    fingerprint: Optional[str]
+    pid: int
+
+    def __init__(self):
+        pass
+
+
 class Browser(AbstractBrowser):
     _tr: Union[AbstractTransport]
-    profile_dir: Optional[str]
-    fingerprint: Optional[str]
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
@@ -55,14 +62,14 @@ class Browser(AbstractBrowser):
     def _set_up(self):
         pass
 
-    def load(self, url: str, referer: Optional[str]) -> BasFunction:
-        return self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
+    async def load(self, url: str, referer: Optional[str]) -> BasFunction:
+        return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
 
-    def current_url(self) -> BasFunction:
-        return self._tr.run_function_thread("_basBrowserCurrentUrl")
+    async def current_url(self) -> BasFunction:
+        return await self._tr.run_function_thread("_basBrowserCurrentUrl")
 
-    def previous_page(self) -> BasFunction:
-        return self._tr.run_function_thread("_basBrowserPreviousPage")
+    async def previous_page(self) -> BasFunction:
+        return await self._tr.run_function_thread("_basBrowserPreviousPage")
 
-    def page_html(self) -> BasFunction:
-        return self._tr.run_function_thread("_basPageHtml")
+    async def page_html(self) -> BasFunction:
+        return await self._tr.run_function_thread("_basPageHtml")
