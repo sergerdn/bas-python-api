@@ -47,10 +47,11 @@ class TestApiBasic:
 
         browser_options = api.browser.options_get()
         await clean_dir(browser_options.profile_folder_path)
+        assert os.path.exists(browser_options.profile_folder_path) is False
 
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir(
-        self, remote_script_name, remote_script_user, remote_script_password, working_dir
+            self, remote_script_name, remote_script_user, remote_script_password, working_dir
     ):
         transport_options = RemoteTransportOptions(
             remote_script_name=remote_script_name,
@@ -67,7 +68,7 @@ class TestApiBasic:
             transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
         )
         await api.set_up()
-        # profile creates
+
         assert os.path.exists(profile_dir) is True
         assert os.path.isdir(profile_dir) is True
         assert os.path.isfile(os.path.join(profile_dir, "lockfile"))
@@ -77,3 +78,4 @@ class TestApiBasic:
 
         browser_options = api.browser.options_get()
         await clean_dir(browser_options.profile_folder_path)
+        assert os.path.exists(browser_options.profile_folder_path) is False
