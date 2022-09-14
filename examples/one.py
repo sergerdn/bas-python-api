@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.DEBUG)
 
-dotenv_path = os.path.join(ABS_PATH, "examples", ".env")
+dotenv_path = os.path.join(ABS_PATH, ".env")
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path=dotenv_path)
 

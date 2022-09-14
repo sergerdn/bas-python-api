@@ -13,6 +13,7 @@ lint:
 	mypy bas_api/
 
 lint_fix:
+	isort bas_api/
 	poetry run black .
 
 clean:

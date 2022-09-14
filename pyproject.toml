@@ -2,10 +2,10 @@
 name = "bas-python-api"
 version = "0.1.0"
 description = "Python library, which allows you to automate Google Chrome browser via BAS software."
-authors = ["Sergerdn <>"]
+authors = ["Sergerdn <example@example.com>"]
 readme = "README.md"
 packages = [
-    { include = "bas_python_api" }
+    { include = "bas_api" }
 ]
 
 [tool.poetry.dependencies]
@@ -25,6 +25,7 @@ tox-poetry = "^0.4.1"
 flake8-tidy-imports = "^4.8.0"
 flake8 = "^5.0.4"
 mypy = "^0.971"
+isort = "^5.10.1"
 black = { git = "https://github.com/psf/black" }
 
 [tool.black]
