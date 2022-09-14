@@ -32,13 +32,7 @@ async def clean_dir(dir_path):
 
 class TestApiBasic:
     @pytest.mark.asyncio
-    async def test_api_basic(self, remote_script_name, remote_script_user, remote_script_password, working_dir):
-        transport_options = RemoteTransportOptions(
-            remote_script_name=remote_script_name,
-            remote_script_user=remote_script_user,
-            remote_script_password=remote_script_password,
-            working_dir=working_dir,
-        )
+    async def test_api_basic(self, transport_options):
         api = BasApi(transport_options=transport_options)
 
         await api.set_up()
@@ -50,16 +44,7 @@ class TestApiBasic:
         assert os.path.exists(browser_options.profile_folder_path) is False
 
     @pytest.mark.asyncio
-    async def test_api_browser_profile_dir(
-        self, remote_script_name, remote_script_user, remote_script_password, working_dir
-    ):
-        transport_options = RemoteTransportOptions(
-            remote_script_name=remote_script_name,
-            remote_script_user=remote_script_user,
-            remote_script_password=remote_script_password,
-            working_dir=working_dir,
-        )
-
+    async def test_api_browser_profile_dir_new(self, transport_options):
         bas_api_settings = BasApiSettings(working_dir=transport_options.working_dir)
         profile_dir = os.path.join(bas_api_settings.working_profile_dir, "%s" % random.randint(10000, 99999))
         browser_options = BrowserOptions(profile_folder_path=profile_dir)
@@ -79,3 +64,20 @@ class TestApiBasic:
         browser_options = api.browser.options_get()
         await clean_dir(browser_options.profile_folder_path)
         assert os.path.exists(browser_options.profile_folder_path) is False
+
+    @pytest.mark.skip("not ready yet")
+    @pytest.mark.asyncio
+    async def test_api_browser_profile_dir_new(
+        self,
+        transport_options,
+    ):
+        api = BasApi(transport_options=transport_options)
+
+        await api.set_up()
+        await api.browser.close_browser()
+        await api.close_transport()
+
+        browser_options = api.browser.options_get()
+        profile_dir = browser_options.profile_folder_path
+        # await clean_dir(browser_options.profile_folder_path)
+        assert os.path.exists(profile_dir) is True

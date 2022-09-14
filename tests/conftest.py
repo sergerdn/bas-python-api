@@ -3,6 +3,7 @@ import os
 import pytest
 from dotenv import load_dotenv
 
+from bas_api import RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
@@ -31,3 +32,13 @@ def working_dir():
         os.mkdir(DATA_DIR)
 
     return DATA_DIR
+
+
+@pytest.fixture(scope="module")
+def transport_options():
+    return RemoteTransportOptions(
+        remote_script_name=remote_script_name(),
+        remote_script_user=remote_script_user(),
+        remote_script_password=remote_script_password(),
+        working_dir=working_dir(),
+    )
