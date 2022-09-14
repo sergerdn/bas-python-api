@@ -16,7 +16,7 @@ class BasApi:
         self._tr = RemoteTransport(options=self._options)
         self.browser = Browser(tr=self._tr)
 
-    async def connect(self):
+    async def connect_transport(self):
         await self._tr.connect()
 
     async def close_transport(self):

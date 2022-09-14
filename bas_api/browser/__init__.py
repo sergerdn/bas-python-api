@@ -5,8 +5,19 @@ from bas_api.function import BasFunction
 from bas_api.transport import AbstractTransport
 
 
+class BrowserOptions:
+    profile_dir: str
+    base_profile_dir: str
+    fingerprint: str
+    running_pid: int
+
+    def __init__(self, profile_dir, fingerprint):
+        pass
+
+
 class AbstractBrowser(ABC):
     _tr: Union[AbstractTransport]
+    _options: BrowserOptions
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
@@ -43,17 +54,9 @@ class AbstractBrowser(ABC):
         pass
 
 
-class BrowserOptions:
-    profile_dir: str
-    fingerprint: Optional[str]
-    pid: int
-
-    def __init__(self):
-        pass
-
-
 class Browser(AbstractBrowser):
     _tr: Union[AbstractTransport]
+    _options: BrowserOptions
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr

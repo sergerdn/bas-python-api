@@ -31,7 +31,7 @@ async def main():
         remote_script_password=remote_script_password,
     )
     api = BasApi(options=options)
-    await api.connect()
+    await api.connect_transport()
 
     await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
     current_url = await api.browser.current_url()
