@@ -7,6 +7,9 @@ tests_tox:
 tests:
 	poetry run pytest
 
+tests_coverage:
+	poetry run pytest --cov-report term --cov=myproj tests/
+
 lint:
 	poetry run black . --check
 	poetry run flake8
