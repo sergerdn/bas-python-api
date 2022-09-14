@@ -22,13 +22,13 @@ class BasApi:
         bas_api_settings: Optional[BasApiSettings] = None,
         browser_options: Optional[BrowserOptions] = None,
     ):
+        self._transport_options = transport_options
 
         if bas_api_settings is not None:
             self._settings = bas_api_settings
         else:
-            self._settings = BasApiSettings()
+            self._settings = BasApiSettings(working_dir=self._transport_options.working_dir)
 
-        self._transport_options = transport_options
         self._transport_options.working_dir = self._settings.working_dir
 
         self._tr = RemoteTransport(options=self._transport_options)
