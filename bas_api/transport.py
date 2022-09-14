@@ -14,11 +14,11 @@ class AbstractTransport(ABC):
         pass
 
     @abstractmethod
-    def connect(self):
+    async def connect(self):
         pass
 
     @abstractmethod
-    def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
+    async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         pass
 
     @abstractmethod
