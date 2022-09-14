@@ -122,9 +122,10 @@ class Browser(AbstractBrowser):
 
         self._options.worker_pid = pid
 
-    async def set_visible(self) -> None:
-        if not self._options.show_browser:
+    async def set_visible(self, force: bool = False) -> None:
+        if self._options.show_browser is not True and force is not True:
             return
+
         await self.open_browser()
         self.options_update()
         window_set_visible(self._options.worker_pid)
