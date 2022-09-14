@@ -9,6 +9,7 @@ tests:
 
 tests_coverage:
 	poetry run pytest --cov-report html --cov=bas_api tests/
+	start "./htmlcov/index.html"
 
 lint:
 	poetry run black . --check
