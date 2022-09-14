@@ -11,6 +11,8 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.7"
 bas-remote-python-v2 = { git = "https://github.com/sergerdn/bas-remote-python-v2" }
+psutil = "^5.9.2"
+pywin32 = "^304"
 
 [tool.poetry.group.dev.dependencies]
 twine = "^4.0.1"

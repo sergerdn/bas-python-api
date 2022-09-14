@@ -34,8 +34,19 @@ async def main():
     await api.connect()
 
     await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
-    current_url = api.browser.current_url()
+    current_url = await api.browser.current_url()
     print(current_url)
+
+    page_html = await api.browser.page_html()
+    print(page_html[:100])
+
+    await api.browser.load(url="https://www.python.org/", referer="https://www.google.com/")
+    current_url = await api.browser.current_url()
+    print(current_url)
+
+    # await api.browser.previous_page()
+    # current_url = await api.browser.current_url()
+    # print(current_url)
 
     await api.close_transport()
 
