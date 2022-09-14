@@ -69,6 +69,7 @@ class RemoteTransport(AbstractTransport):
         self._thread = self._client.create_thread()
 
     async def close(self):
+        await self._thread.stop()
         await self._client.close()
 
     async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:

@@ -44,9 +44,9 @@ async def main():
     current_url = await api.browser.current_url()
     print(current_url)
 
-    await api.browser.previous_page()
-    current_url = await api.browser.current_url()
-    print(current_url)
+    # await api.browser.previous_page()
+    # current_url = await api.browser.current_url()
+    # print(current_url)
 
     await api.close_transport()
 
