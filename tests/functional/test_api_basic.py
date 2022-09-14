@@ -25,3 +25,5 @@ class TestApiBasic:
         )
         api = BasApi(transport_options=transport_options)
         await api.set_up()
+
+        await api.close_transport()
