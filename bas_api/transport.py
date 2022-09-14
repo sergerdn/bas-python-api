@@ -18,6 +18,10 @@ class AbstractTransport(ABC):
         pass
 
     @abstractmethod
+    def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
+        pass
+
+    @abstractmethod
     def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         pass
 
@@ -66,6 +70,9 @@ class RemoteTransport(AbstractTransport):
 
     async def close(self):
         await self._client.close()
+
+    def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
+        return self._thread.run_function(name=function_name, params=function_params)
 
     def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         return self._client.run_function(function_name=function_name, function_params=function_params)

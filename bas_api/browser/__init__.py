@@ -56,13 +56,13 @@ class Browser(AbstractBrowser):
         pass
 
     def load(self, url: str, referer: Optional[str]) -> BasFunction:
-        return self._tr.run_function("_basBrowserLoad", {"url": url, referer: referer})
+        return self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
 
     def current_url(self) -> BasFunction:
-        return self._tr.run_function("_basBrowserCurrentUrl")
+        return self._tr.run_function_thread("_basBrowserCurrentUrl")
 
     def previous_page(self) -> BasFunction:
-        return self._tr.run_function("_basBrowserPreviousPage")
+        return self._tr.run_function_thread("_basBrowserPreviousPage")
 
     def page_html(self) -> BasFunction:
-        return self._tr.run_function("_basPageHtml")
+        return self._tr.run_function_thread("_basPageHtml")
