@@ -37,9 +37,8 @@ def window_set_visible(pid):
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     process_name = "Worker.exe"
-
 
     def set_visible(pid):
         if windows_is_visible(pid):
@@ -47,7 +46,6 @@ if __name__ == '__main__':
         else:
             print(f"does not have visible window: {pid}")
             print(window_set_visible(pid))
-
 
     while 1:
         for proc in psutil.process_iter():
