@@ -5,7 +5,7 @@ tests_tox:
 	poetry run tox
 
 tests:
-	pytest tests
+	poetry run pytest
 
 lint:
 	poetry run black . --check
