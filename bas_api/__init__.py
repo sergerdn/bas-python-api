@@ -1,3 +1,5 @@
+import os.path
+import random
 from typing import Union, Optional, Dict
 
 from bas_remote.runners import BasFunction
@@ -12,8 +14,14 @@ class BasApi:
     _settings: BasApiSettings
     _tr: Union[RemoteTransport]
     browser: Browser
+    browser_options: BrowserOptions
 
-    def __init__(self, transport_options: RemoteTransportOptions, bas_api_settings: Optional[BasApiSettings] = None):
+    def __init__(
+            self,
+            transport_options: RemoteTransportOptions,
+            bas_api_settings: Optional[BasApiSettings] = None,
+            browser_options: Optional[BrowserOptions] = None,
+    ):
 
         if bas_api_settings is not None:
             self._settings = bas_api_settings
@@ -24,12 +32,17 @@ class BasApi:
         self._transport_options.working_dir = self._settings.working_dir
 
         self._tr = RemoteTransport(options=self._transport_options)
-        browser_options = BrowserOptions(profile_dir=self._settings.profile_dir)
-        self.browser = Browser(tr=self._tr, browser_option=browser_options)
 
-    async def connect_transport(self):
+        if browser_options is None:
+            profile_dir = os.path.join(self._settings.working_profile_dir, "%s" % random.randint(10000, 99999))
+            self.browser_options = BrowserOptions(profile_folder_path=profile_dir)
+
+        self.browser = Browser(tr=self._tr, options=self.browser_options)
+
+    async def set_up(self):
         await self._tr.connect()
-        self.browser.set_options()
+        await self.browser.options_set()
+        await self.browser.set_visible()
 
     async def close_transport(self):
         await self._tr.close()

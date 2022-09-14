@@ -1,16 +1,29 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Optional, Union
 
+import psutil
+
+from bas_api.browser.gui import window_set_visible
 from bas_api.function import BasFunction
 from bas_api.transport import AbstractTransport
 
 
 class BrowserOptions:
-    profile_dir: str
-    running_pid: int
+    profile_folder_path: str
+    load_fingerprint_from_profile_folder: bool = True
+    load_proxy_from_profile_folder: bool = True
+    worker_pid: int = 0
+    show_browser: bool = True
 
-    def __init__(self, profile_dir: str):
-        self.profile_dir = profile_dir
+    def __init__(
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
+    ):
+        self.profile_folder_path = profile_folder_path
+        self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
+        self.load_proxy_from_profile_folder = load_proxy_from_profile_folder
 
 
 class AbstractBrowser(ABC):
@@ -20,6 +33,15 @@ class AbstractBrowser(ABC):
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
 
+    @abstractmethod
+    async def open_browser(self):
+        """
+        Create a browser if it has not already been created. This action is not mandatory for use to work with browser.
+        :return:
+        """
+        pass
+
+    @abstractmethod
     async def load(self, url: str, referer: Optional[str]):
         """
         Loads specified url into browser. Examples: Load google.com, Load instagram.com.
@@ -29,6 +51,7 @@ class AbstractBrowser(ABC):
         """
         pass
 
+    @abstractmethod
     async def current_url(self) -> BasFunction:
         """
         Get current url from browser address bar.
@@ -36,6 +59,7 @@ class AbstractBrowser(ABC):
         """
         pass
 
+    @abstractmethod
     async def previous_page(self) -> BasFunction:
         """
         Loads previous url from a history list.
@@ -43,6 +67,7 @@ class AbstractBrowser(ABC):
         """
         pass
 
+    @abstractmethod
     async def page_html(self) -> BasFunction:
         """
         Get page source and save it to variable. This action saves current source with all changes but not the initial
@@ -56,13 +81,55 @@ class Browser(AbstractBrowser):
     _tr: Union[AbstractTransport]
     _options: BrowserOptions
 
-    def __init__(self, tr: Union[AbstractTransport], _options: BrowserOptions = None, *args, **kwargs):
+    def __init__(self, tr: Union[AbstractTransport], options: BrowserOptions, *args, **kwargs):
         self._tr = tr
-        self._options = _options
+        self._options = options
         super().__init__(tr=self._tr, *args, **kwargs)
 
-    def set_options(self):
-        pass
+    async def options_set(self):
+        """
+        Tells browser to use specified folder as a place to store cookies, cache, localstorage, etc.
+        :return:
+        """
+        await self._tr.run_function_thread(
+            "_basCreateOrSwitchToRegularProfile",
+            {
+                "profile_folder_path": self._options.profile_folder_path,
+                "load_fingerprint_from_profile_folder": self._options.load_fingerprint_from_profile_folder,
+                "load_proxy_from_profile_folder": self._options.load_proxy_from_profile_folder,
+            },
+        )
+
+    def options_update(self) -> None:
+        if self._options.worker_pid > 0:
+            return
+
+        process_name = "Worker.exe"
+        pid: int = 0
+
+        for proc in psutil.process_iter():
+            if process_name not in proc.name():
+                continue
+            for cmd in proc.cmdline():
+                if cmd == self._options.profile_folder_path:
+                    pid = proc.pid
+                    break
+            if pid > 0:
+                break
+        if pid == 0:
+            raise Exception("pid of running browser not found: %s" % self._options.profile_folder_path)
+
+        self._options.worker_pid = pid
+
+    async def set_visible(self) -> None:
+        if not self._options.show_browser:
+            return
+        await self.open_browser()
+        self.options_update()
+        window_set_visible(self._options.worker_pid)
+
+    async def open_browser(self):
+        await self._tr.run_function_thread("_basOpenBrowser")
 
     async def load(self, url: str, referer: Optional[str]) -> BasFunction:
         return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
