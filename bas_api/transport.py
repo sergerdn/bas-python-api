@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import Union, Optional, Dict
+from typing import Dict, Optional, Union
 
 from bas_remote import BasRemoteClient, Options
 from bas_remote.runners import BasThread

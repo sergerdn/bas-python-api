@@ -1,6 +1,6 @@
 import os.path
 import random
-from typing import Union, Optional, Dict
+from typing import Dict, Optional, Union
 
 from bas_remote.runners import BasFunction
 
