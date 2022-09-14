@@ -1,8 +1,9 @@
 import os.path
+import random
 
 import pytest
 
-from bas_api import BasApi, RemoteTransportOptions
+from bas_api import BasApi, BasApiSettings, BrowserOptions, RemoteTransportOptions
 
 
 def test_api_basic_env_set(remote_script_name, remote_script_user, remote_script_password, working_dir):
@@ -24,22 +25,29 @@ class TestApiBasic:
             working_dir=working_dir,
         )
         api = BasApi(transport_options=transport_options)
+
         await api.set_up()
 
         await api.close_transport()
 
     @pytest.mark.asyncio
-    async def test_api_browser_load(self, remote_script_name, remote_script_user, remote_script_password, working_dir):
+    async def test_api_browser_profile_dir(
+        self, remote_script_name, remote_script_user, remote_script_password, working_dir
+    ):
         transport_options = RemoteTransportOptions(
             remote_script_name=remote_script_name,
             remote_script_user=remote_script_user,
             remote_script_password=remote_script_password,
             working_dir=working_dir,
         )
-        api = BasApi(transport_options=transport_options)
+
+        bas_api_settings = BasApiSettings(working_dir=transport_options.working_dir)
+        profile_dir = os.path.join(bas_api_settings.working_profile_dir, "%s" % random.randint(10000, 99999))
+        browser_options = BrowserOptions(profile_folder_path=profile_dir)
+
+        api = BasApi(
+            transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
+        )
         await api.set_up()
 
-        await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
-        current_url = await api.browser.current_url()
-        assert current_url == "https://www.google.com/"
         await api.close_transport()
