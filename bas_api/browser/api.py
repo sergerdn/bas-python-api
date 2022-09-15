@@ -374,6 +374,9 @@ class Browser(AbstractBrowser):
     async def open_file_result(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
+    async def start_drag_file(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
     async def prompt_result(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
