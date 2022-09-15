@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Union
 
+import yaml
+
 from bas_api.function import BasFunction
+from bas_api.models import Cookies
 from bas_api.transport import AbstractTransport
 
 
@@ -26,7 +29,7 @@ class AbstractNetwork(ABC):
         """
 
     @abstractmethod
-    async def save_cookies(self) -> BasFunction:
+    async def save_cookies(self) -> Cookies:
         """
         Save all browser cookies into variable.
 
@@ -163,8 +166,11 @@ class Network(AbstractNetwork, ABC):
         self._tr = tr
         super().__init__(tr=self._tr, *args, **kwargs)
 
-    async def save_cookies(self) -> BasFunction:
-        return await self._tr.run_function_thread("_basNetworkSaveCookies")
+    async def save_cookies(self) -> Cookies:
+        data = await self._tr.run_function_thread("_basNetworkSaveCookies")
+        data_json = yaml.load(data, Loader=yaml.UnsafeLoader)
+        obj_model = Cookies(**data_json)
+        return obj_model
 
     async def restore_cookies(self) -> BasFunction:
         raise NotImplementedError("function not implemented")

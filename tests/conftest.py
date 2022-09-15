@@ -30,3 +30,8 @@ def transport_options():
         remote_script_password=remote_script_password,
         working_dir=working_dir(),
     )
+
+
+@pytest.fixture(scope="module")
+def fixtures_dir():
+    return os.path.join(ABS_PATH, "tests", "fixtures")

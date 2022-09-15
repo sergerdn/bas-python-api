@@ -30,7 +30,7 @@ def test_api_basic_env_set(transport_options):
     assert os.path.exists(transport_options.working_dir) is True
 
 
-#@pytest.mark.dependency(depends=["test_api_basic_env_set"])
+# @pytest.mark.dependency(depends=["test_api_basic_env_set"])
 @pytest.mark.asyncio
 class TestApiBasic:
     async def test_api_basic(self, transport_options):
@@ -92,9 +92,9 @@ class TestApiBasic:
 
         await api.set_up()
 
-        await api.browser.load("https://www.google.com/")
+        await api.browser.load("https://www.google.com/?hl=en")
         await api.waiters.wait_full_page_load()
-        cookies_google = await api.network.save_cookies()
+        cookies_first_obj = await api.network.save_cookies()
         await api.clean_up()
 
         browser_options = api.browser.options_get()
@@ -117,6 +117,7 @@ class TestApiBasic:
 
         await api.browser.load("https://duckduckgo.com/")
         await api.waiters.wait_full_page_load()
+        cookies_second_obj = await api.network.save_cookies()
 
         # old profile loaded
         assert os.path.join(profile_folder_path, "lockfile")
@@ -126,3 +127,7 @@ class TestApiBasic:
 
         await clean_dir(profile_folder_path)
         assert os.path.exists(profile_folder_path) is False
+
+        # old cookies exists
+        for one in cookies_first_obj.cookies:
+            assert one in cookies_second_obj.cookies
