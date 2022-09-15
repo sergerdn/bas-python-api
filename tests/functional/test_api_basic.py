@@ -78,7 +78,7 @@ class TestApiBasic:
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir_new(self, transport_options):
         """
-        Extended settings to api: custom profile folder for existing profile
+        Extended settings to api: custom profile folder for existing profile.
         :param transport_options:
         :return:
         """
