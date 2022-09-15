@@ -2,7 +2,7 @@
 JSON to Pydantic Converter: https://jsontopydantic.com/
 """
 
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -15,7 +15,7 @@ class Cookie(BaseModel):
     path: str
     priority: str
     sameParty: bool
-    sameSite: str
+    sameSite: Optional[str]
     secure: bool
     session: bool
     size: int
