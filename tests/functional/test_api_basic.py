@@ -6,7 +6,6 @@ import shutil
 import pytest
 
 from bas_api import BasApi, BasApiSettings, BrowserOptions
-from tests.functional import test_api_basic_env_set
 
 
 async def clean_dir(dir_path):
