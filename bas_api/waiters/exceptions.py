@@ -1,2 +1,2 @@
-class WaiterWaitTimeout(Exception):
+class WaitTimeout(Exception):
     pass
