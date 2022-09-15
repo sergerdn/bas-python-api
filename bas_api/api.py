@@ -17,10 +17,10 @@ class BasApi:
     browser_options: BrowserOptions
 
     def __init__(
-        self,
-        transport_options: RemoteTransportOptions,
-        bas_api_settings: Optional[BasApiSettings] = None,
-        browser_options: Optional[BrowserOptions] = None,
+            self,
+            transport_options: RemoteTransportOptions,
+            bas_api_settings: Optional[BasApiSettings] = None,
+            browser_options: Optional[BrowserOptions] = None,
     ):
         self._transport_options = transport_options
 
@@ -46,7 +46,8 @@ class BasApi:
         await self.browser.options_set()
         await self.browser.set_visible()
 
-    async def close_transport(self):
+    async def clean_up(self):
+        await self.browser.close()
         await self._tr.close()
 
     async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:

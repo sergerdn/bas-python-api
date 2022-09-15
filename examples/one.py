@@ -48,7 +48,7 @@ async def main():
     # current_url = await api.browser.current_url()
     # print(current_url)
 
-    await api.close_transport()
+    await api.clean_up()
 
 
 if __name__ == "__main__":
