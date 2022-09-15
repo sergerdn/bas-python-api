@@ -36,12 +36,16 @@ class TestApiBasic:
     async def test_api_basic(self, transport_options):
         """
         Default simple logic.
+
         :param transport_options:
         :return:
         """
         api = BasApi(transport_options=transport_options)
 
         await api.set_up()
+
+        await api.browser.load("https://www.google.com/")
+
         await api.clean_up()
 
         browser_options = api.browser.options_get()
@@ -51,6 +55,7 @@ class TestApiBasic:
     async def test_api_browser_profile_dir_new(self, transport_options):
         """
         Extended settings to api: custom profile folder for new profile.
+
         :param transport_options:
         :return:
         """
@@ -85,7 +90,9 @@ class TestApiBasic:
         api = BasApi(transport_options=transport_options)
 
         await api.set_up()
-        await api.browser.close()
+
+        await api.browser.load("https://www.google.com/")
+
         await api.clean_up()
 
         browser_options = api.browser.options_get()
@@ -105,6 +112,8 @@ class TestApiBasic:
             transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
         )
         await api.set_up()
+
+        await api.browser.load("https://duckduckgo.com/")
 
         # old profile loaded
         assert os.path.join(profile_folder_path, "lockfile")
