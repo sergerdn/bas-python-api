@@ -206,7 +206,7 @@ class Network(AbstractNetwork, ABC):
         raise NotImplementedError("function not implemented")
 
     async def restrict_popups(self) -> BasFunction:
-        pass
+        raise NotImplementedError("function not implemented")
 
     async def allow_popups(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
