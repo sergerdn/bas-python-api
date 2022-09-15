@@ -34,7 +34,7 @@ class TestApiBasic:
     @pytest.mark.asyncio
     async def test_api_basic(self, transport_options):
         """
-        default simple logic
+        Default simple logic.
         :param transport_options:
         :return:
         """
@@ -51,7 +51,7 @@ class TestApiBasic:
     @pytest.mark.asyncio
     async def test_api_browser_profile_dir_new(self, transport_options):
         """
-        Extended settings to api: custom profile folder for new profile
+        Extended settings to api: custom profile folder for new profile.
         :param transport_options:
         :return:
         """
