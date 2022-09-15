@@ -340,7 +340,7 @@ class Browser(AbstractBrowser):
     async def close(self, force=False) -> BasFunction:
         result = await self._tr.run_function_thread("_basCloseBrowser")
 
-        if force:
+        if force and self._options.worker_pid > 0:
             await asyncio.sleep(1)
             if self._options.worker_pid > 0:
                 p = psutil.Process(self._options.worker_pid)
