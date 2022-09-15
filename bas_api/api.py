@@ -19,10 +19,10 @@ class BasApi:
     waiters = Waiters
 
     def __init__(
-        self,
-        transport_options: RemoteTransportOptions,
-        bas_api_settings: Optional[BasApiSettings] = None,
-        browser_options: Optional[BrowserOptions] = None,
+            self,
+            transport_options: RemoteTransportOptions,
+            bas_api_settings: Optional[BasApiSettings] = None,
+            browser_options: Optional[BrowserOptions] = None,
     ):
         self._transport_options = transport_options
 
@@ -52,6 +52,9 @@ class BasApi:
     async def clean_up(self):
         await self.browser.close()
         await self._tr.close()
+
+    async def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
+        return await self._tr.run_function(function_name=function_name, function_params=function_params)
 
     async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         return await self._tr.run_function_thread(function_name=function_name, function_params=function_params)
