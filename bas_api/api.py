@@ -47,10 +47,11 @@ class BasApi:
         self.waiters = Waiters(tr=self._tr)
         self.network = Network(tr=self._tr)
 
-    async def set_up(self):
+    async def set_up(self, set_browser_visible=False):
         await self._tr.connect()
         await self.browser.options_set()
-        await self.browser.set_visible()
+        if set_browser_visible:
+            await self.browser.set_visible()
 
     async def clean_up(self):
         await self.browser.close()
