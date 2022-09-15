@@ -137,7 +137,7 @@ class TestApiBasic:
 
     async def test_api_browser(self, transport_options, google_url):
         """
-        Default simple logic.
+        Improve code coverage.
 
         :param transport_options:
         :return:
