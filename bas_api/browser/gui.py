@@ -1,6 +1,3 @@
-import time
-
-import psutil
 import win32con
 import win32gui
 import win32process
@@ -35,22 +32,3 @@ def window_set_visible(pid):
         return True
 
     return False
-
-
-if __name__ == "__main__":
-    process_name = "Worker.exe"
-
-    def set_visible(pid):
-        if windows_is_visible(pid):
-            print(f"has visible window: {pid}")
-        else:
-            print(f"does not have visible window: {pid}")
-            print(window_set_visible(pid))
-
-    while 1:
-        for proc in psutil.process_iter():
-            if process_name in proc.name():
-                pid = proc.pid
-                set_visible(pid)
-
-        time.sleep(1)
