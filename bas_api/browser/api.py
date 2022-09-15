@@ -40,7 +40,6 @@ class AbstractBrowser(ABC):
         Create a browser if it has not already been created. This action is not mandatory for use to work with browser.
         :return:
         """
-        pass
 
     @abstractmethod
     async def load(self, url: str, referer: Optional[str]):
@@ -50,7 +49,6 @@ class AbstractBrowser(ABC):
         :param referer:
         :return:
         """
-        pass
 
     @abstractmethod
     async def current_url(self) -> BasFunction:
@@ -58,7 +56,6 @@ class AbstractBrowser(ABC):
         Get current url from browser address bar.
         :return:
         """
-        pass
 
     @abstractmethod
     async def previous_page(self) -> BasFunction:
@@ -66,7 +63,6 @@ class AbstractBrowser(ABC):
         Loads previous url from a history list.
         :return:
         """
-        pass
 
     @abstractmethod
     async def page_html(self) -> BasFunction:
@@ -75,7 +71,202 @@ class AbstractBrowser(ABC):
         returned by server.
         :return:
         """
-        pass
+
+    @abstractmethod
+    async def type(self) -> BasFunction:
+        """
+        Type text inside element with focus.
+        :return:
+        """
+
+    @abstractmethod
+    async def resize(self) -> BasFunction:
+        """
+        Changes browser resolution. Standard value is 1024x600. If you want to get typical resolutions for different
+        platforms, use service fingerprint switcher.
+        :return:
+        """
+
+    # get_resolution_and_cursor_position
+    async def get_resolution_and_cursor_position(self) -> BasFunction:
+        """
+        Get current browser size, cursor and scroll position.
+        :return:
+        """
+
+    @abstractmethod
+    async def proxy(self) -> BasFunction:
+        """
+        By default, browser works without proxy, this action sets browser proxy.
+        :return:
+        """
+
+    @abstractmethod
+    async def javascript(self) -> BasFunction:
+        """
+        Execute Javascript code in browser.
+        :return:
+        """
+
+    @abstractmethod
+    async def execute_on_every_page_load_in_browser(self) -> BasFunction:
+        """
+        This action sets script which must be executed inside every page and every frame immediately after page is
+        created. Unlike javascript action, script defined here is executed at the very beginning of page load,
+        which gives possibility to change browser internals like window.navigator. Action should be called before
+        page load.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def reset(self) -> BasFunction:
+        """
+        Clear all browser data: proxy, user agent, headers, BAS cache filters, BAS cache data, cookies.
+
+        :return:
+        """
+
+    #
+    @abstractmethod
+    async def open_file_result(self) -> BasFunction:
+        """
+        Uploading file is performed in two steps: setting next open file dialog result with this action and clicking
+        on element which triggers file upload, like "Upload" button.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def start_drag_file(self) -> BasFunction:
+        """
+        This action is alternative to "Open File Result" with only difference - it drag file into browser instead of
+        opening dialog.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def prompt_result(self) -> BasFunction:
+        """
+        Prompt window displays a dialog with an optional message prompting the user to input some text. It is
+        outdated functionality and most sites don't use it anymore. BAS allows to input text into that window
+        automatically, to do that you must call this action before prompt window will appear.
+
+        :return:
+        """
+
+    #
+    @abstractmethod
+    async def http_auth(self) -> BasFunction:
+        """
+        HTTP authentication provides method for user to input site login and password. It is rarely used nowadays,
+        but some sites still rely on it. During authentication process browser shows window and user must input
+        authentication data there. This process can be automated, all you need to do is to call this action before
+        window is triggered.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def scroll(self) -> BasFunction:
+        """
+        Scroll browser. The objective of this action is to make specified coordinates visible.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def render(self) -> BasFunction:
+        """
+        This action makes screenshot of selected screen part and saves it to png image encoded as base64 string.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def solve_captcha(self) -> BasFunction:
+        """
+        This action solves image captcha(not recaptcha) and works only if you have image data formatted as base64
+        string.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def recaptcha_v3(self) -> BasFunction:
+        """
+        This action solves google recaptcha 3.0
+
+        :return:
+        """
+
+    @abstractmethod
+    async def solve_captcha_with_clicks(self) -> BasFunction:
+        """
+        Solve any type of captcha that requires clicking on images.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def captcha_failed(self) -> BasFunction:
+        """
+        Use this action if last captcha was solved wrong.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def timeout(self) -> BasFunction:
+        """
+        BAS limits execution time for every action. No action can last forever except sleep and manual captcha
+        solving, but you can tweak limits.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def browser_settings(self) -> BasFunction:
+        """
+        Changes browser settings: network, canvas, webgl, etc. Use "Get Fingerprint" action to change browser
+        fingerprint.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def click_extension_button(self) -> BasFunction:
+        """
+        Click on extension button.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def touch_screen_mode(self) -> BasFunction:
+        """
+        Enable touch screen.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def mouse_settings(self) -> BasFunction:
+        """
+        This is mouse movement settings. You set it either globally(through this action) or for each action
+        individually by clicking on settings icon near cancel button inside any action, that uses mouse.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def notifications(self) -> BasFunction:
+        """
+        Allow or deny browser notifications.
+
+        :return:
+        """
 
 
 class Browser(AbstractBrowser):
@@ -158,3 +349,71 @@ class Browser(AbstractBrowser):
 
     async def page_html(self) -> BasFunction:
         return await self._tr.run_function_thread("_basPageHtml")
+
+    async def type(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def resize(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def get_resolution_and_cursor_position(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def proxy(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def javascript(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def execute_on_every_page_load_in_browser(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def reset(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def open_file_result(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    @abstractmethod
+    async def prompt_result(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    @abstractmethod
+    async def http_auth(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def scroll(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def render(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def solve_captcha(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def recaptcha_v3(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def solve_captcha_with_clicks(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def captcha_failed(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def timeout(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def browser_settings(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def click_extension_button(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def touch_screen_mode(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def mouse_settings(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def notifications(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
