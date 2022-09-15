@@ -28,6 +28,7 @@ clean:
 	rm -rf ./dist || echo ""
 	rm -rf ./tests/.tests_data || echo ""
 	rm -rf ./tests/functional/.pytest_cache || echo ""
+	rm -rf ./tools/.tools_data || echo ""
 
 poetry_upgrade:
 	poetryup
