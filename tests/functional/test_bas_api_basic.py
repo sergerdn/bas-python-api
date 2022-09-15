@@ -30,7 +30,7 @@ def test_api_basic_env_set(transport_options):
     assert os.path.exists(transport_options.working_dir) is True
 
 
-@pytest.mark.dependency(depends=["test_api_basic_env_set"])
+#@pytest.mark.dependency(depends=["test_api_basic_env_set"])
 @pytest.mark.asyncio
 class TestApiBasic:
     async def test_api_basic(self, transport_options):
@@ -94,6 +94,7 @@ class TestApiBasic:
 
         await api.browser.load("https://www.google.com/")
         await api.waiters.wait_full_page_load()
+        cookies_google = await api.network.save_cookies()
         await api.clean_up()
 
         browser_options = api.browser.options_get()

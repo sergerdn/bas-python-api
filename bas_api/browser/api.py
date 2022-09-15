@@ -1,4 +1,5 @@
 import asyncio
+import inspect
 from abc import ABC, abstractmethod
 from typing import Optional, Union
 
@@ -17,10 +18,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -28,6 +29,12 @@ class BrowserOptions:
 
 
 class AbstractBrowser(ABC):
+    """
+    All actions to work with browser, which do not require a specific element for use. For example, load the url,
+    set proxy, make a screenshot, etc. To click on an element or enter text in a specific field, click on this item and
+    select an action from the menu.
+    """
+
     _tr: Union[AbstractTransport]
     _options: BrowserOptions
 
@@ -277,7 +284,9 @@ class AbstractBrowser(ABC):
         """
 
 
-class Browser(AbstractBrowser):
+class Browser(AbstractBrowser, ABC):
+    __doc__ = inspect.getdoc(AbstractBrowser)
+
     _tr: Union[AbstractTransport]
     _options: BrowserOptions
 

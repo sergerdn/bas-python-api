@@ -5,6 +5,25 @@
 
    section_end()!
 
+   section_start("\u007b\u0022n\u0022:\u0022_basNetworkSaveCookies\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 915107115)!
+   function _basNetworkSaveCookies()
+   {
+   section_insert()
+      section_start("", 893931022)!
+      /*Dat:eyJzIjoic2F2ZWNvb2tpZXMiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiU2F2ZSIsInR5cGUiOiJ2YXIiLCJkYXRhIjoiU0FWRURfQ09PS0lFUyJ9XX0=*/
+      /*Browser*/
+      save_cookies()!
+      VAR_SAVED_COOKIES = "{\"cookies\":" + _result() + "}"
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Finish function and set result\u0022,\u0022c\u0022:\u00221\u0022\u007d", 28930485)!
+      /*Dat:eyJzIjoicmV0dXJuIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlJldHVyblZhbHVlIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJbW1NBVkVEX0NPT0tJRVNdXSIsImNsYXNzIjoic3RyaW5nIn1dfQ==*/
+      _function_return(VAR_SAVED_COOKIES)
+      section_end()!
+
+   }
+   section_end()!
+
    section_start("\u007b\u0022n\u0022:\u0022_basWaitersWaitFullPageLoad\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:false,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 56455605)!
    function _basWaitersWaitFullPageLoad()
    {
@@ -285,7 +304,7 @@ Detector=true
     &quot;MailDeprecated&quot;: false
 }
 </ModulesMetaJson>
-     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
+     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_COOKIES&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
      <OutputTitle1 ru="First Results" en="First Results"/>
      <OutputTitle2 ru="Second Results" en="Second Results"/>
      <OutputTitle3 ru="Third Results" en="Third Results"/>
