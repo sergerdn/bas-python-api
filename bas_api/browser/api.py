@@ -165,7 +165,6 @@ class AbstractBrowser(ABC):
         :return:
         """
 
-    #
     @abstractmethod
     async def http_auth(self) -> BasFunction:
         """
@@ -351,7 +350,7 @@ class Browser(AbstractBrowser):
 
         return result
 
-    async def load(self, url: str, referer: Optional[str]) -> BasFunction:
+    async def load(self, url: str, referer: Optional[str] = None) -> BasFunction:
         return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
 
     async def current_url(self) -> BasFunction:
