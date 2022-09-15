@@ -22,7 +22,7 @@ async def clean_dir(dir_path):
     return True
 
 
-@pytest.mark.dependency(depends=[test_api_basic_env_set])
+@pytest.mark.dependency(depends=["test_api_basic_env_set"])
 @pytest.mark.asyncio
 class TestApiBasic:
     async def test_api_basic(self, transport_options):
