@@ -1,25 +1,12 @@
 import asyncio
 import os.path
 import random
-import shutil
 
 import pytest
 
 from bas_api import BasApi, BasApiSettings, BrowserOptions
 from bas_api.browser.exceptions import BrowserTimeout
-
-
-async def clean_dir(dir_path):
-    for _ in range(0, 60):
-        try:
-            shutil.rmtree(dir_path)
-        except PermissionError:
-            await asyncio.sleep(1)
-            continue
-        except FileNotFoundError:
-            break
-
-    return True
+from tests.functional.tools import clean_dir
 
 
 @pytest.mark.dependency()
@@ -31,9 +18,9 @@ def test_api_basic_env_set(transport_options):
     assert os.path.exists(transport_options.working_dir) is True
 
 
-# @pytest.mark.dependency(depends=["test_api_basic_env_set"])
+@pytest.mark.dependency(depends=["test_api_basic_env_set"])
 @pytest.mark.asyncio
-class TestApiBasic:
+class TestApi:
     async def test_api_basic(self, transport_options, google_url):
         """
         Default simple logic.

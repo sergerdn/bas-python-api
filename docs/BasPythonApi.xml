@@ -5,6 +5,29 @@
 
    section_end()!
 
+   section_start("\u007b\u0022n\u0022:\u0022_basNetworkSetHeader\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:false,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022name\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d,\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022value\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d]\u007d\u0022\u007d", 866323734)!
+   function _basNetworkSetHeader()
+   {
+   section_insert()
+      section_start("\u007b\u0022n\u0022:\u0022Obtaining function parameter\u0022,\u0022c\u0022:\u00222\u0022\u007d", 43296112)!
+      /*Dat:eyJzIjoiZ2V0ZnVuY3Rpb25wYXJhbWV0ZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiUGFyYW1ldGVyTmFtZSIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoibmFtZSIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlNhdmUiLCJ0eXBlIjoidmFyIiwiZGF0YSI6Ik5BTUUifV19*/
+      VAR_NAME = _function_argument("name")
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Obtaining function parameter\u0022,\u0022c\u0022:\u00222\u0022\u007d", 406832530)!
+      /*Dat:eyJzIjoiZ2V0ZnVuY3Rpb25wYXJhbWV0ZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOlt7ImlkIjoiUGFyYW1ldGVyTmFtZSIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoidmFsdWUiLCJjbGFzcyI6InN0cmluZyJ9LHsiaWQiOiJTYXZlIiwidHlwZSI6InZhciIsImRhdGEiOiJWQUxVRSJ9XX0=*/
+      VAR_VALUE = _function_argument("value")
+      section_end()!
+
+      section_start("", 979184702)!
+      /*Dat:eyJzIjoic2V0aGVhZGVyIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6Ik5hbWUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IltbTkFNRV1dIiwiY2xhc3MiOiJzdHJpbmcifSx7ImlkIjoiVmFsdWUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IltbVkFMVUVdXSIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlRhcmdldFVybCIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoiKiIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlRhcmdldFRhYk51bWJlciIsInR5cGUiOiJjb25zdHIiLCJkYXRhIjoiKiIsImNsYXNzIjoic3RyaW5nIn1dfQ==*/
+      header(VAR_NAME, VAR_VALUE)!
+      sleep(1000)!
+      section_end()!
+
+   }
+   section_end()!
+
    section_start("\u007b\u0022n\u0022:\u0022_basNetworkSaveCookies\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 915107115)!
    function _basNetworkSaveCookies()
    {
@@ -304,7 +327,7 @@ Detector=true
     &quot;MailDeprecated&quot;: false
 }
 </ModulesMetaJson>
-     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_COOKIES&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
+     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;NAME&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_COOKIES&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;VALUE&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
      <OutputTitle1 ru="First Results" en="First Results"/>
      <OutputTitle2 ru="Second Results" en="Second Results"/>
      <OutputTitle3 ru="Third Results" en="Third Results"/>
