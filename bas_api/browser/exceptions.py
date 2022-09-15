@@ -1,0 +1,2 @@
+class BrowserTimeout(Exception):
+    pass
