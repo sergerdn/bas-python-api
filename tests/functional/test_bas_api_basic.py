@@ -153,6 +153,7 @@ class TestApiBasic:
         assert current_url == "https://www.google.com/?hl=en"
 
         page_html = await api.browser.page_html()
+        assert str(page_html).strip().endswith("</script></body></html>")
 
         await api.browser.load("https://en.wikipedia.org/wiki/Main_Page")
         await api.waiters.wait_full_page_load()
