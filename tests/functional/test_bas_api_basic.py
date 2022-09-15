@@ -6,6 +6,7 @@ import shutil
 import pytest
 
 from bas_api import BasApi, BasApiSettings, BrowserOptions
+from bas_api.browser.exceptions import WaitTimeout
 
 
 async def clean_dir(dir_path):
@@ -133,3 +134,45 @@ class TestApiBasic:
         # old cookies exists
         for one in cookies_first_obj.cookies:
             assert one in cookies_second_obj.cookies
+
+    async def test_api_browser(self, transport_options):
+        """
+        Default simple logic.
+
+        :param transport_options:
+        :return:
+        """
+        api = BasApi(transport_options=transport_options)
+
+        await api.set_up()
+
+        await api.browser.load("https://www.google.com/?hl=en")
+        try:
+            await api.waiters.wait_full_page_load()
+        except WaitTimeout:
+            pass
+
+        current_url = await api.browser.current_url()
+        assert current_url == "https://www.google.com/?hl=en"
+
+        page_html = await api.browser.page_html()
+
+        await api.browser.load("https://en.wikipedia.org/wiki/Main_Page")
+        try:
+            await api.waiters.wait_full_page_load()
+        except WaitTimeout:
+            pass
+
+        await api.browser.previous_page()
+        try:
+            await api.waiters.wait_full_page_load()
+        except WaitTimeout:
+            pass
+        current_url = await api.browser.current_url()
+        assert current_url == "https://www.google.com/?hl=en"
+
+        await api.clean_up()
+
+        browser_options = api.browser.options_get()
+        await clean_dir(browser_options.profile_folder_path)
+        assert os.path.exists(browser_options.profile_folder_path) is False
