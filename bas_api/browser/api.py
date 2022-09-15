@@ -6,7 +6,7 @@ from typing import Optional, Union
 import bas_remote
 import psutil
 
-from bas_api.browser.exceptions import BrowserWaitTimeout
+from bas_api.browser.exceptions import BrowserTimeout
 from bas_api.browser.gui import window_set_visible
 from bas_api.function import BasFunction
 from bas_api.transport import AbstractTransport
@@ -371,7 +371,7 @@ class Browser(AbstractBrowser, ABC):
             return await self._tr.run_function_thread("_basBrowserPreviousPage")
         except bas_remote.errors.FunctionError as exc:
             if exc.message == "Failed to wait of state complete":
-                raise BrowserWaitTimeout("Failed to wait of state complete")
+                raise BrowserTimeout("Failed to wait of state complete")
             raise exc
 
     async def page_html(self) -> BasFunction:

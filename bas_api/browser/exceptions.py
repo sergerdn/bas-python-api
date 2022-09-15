@@ -1,2 +1,2 @@
-class BrowserWaitTimeout(Exception):
+class BrowserTimeout(Exception):
     pass
