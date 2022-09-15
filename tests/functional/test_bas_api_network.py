@@ -2,7 +2,7 @@ import os
 import pdb
 
 import pytest
-from lxml import etree
+
 from bas_api import BasApi
 from tests.functional.tools import clean_dir
 
@@ -23,12 +23,18 @@ class TestApiNetwork:
         api = BasApi(transport_options=transport_options)
 
         await api.set_up()
+        await api.network.set_header(name="Accept", value="application/json")
 
         await api.browser.load("https://httpbin.org/anything")
         await api.waiters.wait_full_page_load()
         page_html = await api.browser.page_html()
 
-        root = etree.fromstring(page_html)
+        # parser = etree.HTMLParser()
+        # tree = etree.parse(StringIO(str(page_html)), parser)
+        # #etree.tostring(tree.getroot(),  pretty_print = True, method = "html")
+        # root = tree.getroot()
+        # r = root.xpath('/pre')
+
         pdb.set_trace()
 
         await api.clean_up()
