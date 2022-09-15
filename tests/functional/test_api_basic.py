@@ -45,6 +45,7 @@ class TestApiBasic:
         await api.set_up()
 
         await api.browser.load("https://www.google.com/")
+        await api.waiters.wait_full_page_load()
 
         await api.clean_up()
 
@@ -92,7 +93,7 @@ class TestApiBasic:
         await api.set_up()
 
         await api.browser.load("https://www.google.com/")
-
+        await api.waiters.wait_full_page_load()
         await api.clean_up()
 
         browser_options = api.browser.options_get()
@@ -114,6 +115,7 @@ class TestApiBasic:
         await api.set_up()
 
         await api.browser.load("https://duckduckgo.com/")
+        await api.waiters.wait_full_page_load()
 
         # old profile loaded
         assert os.path.join(profile_folder_path, "lockfile")

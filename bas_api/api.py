@@ -7,6 +7,7 @@ from bas_remote.runners import BasFunction
 from bas_api.browser import Browser, BrowserOptions
 from bas_api.settings import BasApiSettings
 from bas_api.transport import RemoteTransport, RemoteTransportOptions
+from bas_api.waiters import Waiters
 
 
 class BasApi:
@@ -15,6 +16,7 @@ class BasApi:
     _tr: Union[RemoteTransport]
     browser: Browser
     browser_options: BrowserOptions
+    waiters = Waiters
 
     def __init__(
         self,
@@ -40,6 +42,7 @@ class BasApi:
             self.browser_options = browser_options
 
         self.browser = Browser(tr=self._tr, options=self.browser_options)
+        self.waiters = Waiters(tr=self._tr)
 
     async def set_up(self):
         await self._tr.connect()
