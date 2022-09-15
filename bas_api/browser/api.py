@@ -374,11 +374,9 @@ class Browser(AbstractBrowser):
     async def open_file_result(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
-    @abstractmethod
     async def prompt_result(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
-    @abstractmethod
     async def http_auth(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
