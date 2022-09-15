@@ -1,7 +1,8 @@
 import os
+import pdb
 
 import pytest
-
+from lxml import etree
 from bas_api import BasApi
 from tests.functional.tools import clean_dir
 
@@ -27,6 +28,8 @@ class TestApiNetwork:
         await api.waiters.wait_full_page_load()
         page_html = await api.browser.page_html()
 
+        root = etree.fromstring(page_html)
+        pdb.set_trace()
 
         await api.clean_up()
 
