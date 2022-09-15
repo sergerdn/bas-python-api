@@ -6,15 +6,7 @@ import shutil
 import pytest
 
 from bas_api import BasApi, BasApiSettings, BrowserOptions
-
-
-def test_api_basic_env_set(transport_options):
-    assert transport_options.remote_script_name is not None
-    assert transport_options.remote_script_user is not None
-    assert transport_options.remote_script_password is not None
-    assert transport_options.working_dir is not None
-    assert os.path.exists(transport_options.working_dir) is True
-    assert os.path.isdir(transport_options.working_dir) is True
+from tests.functional import test_api_basic_env_set
 
 
 async def clean_dir(dir_path):
@@ -30,9 +22,9 @@ async def clean_dir(dir_path):
     return True
 
 
+@pytest.mark.dependency(depends=[test_api_basic_env_set])
 @pytest.mark.asyncio
 class TestApiBasic:
-
     async def test_api_basic(self, transport_options):
         """
         Default simple logic.
