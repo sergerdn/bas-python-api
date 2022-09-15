@@ -350,12 +350,11 @@ class Browser(AbstractBrowser, ABC):
 
         if force and self._options.worker_pid > 0:
             await asyncio.sleep(1)
-            if self._options.worker_pid > 0:
-                p = psutil.Process(self._options.worker_pid)
-                try:
-                    p.terminate()
-                except psutil.NoSuchProcess:
-                    pass
+            p = psutil.Process(self._options.worker_pid)
+            try:
+                p.terminate()
+            except psutil.NoSuchProcess:
+                pass
 
         return result
 
