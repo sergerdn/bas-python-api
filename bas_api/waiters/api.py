@@ -68,7 +68,7 @@ class AbstractWaiters(ABC):
         """
 
 
-class Waiters(AbstractWaiters):
+class Waiters(AbstractWaiters, ABC):
     _tr: Union[AbstractTransport]
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):

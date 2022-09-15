@@ -1,25 +1,26 @@
+import logging
 import os
 
-import pytest
 from dotenv import load_dotenv
 
 from bas_api import RemoteTransportOptions
-from tests import ABS_PATH, DATA_DIR
+
+ABS_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))  # root project directory
+DATA_DIR = os.path.join(ABS_PATH, "tools", ".tools_data")
+logging.basicConfig(level=logging.DEBUG)
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path=dotenv_path)
 
 
-def working_dir():
-    if not os.path.exists(DATA_DIR):
-        os.mkdir(DATA_DIR)
+def get_tr_options() -> RemoteTransportOptions:
+    def working_dir():
+        if not os.path.exists(DATA_DIR):
+            os.mkdir(DATA_DIR)
 
-    return DATA_DIR
+        return DATA_DIR
 
-
-@pytest.fixture(scope="module")
-def transport_options():
     remote_script_name = os.environ.get("TEST_REMOTE_SCRIPT_NAME", "BasPythonApi")
     remote_script_user = os.environ.get("TEST_REMOTE_SCRIPT_USER")
     remote_script_password = os.environ.get("TEST_REMOTE_SCRIPT_PASSWORD")
@@ -30,8 +31,3 @@ def transport_options():
         remote_script_password=remote_script_password,
         working_dir=working_dir(),
     )
-
-
-@pytest.fixture(scope="module")
-def fixtures_dir():
-    return os.path.join(ABS_PATH, "tests", "fixtures")
