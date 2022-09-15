@@ -19,10 +19,10 @@ class BasApi:
     waiters = Waiters
 
     def __init__(
-            self,
-            transport_options: RemoteTransportOptions,
-            bas_api_settings: Optional[BasApiSettings] = None,
-            browser_options: Optional[BrowserOptions] = None,
+        self,
+        transport_options: RemoteTransportOptions,
+        bas_api_settings: Optional[BasApiSettings] = None,
+        browser_options: Optional[BrowserOptions] = None,
     ):
         self._transport_options = transport_options
 
