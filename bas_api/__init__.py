@@ -49,8 +49,5 @@ class BasApi:
     async def close_transport(self):
         await self._tr.close()
 
-    async def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
-        return await self._tr.run_function(function_name=function_name, function_params=function_params)
-
     async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         return await self._tr.run_function_thread(function_name=function_name, function_params=function_params)
