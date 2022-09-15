@@ -120,10 +120,12 @@ class TestApiBasic:
         cookies_second_obj = await api.network.save_cookies()
 
         # old profile loaded
-        assert os.path.join(profile_folder_path, "lockfile")
-
-        await api.browser.close()
+        assert os.path.exists(os.path.join(profile_folder_path, "lockfile"))
         await api.clean_up()
+
+        # wait for browser closed
+        while os.path.exists(os.path.join(profile_folder_path, "lockfile")):
+            await asyncio.sleep(0.5)
 
         await clean_dir(profile_folder_path)
         assert os.path.exists(profile_folder_path) is False
