@@ -35,3 +35,8 @@ def transport_options():
 @pytest.fixture(scope="module")
 def fixtures_dir():
     return os.path.join(ABS_PATH, "tests", "fixtures")
+
+
+@pytest.fixture(scope="module")
+def google_url():
+    return "https://www.google.com/?gl=us&hl=en"
