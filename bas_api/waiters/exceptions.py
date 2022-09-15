@@ -1,0 +1,2 @@
+class WaiterWaitTimeout(Exception):
+    pass

@@ -6,7 +6,7 @@ import shutil
 import pytest
 
 from bas_api import BasApi, BasApiSettings, BrowserOptions
-from bas_api.browser.exceptions import WaitTimeout
+from bas_api.browser.exceptions import BrowserWaitTimeout
 
 
 async def clean_dir(dir_path):
@@ -149,7 +149,7 @@ class TestApiBasic:
         await api.browser.load("https://www.google.com/?hl=en")
         try:
             await api.waiters.wait_full_page_load()
-        except WaitTimeout:
+        except BrowserWaitTimeout:
             pass
 
         current_url = await api.browser.current_url()
@@ -160,13 +160,13 @@ class TestApiBasic:
         await api.browser.load("https://en.wikipedia.org/wiki/Main_Page")
         try:
             await api.waiters.wait_full_page_load()
-        except WaitTimeout:
+        except BrowserWaitTimeout:
             pass
 
         await api.browser.previous_page()
         try:
             await api.waiters.wait_full_page_load()
-        except WaitTimeout:
+        except BrowserWaitTimeout:
             pass
         current_url = await api.browser.current_url()
         assert current_url == "https://www.google.com/?hl=en"
