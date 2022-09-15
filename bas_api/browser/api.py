@@ -35,9 +35,18 @@ class AbstractBrowser(ABC):
         self._tr = tr
 
     @abstractmethod
-    async def open_browser(self):
+    async def open(self):
         """
         Create a browser if it has not already been created. This action is not mandatory for use to work with browser.
+        :return:
+        """
+
+    @abstractmethod
+    async def close(self):
+        """
+        Close browser which was created with 'Open Browser' action. This action is not mandatory for use to work with
+        browser.
+
         :return:
         """
 
@@ -321,20 +330,24 @@ class Browser(AbstractBrowser):
         if self._options.show_browser is not True and force is not True:
             return
 
-        await self.open_browser()
+        await self.open()
         self.options_update()
         window_set_visible(self._options.worker_pid)
 
-    async def open_browser(self) -> BasFunction:
+    async def open(self) -> BasFunction:
         return await self._tr.run_function_thread("_basOpenBrowser")
 
-    async def close_browser(self) -> BasFunction:
+    async def close(self, force=False) -> BasFunction:
         result = await self._tr.run_function_thread("_basCloseBrowser")
 
-        await asyncio.sleep(1)
-        if self._options.worker_pid > 0:
-            p = psutil.Process(self._options.worker_pid)
-            p.terminate()
+        if force and self._options.worker_pid > 0:
+            await asyncio.sleep(1)
+            if self._options.worker_pid > 0:
+                p = psutil.Process(self._options.worker_pid)
+                try:
+                    p.terminate()
+                except psutil.NoSuchProcess:
+                    pass
 
         return result
 

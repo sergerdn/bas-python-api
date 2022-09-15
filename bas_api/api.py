@@ -46,7 +46,8 @@ class BasApi:
         await self.browser.options_set()
         await self.browser.set_visible()
 
-    async def close_transport(self):
+    async def clean_up(self):
+        await self.browser.close()
         await self._tr.close()
 
     async def run_function_thread(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
