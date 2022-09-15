@@ -18,7 +18,54 @@ class AbstractWaiters(ABC):
         Wait until page is fully loaded.
         :return:
         """
-        pass
+
+    @abstractmethod
+    async def wait_url_loaded(self) -> BasFunction:
+        """
+        Wait until browser loads specified URL.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def wait_address_bar(self) -> BasFunction:
+        """
+        Wait until address bar contains specified URL.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def wait_text(self) -> BasFunction:
+        """
+        Wait until specific text appears on the page.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def wait_css(self) -> BasFunction:
+        """
+        Wait until specific CSS-selector returns a non-empty result.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def wait_file_download(self) -> BasFunction:
+        """
+        Wait for the end of the current download.
+
+        :return:
+        """
+
+    @abstractmethod
+    async def sleep(self) -> BasFunction:
+        """
+        Pauses current thread for the specified number of milliseconds.
+
+        :return:
+        """
 
 
 class Waiters(AbstractWaiters):
@@ -30,3 +77,21 @@ class Waiters(AbstractWaiters):
 
     async def wait_full_page_load(self) -> BasFunction:
         return await self._tr.run_function_thread("_basWaitersWaitFullPageLoad")
+
+    async def wait_url_loaded(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def wait_address_bar(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def wait_text(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def wait_css(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def wait_file_download(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
+
+    async def sleep(self) -> BasFunction:
+        raise NotImplementedError("function not implemented")
