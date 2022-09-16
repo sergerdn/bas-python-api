@@ -33,9 +33,6 @@ clean:
 	rm -rf ./tests/unit/.pytest_cache || echo ""
 	rm -rf ./tools/.tools_data || echo ""
 
-poetry_upgrade:
-	poetryup
-
 build:
 	poetry build -f wheel -n
 	poetry build -f sdist -n
