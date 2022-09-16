@@ -1,5 +1,7 @@
 import pytest
 
+from bas_client.browser.exceptions import BrowserTimeout
+
 
 @pytest.mark.asyncio
 class TestBrowser:
@@ -29,18 +31,36 @@ class TestBrowser:
 
     async def test_load(self, client, google_url):
         await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
 
-    @pytest.mark.skip("not implemented")
-    def test_current_url(self):
-        assert False
+    async def test_current_url(self, client, google_url):
+        await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
+        current_url = await client.browser.current_url()
+        assert current_url == google_url
 
-    @pytest.mark.skip("not implemented")
-    def test_previous_page(self):
-        assert False
+    async def test_previous_page(self, client, google_url):
+        await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
+        current_url = await client.browser.current_url()
+        assert current_url == google_url
 
-    @pytest.mark.skip("not implemented")
-    def test_page_html(self):
-        assert False
+        await client.browser.load("https://en.wikipedia.org/wiki/Main_Page")
+        await client.waiters.wait_full_page_load()
+        try:
+            await client.browser.previous_page()
+        except BrowserTimeout as exc:
+            # FIXME: this is a bug
+            pass
+
+        current_url = await client.browser.current_url()
+        assert current_url == google_url
+
+    async def test_page_html(self, client, google_url):
+        await client.browser.load(google_url)
+        page_html = await client.browser.page_html()
+        page_html_str = str(page_html)
+        assert page_html_str.strip().endswith("</script></body></html>")
 
     @pytest.mark.skip("not implemented")
     def test_type(self):
@@ -50,9 +70,11 @@ class TestBrowser:
     def test_resize(self):
         assert False
 
-    @pytest.mark.skip("not implemented")
-    def test_get_resolution_and_cursor_position(self):
-        assert False
+    async def test_get_resolution_and_cursor_position(self, client):
+        await client.browser.load("about:blank")
+        obj_model = await client.browser.get_resolution_and_cursor_position()
+        assert obj_model.browser_height >= 600
+        assert obj_model.browser_width >= 1024
 
     @pytest.mark.skip("not implemented")
     def test_proxy(self):
