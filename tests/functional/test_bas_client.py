@@ -9,7 +9,7 @@ from tests.functional.tests_dependency import test_bas_client_env_set
 from tests.functional.tools import clean_dir
 
 
-#@pytest.mark.dependency(depends=[test_bas_client_env_set])
+# @pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestBasClient:
     async def test_client_basic(self, transport_options, google_url):
