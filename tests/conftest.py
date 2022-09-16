@@ -61,16 +61,37 @@ def working_dir():
 
 
 @pytest.fixture(scope="module")
-def transport_options():
+def transport_options(request):
     remote_script_name = os.environ.get("TEST_REMOTE_SCRIPT_NAME", "BasPythonApi")
     remote_script_user = os.environ.get("TEST_REMOTE_SCRIPT_USER")
     remote_script_password = os.environ.get("TEST_REMOTE_SCRIPT_PASSWORD")
+    dir_name = working_dir()
 
+    # def fin():
+    #     async def afin():
+    #         logging.debug("teardown bas client....")
+    #         await client_api.clean_up()
+    #
+    #         browser_options = client_api.browser.options_get()
+    #
+    #         if browser_options.worker_pid > 0:
+    #             logging.debug("teardown bas client: killing browser process....")
+    #             p = psutil.Process(browser_options.worker_pid)
+    #             try:
+    #                 p.terminate()
+    #             except psutil.NoSuchProcess:
+    #                 pass
+    #
+    #         logging.debug("teardown bas client: clean profile dir....")
+    #         await clean_dir(browser_options.profile_folder_path)
+    #
+    #     event_loop.run_until_complete(afin())
+    # request.addfinalizer(fin)
     return RemoteTransportOptions(
         remote_script_name=remote_script_name,
         remote_script_user=remote_script_user,
         remote_script_password=remote_script_password,
-        working_dir=working_dir(),
+        working_dir=dir_name,
     )
 
 
