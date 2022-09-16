@@ -38,7 +38,11 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
 
             if browser_options.worker_pid > 0:
                 logging.debug("teardown bas client: killing browser process....")
-                p = psutil.Process(browser_options.worker_pid)
+                try:
+                    p = psutil.Process(browser_options.worker_pid)
+                except psutil.NoSuchProcess:
+                    return
+
                 try:
                     p.terminate()
                 except psutil.NoSuchProcess:

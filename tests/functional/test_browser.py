@@ -1,5 +1,8 @@
+import psutil
 import pytest
+from pydantic import HttpUrl
 
+from bas_client import BasClient
 from bas_client.browser.exceptions import BrowserTimeout
 
 
@@ -25,21 +28,31 @@ class TestBrowser:
     def test_open(self):
         assert False
 
-    @pytest.mark.skip("not implemented")
-    def test_close(self):
-        assert False
+    async def test_close(self, client: BasClient):
+        await client.browser.load("about:blank")
+        options = client.browser.options_get()
 
-    async def test_load(self, client, google_url):
+        p = psutil.Process(options.worker_pid)
+        assert p.status() == psutil.STATUS_RUNNING
+        await client.browser.close()
+
+        options = client.browser.options_get()
+        assert options.worker_pid == 0
+
+        with pytest.raises(psutil.NoSuchProcess):
+            psutil.Process(options.worker_pid)
+
+    async def test_load(self, client: BasClient, google_url: HttpUrl):
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
 
-    async def test_current_url(self, client, google_url):
+    async def test_current_url(self, client: BasClient, google_url: HttpUrl):
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
         current_url = await client.browser.current_url()
         assert current_url == google_url
 
-    async def test_previous_page(self, client, google_url):
+    async def test_previous_page(self, client: BasClient, google_url: HttpUrl):
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
         current_url = await client.browser.current_url()
@@ -56,7 +69,7 @@ class TestBrowser:
         current_url = await client.browser.current_url()
         assert current_url == google_url
 
-    async def test_page_html(self, client, google_url):
+    async def test_page_html(self, client: BasClient, google_url: HttpUrl):
         await client.browser.load(google_url)
         page_html = await client.browser.page_html()
         page_html_str = str(page_html)
@@ -70,7 +83,7 @@ class TestBrowser:
     def test_resize(self):
         assert False
 
-    async def test_get_resolution_and_cursor_position(self, client):
+    async def test_get_resolution_and_cursor_position(self, client: BasClient):
         await client.browser.load("about:blank")
         obj_model = await client.browser.get_resolution_and_cursor_position()
         assert obj_model.browser_height >= 600

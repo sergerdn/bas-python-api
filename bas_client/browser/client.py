@@ -22,10 +22,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -351,14 +351,37 @@ class Browser(AbstractBrowser, ABC):
 
     async def close(self, force=False) -> BasFunction:
         result = await self._tr.run_function_thread("_basCloseBrowser")
+        await asyncio.sleep(1)
 
-        if force and self._options.worker_pid > 0:
-            await asyncio.sleep(1)
-            p = psutil.Process(self._options.worker_pid)
+        def _kill_proc(worker_pid: int):
+            try:
+                p = psutil.Process(worker_pid)
+            except psutil.NoSuchProcess:
+                return
             try:
                 p.terminate()
             except psutil.NoSuchProcess:
                 pass
+
+        if force and self._options.worker_pid > 0:
+            _kill_proc(self._options.worker_pid)
+
+        # wait for browser closed
+        for _ in range(0, 60):
+            try:
+                p = psutil.Process(self._options.worker_pid)
+            except psutil.NoSuchProcess:
+                break
+
+            if not psutil.pid_exists(self._options.worker_pid):
+                break
+
+            if p.status() != psutil.STATUS_RUNNING:
+                break
+
+            await asyncio.sleep(1)
+
+        self._options.worker_pid = 0
 
         return result
 
