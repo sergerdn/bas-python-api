@@ -2,11 +2,13 @@ import asyncio
 import logging
 import os
 
+import psutil
 import pytest
 from dotenv import load_dotenv
 
 from bas_client import BasClient, RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR
+from tests.functional.tools import clean_dir
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
 if os.path.exists(dotenv_path):
@@ -23,19 +25,31 @@ def event_loop():
 
 @pytest.fixture(scope="class")
 def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
-    api = BasClient(transport_options=transport_options, loop=event_loop)
+    client_api = BasClient(transport_options=transport_options, loop=event_loop)
 
     def fin():
         async def afin():
-            logging.debug("teardown api....")
-            await api.clean_up()
+            logging.debug("teardown bas client....")
+            await client_api.clean_up()
+
+            browser_options = client_api.browser.options_get()
+
+            logging.debug("teardown bas client: killing browser process....")
+            p = psutil.Process(browser_options.worker_pid)
+            try:
+                p.terminate()
+            except psutil.NoSuchProcess:
+                pass
+
+            logging.debug("teardown bas: client profiles dir....")
+            await clean_dir(browser_options.profile_folder_path)
 
         event_loop.run_until_complete(afin())
 
     request.addfinalizer(fin)
-    event_loop.run_until_complete(api.set_up())
+    event_loop.run_until_complete(client_api.set_up())
 
-    return api
+    return client_api
 
 
 def working_dir():
