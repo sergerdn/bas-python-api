@@ -1,4 +1,4 @@
-.PHONY: tests_tox tests tests_integration tests_types create_requirements build
+.PHONY: tests_tox tests tests_coverage lint lint_fix clean build
 .DEFAULT_GOAL := tests
 
 tests_tox:
