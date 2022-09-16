@@ -1,5 +1,11 @@
 import asyncio
 import shutil
+from io import StringIO
+
+import yaml
+from lxml import etree
+
+parser = etree.HTMLParser()
 
 
 async def clean_dir(dir_path):
@@ -13,3 +19,9 @@ async def clean_dir(dir_path):
             break
 
     return True
+
+
+def json_from_httpbin(page_html: str):
+    tree = etree.parse(StringIO(page_html), parser)
+    page_data = tree.xpath("//pre")[0].text
+    return yaml.load(page_data, Loader=yaml.UnsafeLoader)
