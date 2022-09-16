@@ -1,3 +1,4 @@
+import asyncio
 import os
 from abc import ABC, abstractmethod
 from typing import Dict, Optional, Union
@@ -5,7 +6,7 @@ from typing import Dict, Optional, Union
 from bas_remote import BasRemoteClient, Options
 from bas_remote.runners import BasThread
 
-from bas_api.function import BasFunction
+from bas_client.function import BasFunction
 
 
 class AbstractTransport(ABC):
@@ -58,14 +59,15 @@ class RemoteTransport(AbstractTransport):
     _client: BasRemoteClient
     _thread: BasThread
 
-    def __init__(self, options: RemoteTransportOptions):
+    def __init__(self, options: RemoteTransportOptions, loop: Optional[asyncio.AbstractEventLoop] = None):
         self._client = BasRemoteClient(
             options=Options(
                 script_name=options.remote_script_name,
                 login=options.remote_script_user,
                 password=options.remote_script_password,
                 working_dir=options.working_dir,
-            )
+            ),
+            loop=loop,
         )
 
     async def connect(self):

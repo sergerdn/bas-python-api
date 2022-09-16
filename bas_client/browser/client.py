@@ -6,10 +6,10 @@ from typing import Optional, Union
 import bas_remote
 import psutil
 
-from bas_api.browser.exceptions import BrowserTimeout
-from bas_api.browser.gui import window_set_visible
-from bas_api.function import BasFunction
-from bas_api.transport import AbstractTransport
+from bas_client.browser.exceptions import BrowserProcessNotFound, BrowserTimeout
+from bas_client.browser.gui import window_set_visible
+from bas_client.function import BasFunction
+from bas_client.transport import AbstractTransport
 
 
 class BrowserOptions:
@@ -332,7 +332,7 @@ class Browser(AbstractBrowser, ABC):
                 break
 
         if pid == 0:
-            raise Exception("pid of running browser not found: %s" % self._options.profile_folder_path)
+            raise BrowserProcessNotFound("pid of running browser not found: %s" % self._options.profile_folder_path)
 
         self._options.worker_pid = pid
 

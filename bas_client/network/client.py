@@ -3,9 +3,9 @@ from typing import Union
 
 import yaml
 
-from bas_api.function import BasFunction
-from bas_api.models import Cookies
-from bas_api.transport import AbstractTransport
+from bas_client.function import BasFunction
+from bas_client.models import Cookies
+from bas_client.transport import AbstractTransport
 
 
 class AbstractNetwork(ABC):
@@ -21,7 +21,7 @@ class AbstractNetwork(ABC):
         pass
 
     @abstractmethod
-    async def set_header(self) -> BasFunction:
+    async def set_header(self, name: str, value: str) -> BasFunction:
         """
         Wait for the end of the current download.
 
@@ -217,5 +217,5 @@ class Network(AbstractNetwork, ABC):
     async def allow_downloads(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
-    async def set_header(self) -> BasFunction:
-        raise NotImplementedError("function not implemented")
+    async def set_header(self, name: str, value: str) -> BasFunction:
+        return await self._tr.run_function_thread("_basNetworkSetHeader", {"name": name, "value": value})

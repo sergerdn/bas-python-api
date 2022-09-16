@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from bas_api import RemoteTransportOptions
+from bas_client import RemoteTransportOptions
 
 ABS_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))  # root project directory
 DATA_DIR = os.path.join(ABS_PATH, "tools", ".tools_data")

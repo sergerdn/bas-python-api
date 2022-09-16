@@ -5,19 +5,19 @@ tests_tox:
 	poetry run tox
 
 tests:
-	poetry run pytest
+	poetry run pytest tests/
 
 tests_coverage:
-	poetry run pytest --cov-report html --cov=bas_api tests/
+	poetry run pytest --cov-report html --cov=bas_client tests/
 	start "./htmlcov/index.html"
 
 lint:
 	poetry run black . --check
 	poetry run flake8
-	mypy bas_api/
+	mypy bas_client/
 
 lint_fix:
-	isort bas_api/ tests/
+	isort bas_client/ tests/
 	poetry run black .
 
 clean:

@@ -10,7 +10,7 @@ try:
 except ImportError:
     sys.path.insert(0, ABS_PATH)
 
-from bas_api import BasApi, RemoteTransportOptions
+from bas_client import BasClient, RemoteTransportOptions
 from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.DEBUG)
@@ -30,25 +30,25 @@ async def main():
         remote_script_user=remote_script_user,
         remote_script_password=remote_script_password,
     )
-    api = BasApi(transport_options=transport_options)
-    await api.set_up()
+    client = BasClient(transport_options=transport_options)
+    await client.set_up()
 
-    await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
-    current_url = await api.browser.current_url()
+    await client.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
+    current_url = await client.browser.current_url()
     print(current_url)
 
-    page_html = await api.browser.page_html()
+    page_html = await client.browser.page_html()
     print(page_html[:100])
 
-    await api.browser.load(url="https://www.python.org/", referer="https://www.google.com/")
-    current_url = await api.browser.current_url()
+    await client.browser.load(url="https://www.python.org/", referer="https://www.google.com/")
+    current_url = await client.browser.current_url()
     print(current_url)
 
-    # await api.browser.previous_page()
-    # current_url = await api.browser.current_url()
+    # await client.browser.previous_page()
+    # current_url = await client.browser.current_url()
     # print(current_url)
 
-    await api.clean_up()
+    await client.clean_up()
 
 
 if __name__ == "__main__":
