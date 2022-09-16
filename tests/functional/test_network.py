@@ -19,7 +19,7 @@ def test_api_basic_env_set(transport_options):
     assert os.path.exists(transport_options.working_dir) is True
 
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope="class", autouse=True)
 def api_bas(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     api = BasApi(transport_options=transport_options, loop=event_loop)
 
@@ -39,7 +39,6 @@ def api_bas(request, transport_options, event_loop: asyncio.AbstractEventLoop):
 # @pytest.mark.dependency(depends=["test_api_basic_env_set"])
 @pytest.mark.asyncio
 class TestApiNetwork:
-
     @pytest.mark.skip("not implemented")
     def test_save_cookies(self):
         assert False
