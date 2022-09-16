@@ -42,8 +42,11 @@ class TestBrowser:
         assert False
 
     @pytest.mark.skip("not implemented")
-    def test_page_html(self):
-        assert False
+    async def test_page_html(self, client, google_url):
+        await client.browser.load(google_url)
+        page_html = await client.browser.page_html()
+        page_html_str = str(page_html)
+        assert page_html_str.strip().endswith("</script></body></html>")
 
     @pytest.mark.skip("not implemented")
     def test_type(self):
