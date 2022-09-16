@@ -1,10 +1,11 @@
 import asyncio
+import logging
 import os
 
 import pytest
 from dotenv import load_dotenv
 
-from bas_client import RemoteTransportOptions
+from bas_client import BasClient, RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
@@ -18,6 +19,23 @@ def event_loop():
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
+
+
+@pytest.fixture(scope="class", autouse=True)
+def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
+    api = BasClient(transport_options=transport_options, loop=event_loop)
+
+    def fin():
+        async def afin():
+            logging.debug("teardown api....")
+            await api.clean_up()
+
+        event_loop.run_until_complete(afin())
+
+    request.addfinalizer(fin)
+    event_loop.run_until_complete(api.set_up())
+
+    return api
 
 
 def working_dir():
