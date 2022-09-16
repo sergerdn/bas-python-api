@@ -39,8 +39,7 @@ class TestBrowser:
         options = client.browser.options_get()
         assert options.worker_pid == 0
 
-        with pytest.raises(psutil.NoSuchProcess):
-            psutil.Process(options.worker_pid)
+        assert psutil.Process(options.worker_pid) != psutil.STATUS_RUNNING
 
     async def test_load(self, client: BasClient, google_url: HttpUrl):
         await client.browser.load(google_url)

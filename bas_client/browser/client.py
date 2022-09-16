@@ -22,10 +22,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -350,6 +350,9 @@ class Browser(AbstractBrowser, ABC):
         return await self._tr.run_function_thread("_basOpenBrowser")
 
     async def close(self, force=False) -> BasFunction:
+        if self._options.worker_pid == 0:
+            raise Exception("worker pid is 0")
+
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)
 
