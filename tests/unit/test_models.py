@@ -5,7 +5,7 @@ import os.path
 import pydantic
 import yaml
 
-from bas_api.models import Cookie, Cookies
+from bas_client.models import Cookie, Cookies
 
 
 class TestModels:

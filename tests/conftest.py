@@ -4,7 +4,7 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bas_api import RemoteTransportOptions
+from bas_client import RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR
 
 dotenv_path = os.path.join(ABS_PATH, ".env")

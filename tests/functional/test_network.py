@@ -7,7 +7,7 @@ import pytest
 import yaml
 from lxml import etree
 
-from bas_api import BasClient
+from bas_client import BasClient
 
 
 @pytest.mark.dependency()

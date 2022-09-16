@@ -5,7 +5,7 @@ description = "Python library, which allows you to automate Google Chrome browse
 authors = ["Sergerdn <example@example.com>"]
 readme = "README.md"
 packages = [
-    { include = "bas_api" }
+    { include = "bas_client" }
 ]
 
 [tool.poetry.dependencies]

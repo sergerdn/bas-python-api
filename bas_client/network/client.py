@@ -3,9 +3,9 @@ from typing import Union
 
 import yaml
 
-from bas_api.function import BasFunction
-from bas_api.models import Cookies
-from bas_api.transport import AbstractTransport
+from bas_client.function import BasFunction
+from bas_client.models import Cookies
+from bas_client.transport import AbstractTransport
 
 
 class AbstractNetwork(ABC):

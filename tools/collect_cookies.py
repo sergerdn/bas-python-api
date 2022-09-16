@@ -2,7 +2,7 @@ import asyncio
 import codecs
 import os.path
 
-from bas_api import BasClient
+from bas_client import BasClient
 from tools import ABS_PATH
 from tools import get_tr_options
 

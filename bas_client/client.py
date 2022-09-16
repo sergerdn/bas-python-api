@@ -5,11 +5,11 @@ from typing import Dict, Optional, Union
 
 from bas_remote.runners import BasFunction
 
-from bas_api.browser import Browser, BrowserOptions
-from bas_api.network import Network
-from bas_api.settings import BasApiSettings
-from bas_api.transport import RemoteTransport, RemoteTransportOptions
-from bas_api.waiters import Waiters
+from bas_client.browser import Browser, BrowserOptions
+from bas_client.network import Network
+from bas_client.settings import BasApiSettings
+from bas_client.transport import RemoteTransport, RemoteTransportOptions
+from bas_client.waiters import Waiters
 
 
 class BasClient:

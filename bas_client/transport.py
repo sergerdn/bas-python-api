@@ -6,7 +6,7 @@ from typing import Dict, Optional, Union
 from bas_remote import BasRemoteClient, Options
 from bas_remote.runners import BasThread
 
-from bas_api.function import BasFunction
+from bas_client.function import BasFunction
 
 
 class AbstractTransport(ABC):

@@ -10,7 +10,7 @@ try:
 except ImportError:
     sys.path.insert(0, ABS_PATH)
 
-from bas_api import BasClient, RemoteTransportOptions
+from bas_client import BasClient, RemoteTransportOptions
 from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.DEBUG)
