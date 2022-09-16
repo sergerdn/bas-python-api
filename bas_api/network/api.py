@@ -218,4 +218,4 @@ class Network(AbstractNetwork, ABC):
         raise NotImplementedError("function not implemented")
 
     async def set_header(self, name: str, value: str) -> BasFunction:
-        return await self._tr.run_function_thread("_basNetworkSetHeader")
+        return await self._tr.run_function_thread("_basNetworkSetHeader", {"name": name, "value": value})
