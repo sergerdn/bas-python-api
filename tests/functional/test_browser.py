@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-class BrowserTest:
+class TestBrowser:
     @pytest.mark.skip("not implemented")
     def test_options_get(self):
         assert False
