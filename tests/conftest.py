@@ -34,12 +34,13 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
 
             browser_options = client_api.browser.options_get()
 
-            logging.debug("teardown bas client: killing browser process....")
-            p = psutil.Process(browser_options.worker_pid)
-            try:
-                p.terminate()
-            except psutil.NoSuchProcess:
-                pass
+            if browser_options.worker_pid > 0:
+                logging.debug("teardown bas client: killing browser process....")
+                p = psutil.Process(browser_options.worker_pid)
+                try:
+                    p.terminate()
+                except psutil.NoSuchProcess:
+                    pass
 
             logging.debug("teardown bas client: clean profile dir....")
             await clean_dir(browser_options.profile_folder_path)
