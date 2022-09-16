@@ -33,7 +33,8 @@ class TestBrowser:
 
     async def test_current_url(self, client, google_url):
         await client.browser.load(google_url)
-        current_url = await client.waiters.wait_full_page_load()
+        await client.waiters.wait_full_page_load()
+        current_url = await client.browser.current_url()
         assert current_url == google_url
 
     @pytest.mark.skip("not implemented")
