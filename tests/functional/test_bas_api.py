@@ -4,7 +4,7 @@ import random
 
 import pytest
 
-from bas_api import BasClient, BasApiSettings, BrowserOptions
+from bas_api import BasApiSettings, BasClient, BrowserOptions
 from bas_api.browser.exceptions import BrowserTimeout
 from tests.functional.tools import clean_dir
 

@@ -1,3 +1,3 @@
-from bas_api.network.api import Network
+from bas_api.network.client import Network
 
 __all__ = ["Network"]
