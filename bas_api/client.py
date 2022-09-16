@@ -12,7 +12,7 @@ from bas_api.transport import RemoteTransport, RemoteTransportOptions
 from bas_api.waiters import Waiters
 
 
-class BasApi:
+class BasClient:
     _transport_options: RemoteTransportOptions
     _settings: BasApiSettings
     _tr: Union[RemoteTransport]

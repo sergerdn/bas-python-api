@@ -4,7 +4,7 @@ import random
 
 import pytest
 
-from bas_api import BasApi, BasApiSettings, BrowserOptions
+from bas_api import BasClient, BasApiSettings, BrowserOptions
 from bas_api.browser.exceptions import BrowserTimeout
 from tests.functional.tools import clean_dir
 
@@ -28,7 +28,7 @@ class TestApi:
         :param transport_options:
         :return:
         """
-        api = BasApi(transport_options=transport_options)
+        api = BasClient(transport_options=transport_options)
 
         await api.set_up()
 
@@ -52,7 +52,7 @@ class TestApi:
         profile_folder_path = os.path.join(bas_api_settings.working_profile_dir, "%s" % random.randint(10000, 99999))
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
-        api = BasApi(
+        api = BasClient(
             transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
         )
         await api.set_up()
@@ -76,7 +76,7 @@ class TestApi:
         """
 
         """create new profile"""
-        api = BasApi(transport_options=transport_options)
+        api = BasClient(transport_options=transport_options)
 
         await api.set_up()
 
@@ -98,7 +98,7 @@ class TestApi:
         bas_api_settings = BasApiSettings(working_dir=transport_options.working_dir)
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
-        api = BasApi(
+        api = BasClient(
             transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
         )
         await api.set_up()
@@ -129,7 +129,7 @@ class TestApi:
         :param transport_options:
         :return:
         """
-        api = BasApi(transport_options=transport_options)
+        api = BasClient(transport_options=transport_options)
 
         await api.set_up()
 

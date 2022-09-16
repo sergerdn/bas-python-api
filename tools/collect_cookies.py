@@ -2,7 +2,7 @@ import asyncio
 import codecs
 import os.path
 
-from bas_api import BasApi
+from bas_api import BasClient
 from tools import ABS_PATH
 from tools import get_tr_options
 
@@ -10,7 +10,7 @@ from tools import get_tr_options
 async def main():
     dest_filename = os.path.join(ABS_PATH, "tests", "fixtures", "cookies", "collected.json")
     tr_options = get_tr_options()
-    api = BasApi(transport_options=tr_options)
+    api = BasClient(transport_options=tr_options)
 
     await api.set_up()
 

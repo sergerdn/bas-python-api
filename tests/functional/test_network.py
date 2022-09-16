@@ -7,7 +7,7 @@ import pytest
 import yaml
 from lxml import etree
 
-from bas_api import BasApi
+from bas_api import BasClient
 
 
 @pytest.mark.dependency()
@@ -21,7 +21,7 @@ def test_api_basic_env_set(transport_options):
 
 @pytest.fixture(scope="class", autouse=True)
 def api_bas(request, transport_options, event_loop: asyncio.AbstractEventLoop):
-    api = BasApi(transport_options=transport_options, loop=event_loop)
+    api = BasClient(transport_options=transport_options, loop=event_loop)
 
     def fin():
         async def afin():
@@ -103,7 +103,7 @@ class TestApiNetwork:
     def test_allow_downloads(self):
         assert False
 
-    async def test_set_header(self, api_bas: BasApi):
+    async def test_set_header(self, api_bas: BasClient):
         await api_bas.network.set_header(name="Accept-Custom-Header-Name", value="AcceptCustomHeaderValue")
 
         await api_bas.browser.load("https://httpbin.org/anything")

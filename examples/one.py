@@ -10,7 +10,7 @@ try:
 except ImportError:
     sys.path.insert(0, ABS_PATH)
 
-from bas_api import BasApi, RemoteTransportOptions
+from bas_api import BasClient, RemoteTransportOptions
 from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.DEBUG)
@@ -30,7 +30,7 @@ async def main():
         remote_script_user=remote_script_user,
         remote_script_password=remote_script_password,
     )
-    api = BasApi(transport_options=transport_options)
+    api = BasClient(transport_options=transport_options)
     await api.set_up()
 
     await api.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
