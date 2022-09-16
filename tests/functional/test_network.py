@@ -5,7 +5,7 @@ import yaml
 from lxml import etree
 
 from bas_client import BasClient
-from tests.functional import test_bas_client_env_set
+from tests.functional.tests_dependency import test_bas_client_env_set
 
 
 @pytest.mark.dependency(depends=[test_bas_client_env_set])

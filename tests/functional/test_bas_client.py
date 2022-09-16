@@ -5,7 +5,7 @@ import random
 import pytest
 
 from bas_client import BasClient, BasClientSettings, BrowserOptions
-from tests.functional import test_bas_client_env_set
+from tests.functional.tests_dependency import test_bas_client_env_set
 from tests.functional.tools import clean_dir
 
 
