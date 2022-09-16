@@ -31,7 +31,6 @@ class TestBrowser:
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
 
-    @pytest.mark.skip("not implemented")
     async def test_current_url(self, client, google_url):
         await client.browser.load(google_url)
         current_url = await client.waiters.wait_full_page_load()
