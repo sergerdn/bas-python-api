@@ -42,7 +42,7 @@ class BasClient:
         self._tr = RemoteTransport(options=self._transport_options, loop=self._loop)
 
         if browser_options is None:
-            profile_dir = os.path.join(self._settings.working_profile_dir, "%s" % random.randint(10000, 99999))
+            profile_dir = os.path.join(self._settings.working_profile_dir, "profile_%s" % random.randint(10000, 99999))
             self.browser_options = BrowserOptions(profile_folder_path=profile_dir)
         else:
             self.browser_options = browser_options

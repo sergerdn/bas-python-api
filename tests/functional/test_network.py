@@ -1,14 +1,9 @@
-from io import StringIO
-
 import pytest
-import yaml
-from lxml import etree
 
 from bas_client import BasClient
-from tests.functional.tests_dependency import test_bas_client_env_set
+from tests.functional.tools import json_from_httpbin
 
 
-# @pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestApiNetwork:
     @pytest.mark.skip("not implemented")
@@ -82,10 +77,7 @@ class TestApiNetwork:
         await client.waiters.wait_full_page_load()
         page_html = await client.browser.page_html()
 
-        parser = etree.HTMLParser()
-        tree = etree.parse(StringIO(str(page_html)), parser)
-        page_data = tree.xpath("//pre")[0].text
-        data_json = yaml.load(page_data, Loader=yaml.UnsafeLoader)
+        data_json = json_from_httpbin(str(page_html))
 
         assert "Accept-Custom-Header-Name" in data_json["headers"].keys()
         assert data_json["headers"]["Accept-Custom-Header-Name"] == "AcceptCustomHeaderValue"
