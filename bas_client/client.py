@@ -58,9 +58,9 @@ class BasClient:
         await self.browser.set_visible()
         return self
 
-    async def clean_up(self):
+    async def clean_up(self, force_close_browser=False):
         try:
-            await self.browser.close()
+            await self.browser.close(force=force_close_browser)
         except BrowserProcessIsZero:
             pass
 

@@ -4,7 +4,6 @@ import os
 import random
 import shutil
 
-import psutil
 import pytest
 from dotenv import load_dotenv
 
@@ -32,26 +31,9 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     def fin():
         async def afin():
             logging.debug("teardown bas client....")
-            await client_api.clean_up()
+            await client_api.clean_up(force_close_browser=True)
 
             browser_options = client_api.browser.options_get()
-
-            if browser_options.worker_pid > 0:
-                logging.debug("teardown bas client: killing browser process....")
-
-                while 1:
-                    try:
-                        p = psutil.Process(browser_options.worker_pid)
-                    except psutil.NoSuchProcess:
-                        break
-
-                    try:
-                        p.terminate()
-                    except psutil.NoSuchProcess:
-                        break
-
-                    if p.status() != psutil.STATUS_RUNNING:
-                        break
 
             logging.debug("teardown bas client: clean profile dir....")
             await clean_dir_async(browser_options.profile_folder_path)
