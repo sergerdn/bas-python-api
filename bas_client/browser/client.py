@@ -5,10 +5,12 @@ from typing import Optional, Union
 
 import bas_remote
 import psutil
+import yaml
 
 from bas_client.browser.exceptions import BrowserProcessNotFound, BrowserTimeout
 from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
+from bas_client.models.browser import BrowserResolutionCursorScroll
 from bas_client.transport import AbstractTransport
 
 
@@ -106,7 +108,7 @@ class AbstractBrowser(ABC):
         """
 
     # get_resolution_and_cursor_position
-    async def get_resolution_and_cursor_position(self) -> BasFunction:
+    async def get_resolution_and_cursor_position(self) -> BrowserResolutionCursorScroll:
         """
         Get current browser size, cursor and scroll position.
         :return:
@@ -383,8 +385,11 @@ class Browser(AbstractBrowser, ABC):
     async def resize(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
-    async def get_resolution_and_cursor_position(self) -> BasFunction:
-        raise NotImplementedError("function not implemented")
+    async def get_resolution_and_cursor_position(self) -> BrowserResolutionCursorScroll:
+        data = await self._tr.run_function_thread("_basGetResolutionAndCursorPosition")
+        data_json = yaml.load(data, Loader=yaml.UnsafeLoader)
+        obj_model = BrowserResolutionCursorScroll(**data_json)
+        return obj_model
 
     async def proxy(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
