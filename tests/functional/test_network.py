@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import os
 from io import StringIO
 
 import pytest
@@ -8,15 +7,7 @@ import yaml
 from lxml import etree
 
 from bas_client import BasClient
-
-
-@pytest.mark.dependency()
-def test_api_basic_env_set(transport_options):
-    assert transport_options.remote_script_name is not None
-    assert transport_options.remote_script_user is not None
-    assert transport_options.remote_script_password is not None
-    assert transport_options.working_dir is not None
-    assert os.path.exists(transport_options.working_dir) is True
+from tests.functional import test_bas_client_env_set
 
 
 @pytest.fixture(scope="class", autouse=True)
@@ -36,7 +27,7 @@ def api_bas(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     return api
 
 
-# @pytest.mark.dependency(depends=["test_api_basic_env_set"])
+@pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestApiNetwork:
     @pytest.mark.skip("not implemented")

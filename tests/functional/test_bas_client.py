@@ -5,20 +5,11 @@ import random
 import pytest
 
 from bas_client import BasClientSettings, BasClient, BrowserOptions
-from bas_client.browser.exceptions import BrowserTimeout
+from tests.functional import test_bas_client_env_set
 from tests.functional.tools import clean_dir
 
 
-@pytest.mark.dependency()
-def test_client_env_set(transport_options):
-    assert transport_options.remote_script_name is not None
-    assert transport_options.remote_script_user is not None
-    assert transport_options.remote_script_password is not None
-    assert transport_options.working_dir is not None
-    assert os.path.exists(transport_options.working_dir) is True
-
-
-#@pytest.mark.dependency(depends=["test_client_env_set"])
+@pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestApi:
     async def test_client_basic(self, transport_options, google_url):
@@ -53,7 +44,8 @@ class TestApi:
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
         client = BasClient(
-            transport_options=transport_options, bas_client_settings=bas_client_settings, browser_options=browser_options
+            transport_options=transport_options, bas_client_settings=bas_client_settings,
+            browser_options=browser_options
         )
         await client.set_up()
 
