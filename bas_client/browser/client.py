@@ -370,7 +370,7 @@ class Browser(AbstractBrowser, ABC):
         if force > 0:
             _kill_proc(self._options.worker_pid)
 
-        # wait for browser closed
+        """wait for browser closed"""
         for _ in range(0, 60):
             try:
                 p = psutil.Process(self._options.worker_pid)
