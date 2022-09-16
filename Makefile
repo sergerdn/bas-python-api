@@ -1,14 +1,14 @@
-.PHONY: tests_tox tests tests_integration tests_types create_requirements build
+.PHONY: tests_tox tests tests_coverage lint lint_fix clean build
 .DEFAULT_GOAL := tests
 
 tests_tox:
 	poetry run tox
 
 tests:
-	poetry run pytest tests/
+	time poetry run pytest tests/
 
 tests_coverage:
-	poetry run pytest --cov-report html --cov=bas_client tests/ &&	start "./htmlcov/index.html"
+	time poetry run pytest --cov-report html --cov=bas_client tests/ &&	start "./htmlcov/index.html"
 
 lint:
 	poetry run black . --check

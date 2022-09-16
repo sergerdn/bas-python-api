@@ -22,10 +22,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-            self,
-            profile_folder_path: str,
-            load_fingerprint_from_profile_folder: bool = True,
-            load_proxy_from_profile_folder: bool = True,
+        self,
+        profile_folder_path: str,
+        load_fingerprint_from_profile_folder: bool = True,
+        load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -377,10 +377,16 @@ class Browser(AbstractBrowser, ABC):
             except psutil.NoSuchProcess:
                 break
 
-            if not psutil.pid_exists(self._options.worker_pid):
+            try:
+                if not psutil.pid_exists(self._options.worker_pid):
+                    break
+            except psutil.NoSuchProcess:
                 break
 
-            if p.status() != psutil.STATUS_RUNNING:
+            try:
+                if p.status() != psutil.STATUS_RUNNING:
+                    break
+            except psutil.NoSuchProcess:
                 break
 
             await asyncio.sleep(1)
