@@ -17,7 +17,7 @@ if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path=dotenv_path)
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def event_loop():
     """Create an instance of the default event loop for each test case."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
@@ -25,7 +25,7 @@ def event_loop():
     loop.close()
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     client_api = BasClient(transport_options=transport_options, loop=event_loop)
 
