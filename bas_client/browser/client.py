@@ -366,7 +366,7 @@ class Browser(AbstractBrowser, ABC):
             except psutil.NoSuchProcess:
                 pass
 
-        if force and self._options.worker_pid > 0:
+        if force > 0:
             _kill_proc(self._options.worker_pid)
 
         # wait for browser closed

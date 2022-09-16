@@ -53,8 +53,6 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
                     if p.status() != psutil.STATUS_RUNNING:
                         break
 
-                    print(1)
-
             logging.debug("teardown bas client: clean profile dir....")
             await clean_dir_async(browser_options.profile_folder_path)
 
