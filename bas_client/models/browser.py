@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class BrowserResolutionCursor(BaseModel):
+class BrowserResolutionCursorScroll(BaseModel):
     cursor_x: int
     cursor_y: int
     scroll_x: int
