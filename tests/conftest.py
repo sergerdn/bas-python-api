@@ -41,7 +41,7 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
             except psutil.NoSuchProcess:
                 pass
 
-            logging.debug("teardown bas: client profiles dir....")
+            logging.debug("teardown bas client: clean profile dir....")
             await clean_dir(browser_options.profile_folder_path)
 
         event_loop.run_until_complete(afin())
