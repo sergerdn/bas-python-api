@@ -5,7 +5,7 @@ DEFAULT_DATA_DIR = ".data"
 DEFAULT_PROFILE_DIR = "prof"
 
 
-class BasApiSettings:
+class BasClientSettings:
     working_dir: str
     working_profile_dir: str
 

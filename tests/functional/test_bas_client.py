@@ -4,7 +4,7 @@ import random
 
 import pytest
 
-from bas_client import BasApiSettings, BasClient, BrowserOptions
+from bas_client import BasClientSettings, BasClient, BrowserOptions
 from bas_client.browser.exceptions import BrowserTimeout
 from tests.functional.tools import clean_dir
 
@@ -18,7 +18,7 @@ def test_client_env_set(transport_options):
     assert os.path.exists(transport_options.working_dir) is True
 
 
-@pytest.mark.dependency(depends=["test_client_env_set"])
+#@pytest.mark.dependency(depends=["test_client_env_set"])
 @pytest.mark.asyncio
 class TestApi:
     async def test_client_basic(self, transport_options, google_url):
@@ -28,16 +28,16 @@ class TestApi:
         :param transport_options:
         :return:
         """
-        api = BasClient(transport_options=transport_options)
+        client = BasClient(transport_options=transport_options)
 
-        await api.set_up()
+        await client.set_up()
 
-        await api.browser.load(google_url)
-        await api.waiters.wait_full_page_load()
+        await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
 
-        await api.clean_up()
+        await client.clean_up()
 
-        browser_options = api.browser.options_get()
+        browser_options = client.browser.options_get()
         await clean_dir(browser_options.profile_folder_path)
         assert os.path.exists(browser_options.profile_folder_path) is False
 
@@ -48,12 +48,12 @@ class TestApi:
         :param transport_options:
         :return:
         """
-        bas_api_settings = BasApiSettings(working_dir=transport_options.working_dir)
-        profile_folder_path = os.path.join(bas_api_settings.working_profile_dir, "%s" % random.randint(10000, 99999))
+        bas_client_settings = BasClientSettings(working_dir=transport_options.working_dir)
+        profile_folder_path = os.path.join(bas_client_settings.working_profile_dir, "%s" % random.randint(10000, 99999))
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
         client = BasClient(
-            transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
+            transport_options=transport_options, bas_client_settings=bas_client_settings, browser_options=browser_options
         )
         await client.set_up()
 
@@ -95,11 +95,11 @@ class TestApi:
             await asyncio.sleep(0.5)
 
         """using old profile"""
-        bas_api_settings = BasApiSettings(working_dir=transport_options.working_dir)
+        bas_api_settings = BasClientSettings(working_dir=transport_options.working_dir)
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
         client = BasClient(
-            transport_options=transport_options, bas_api_settings=bas_api_settings, browser_options=browser_options
+            transport_options=transport_options, bas_client_settings=bas_api_settings, browser_options=browser_options
         )
         await client.set_up()
 
