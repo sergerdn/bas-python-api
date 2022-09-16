@@ -8,7 +8,7 @@ from bas_client import BasClient
 from tests.functional.tests_dependency import test_bas_client_env_set
 
 
-@pytest.mark.dependency(depends=[test_bas_client_env_set])
+#@pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestApiNetwork:
     @pytest.mark.skip("not implemented")

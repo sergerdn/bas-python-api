@@ -2,7 +2,6 @@ import pytest
 
 
 class BrowserTest:
-
     @pytest.mark.skip("not implemented")
     def test_options_get(self):
         assert False
