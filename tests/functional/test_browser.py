@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.asyncio
 class BrowserTest:
     @pytest.mark.skip("not implemented")
     def test_options_get(self):
@@ -26,9 +27,8 @@ class BrowserTest:
     def test_close(self):
         assert False
 
-    @pytest.mark.skip("not implemented")
-    def test_load(self):
-        assert False
+    async def test_load(self, client, google_url):
+        await client.browser.load(google_url)
 
     @pytest.mark.skip("not implemented")
     def test_current_url(self):
