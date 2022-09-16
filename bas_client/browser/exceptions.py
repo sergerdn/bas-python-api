@@ -4,3 +4,7 @@ class BrowserTimeout(Exception):
 
 class BrowserProcessNotFound(Exception):
     pass
+
+
+class BrowserProcessIsZero(Exception):
+    pass
