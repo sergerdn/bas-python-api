@@ -92,9 +92,9 @@ websockets = "^10.3"
 
 [package.source]
 type = "git"
-url = "https://github.com/sergerdn/bas-remote-python-v2"
+url = "https://github.com/sergerdn/bas-remote-python-v2#develop"
 reference = "HEAD"
-resolved_reference = "6b0210f45d5b3757f42020b67c82f643d75c2c4a"
+resolved_reference = "61d9e7c363ba60fdf1a5410ab4dca9a66679c2f1"
 
 [[package]]
 name = "black"
@@ -1114,7 +1114,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "ce54ed5ebd744df6aa7c3bc995cb9f1b20ae4aac289df4387b0d5ae2ec954a40"
+content-hash = "209e3560c138592a532d94b4fb160e47df81edf7cb22b81a42336bd8a94580b8"
 
 [metadata.files]
 aiofiles = [

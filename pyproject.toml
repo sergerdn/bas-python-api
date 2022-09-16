@@ -10,7 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-bas-remote-python-v2 = { git = "https://github.com/sergerdn/bas-remote-python-v2" }
+bas-remote-python-v2 = { git = "https://github.com/sergerdn/bas-remote-python-v2#develop" }
 psutil = "^5.9.2"
 pywin32 = "^304"
 pydantic = "^1.10.2"
