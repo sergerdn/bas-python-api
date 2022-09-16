@@ -29,10 +29,13 @@ class TestBrowser:
 
     async def test_load(self, client, google_url):
         await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
 
     @pytest.mark.skip("not implemented")
-    def test_current_url(self):
-        assert False
+    async def test_current_url(self, client, google_url):
+        await client.browser.load(google_url)
+        current_url = await client.waiters.wait_full_page_load()
+        assert current_url == google_url
 
     @pytest.mark.skip("not implemented")
     def test_previous_page(self):
