@@ -22,10 +22,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -349,7 +349,7 @@ class Browser(AbstractBrowser, ABC):
     async def open(self) -> BasFunction:
         return await self._tr.run_function_thread("_basOpenBrowser")
 
-    async def close(self, force=False) -> BasFunction:
+    async def close(self, force: bool = False) -> BasFunction:
         if self._options.worker_pid == 0:
             raise BrowserProcessIsZero("worker pid is 0")
 
@@ -367,7 +367,7 @@ class Browser(AbstractBrowser, ABC):
             except psutil.NoSuchProcess:
                 return
 
-        if force > 0:
+        if force:
             _kill_proc(self._options.worker_pid)
 
         """wait for browser closed"""
