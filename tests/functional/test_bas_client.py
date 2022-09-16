@@ -4,7 +4,7 @@ import random
 
 import pytest
 
-from bas_client import BasClientSettings, BasClient, BrowserOptions
+from bas_client import BasClient, BasClientSettings, BrowserOptions
 from tests.functional import test_bas_client_env_set
 from tests.functional.tools import clean_dir
 
@@ -44,8 +44,9 @@ class TestApi:
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 
         client = BasClient(
-            transport_options=transport_options, bas_client_settings=bas_client_settings,
-            browser_options=browser_options
+            transport_options=transport_options,
+            bas_client_settings=bas_client_settings,
+            browser_options=browser_options,
         )
         await client.set_up()
 
