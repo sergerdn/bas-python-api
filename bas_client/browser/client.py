@@ -7,7 +7,7 @@ import bas_remote
 import psutil
 import yaml
 
-from bas_client.browser.exceptions import BrowserProcessNotFound, BrowserTimeout
+from bas_client.browser.exceptions import BrowserProcessIsZero, BrowserProcessNotFound, BrowserTimeout
 from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
@@ -22,10 +22,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-            self,
-            profile_folder_path: str,
-            load_fingerprint_from_profile_folder: bool = True,
-            load_proxy_from_profile_folder: bool = True,
+        self,
+        profile_folder_path: str,
+        load_fingerprint_from_profile_folder: bool = True,
+        load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -351,7 +351,7 @@ class Browser(AbstractBrowser, ABC):
 
     async def close(self, force=False) -> BasFunction:
         if self._options.worker_pid == 0:
-            raise Exception("worker pid is 0")
+            raise BrowserProcessIsZero("worker pid is 0")
 
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)
@@ -361,10 +361,11 @@ class Browser(AbstractBrowser, ABC):
                 p = psutil.Process(worker_pid)
             except psutil.NoSuchProcess:
                 return
+
             try:
                 p.terminate()
             except psutil.NoSuchProcess:
-                pass
+                return
 
         if force > 0:
             _kill_proc(self._options.worker_pid)
