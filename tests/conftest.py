@@ -1,10 +1,11 @@
 import asyncio
+import logging
 import os
 
 import pytest
 from dotenv import load_dotenv
 
-from bas_client import RemoteTransportOptions
+from bas_client import BasClient, RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
@@ -12,12 +13,29 @@ if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path=dotenv_path)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def event_loop():
     """Create an instance of the default event loop for each test case."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
+
+
+@pytest.fixture(scope="class")
+def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
+    api = BasClient(transport_options=transport_options, loop=event_loop)
+
+    def fin():
+        async def afin():
+            logging.debug("teardown api....")
+            await api.clean_up()
+
+        event_loop.run_until_complete(afin())
+
+    request.addfinalizer(fin)
+    event_loop.run_until_complete(api.set_up())
+
+    return api
 
 
 def working_dir():

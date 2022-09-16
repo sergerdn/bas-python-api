@@ -1,6 +1,3 @@
-import asyncio
-import logging
-import os
 from io import StringIO
 
 import pytest
@@ -8,35 +5,10 @@ import yaml
 from lxml import etree
 
 from bas_client import BasClient
+from tests.functional.tests_dependency import test_bas_client_env_set
 
 
-@pytest.mark.dependency()
-def test_api_basic_env_set(transport_options):
-    assert transport_options.remote_script_name is not None
-    assert transport_options.remote_script_user is not None
-    assert transport_options.remote_script_password is not None
-    assert transport_options.working_dir is not None
-    assert os.path.exists(transport_options.working_dir) is True
-
-
-@pytest.fixture(scope="class", autouse=True)
-def api_bas(request, transport_options, event_loop: asyncio.AbstractEventLoop):
-    api = BasClient(transport_options=transport_options, loop=event_loop)
-
-    def fin():
-        async def afin():
-            logging.debug("teardown api....")
-            await api.clean_up()
-
-        event_loop.run_until_complete(afin())
-
-    request.addfinalizer(fin)
-    event_loop.run_until_complete(api.set_up())
-
-    return api
-
-
-# @pytest.mark.dependency(depends=["test_api_basic_env_set"])
+# @pytest.mark.dependency(depends=[test_bas_client_env_set])
 @pytest.mark.asyncio
 class TestApiNetwork:
     @pytest.mark.skip("not implemented")
@@ -103,12 +75,12 @@ class TestApiNetwork:
     def test_allow_downloads(self):
         assert False
 
-    async def test_set_header(self, api_bas: BasClient):
-        await api_bas.network.set_header(name="Accept-Custom-Header-Name", value="AcceptCustomHeaderValue")
+    async def test_set_header(self, client: BasClient):
+        await client.network.set_header(name="Accept-Custom-Header-Name", value="AcceptCustomHeaderValue")
 
-        await api_bas.browser.load("https://httpbin.org/anything")
-        await api_bas.waiters.wait_full_page_load()
-        page_html = await api_bas.browser.page_html()
+        await client.browser.load("https://httpbin.org/anything")
+        await client.waiters.wait_full_page_load()
+        page_html = await client.browser.page_html()
 
         parser = etree.HTMLParser()
         tree = etree.parse(StringIO(str(page_html)), parser)
