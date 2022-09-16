@@ -70,9 +70,11 @@ class TestBrowser:
     def test_resize(self):
         assert False
 
-    @pytest.mark.skip("not implemented")
-    def test_get_resolution_and_cursor_position(self):
-        assert False
+    async def test_get_resolution_and_cursor_position(self, client):
+        await client.browser.load("about:blank")
+        obj_model = await client.browser.get_resolution_and_cursor_position()
+        assert obj_model.browser_height >= 600
+        assert obj_model.browser_width >= 1024
 
     @pytest.mark.skip("not implemented")
     def test_proxy(self):

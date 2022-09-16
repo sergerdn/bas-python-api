@@ -5,6 +5,43 @@
 
    section_end()!
 
+   section_start("\u007b\u0022n\u0022:\u0022_basGetResolutionAndCursorPosition\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:true,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[]\u007d\u0022\u007d", 47235394)!
+   function _basGetResolutionAndCursorPosition()
+   {
+   section_insert()
+      section_start("", 780367228)!
+      /*Dat:eyJzIjoic2NyZWVuIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkN1cnNvclgiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IkNVUlNPUl9YIn0seyJpZCI6IkN1cnNvclkiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IkNVUlNPUl9ZIn0seyJpZCI6IlNjcm9sbFgiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IlNDUk9MTF9YIn0seyJpZCI6IlNjcm9sbFkiLCJ0eXBlIjoidmFyIiwiZGF0YSI6IlNDUk9MTF9ZIn0seyJpZCI6IldpZHRoIiwidHlwZSI6InZhciIsImRhdGEiOiJCUk9XU0VSX1dJRFRIIn0seyJpZCI6IkhlaWdodCIsInR5cGUiOiJ2YXIiLCJkYXRhIjoiQlJPV1NFUl9IRUlHSFQifV19*/
+      _get_browser_screen_settings()!
+      ;(function(){
+      var result = JSON.parse(_result())
+      VAR_SCROLL_X = result["ScrollX"]
+      VAR_SCROLL_Y = result["ScrollY"]
+      VAR_CURSOR_X = result["CursorX"]
+      VAR_CURSOR_Y = result["CursorY"]
+      VAR_BROWSER_WIDTH = result["Width"]
+      VAR_BROWSER_HEIGHT = result["Height"]
+      })();
+      section_end()!
+
+      section_start("", 687983558)!
+      /*Dat:eyJzIjoiY3VzdG9tIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkNvZGUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6InZhciBvYmogPSB7XCJjdXJzb3JfeFwiOiBbW0NVUlNPUl9YXV0sIFwiY3Vyc29yX3lcIjogW1tDVVJTT1JfWV1dLCBcInNjcm9sbF94XCI6IFtbU0NST0xMX1hdXSwgXCJzY3JvbGxfeVwiOiAgW1tTQ1JPTExfWV1dLCBcImJyb3dzZXJfd2lkdGhcIjogIFtbQlJPV1NFUl9XSURUSF1dLCBcImJyb3dzZXJfaGVpZ2h0XCI6ICBbW0JST1dTRVJfSEVJR0hUXV19O1xyXG52YXIgW1tSRVNVTFRdXSA9IEpTT04uc3RyaW5naWZ5KG9iaik7IiwiY2xhc3MiOiJleHByZXNzaW9uIn1dfQ==*/
+      var obj = {"cursor_x": VAR_CURSOR_X, "cursor_y": VAR_CURSOR_Y, "scroll_x": VAR_SCROLL_X, "scroll_y":  VAR_SCROLL_Y, "browser_width":  VAR_BROWSER_WIDTH, "browser_height":  VAR_BROWSER_HEIGHT};
+      var VAR_RESULT = JSON.stringify(obj);
+      section_end()!
+
+      section_start("", 111669215)!
+      /*Dat:eyJzIjoibG9nIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkxvZ1RleHQiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IltbUkVTVUxUXV0iLCJjbGFzcyI6InN0cmluZyJ9XX0=*/
+      log(VAR_RESULT)
+      section_end()!
+
+      section_start("\u007b\u0022n\u0022:\u0022Finish function and set result\u0022,\u0022c\u0022:\u00221\u0022\u007d", 906385966)!
+      /*Dat:eyJzIjoicmV0dXJuIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IlJldHVyblZhbHVlIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJbW1JFU1VMVF1dIiwiY2xhc3MiOiJzdHJpbmcifV19*/
+      _function_return(VAR_RESULT)
+      section_end()!
+
+   }
+   section_end()!
+
    section_start("\u007b\u0022n\u0022:\u0022_basNetworkSetHeader\u0022,\u0022fd\u0022:\u0022\u007b\u005c\u0022fd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022hr\u005c\u0022:false,\u005c\u0022rd\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022rv\u005c\u0022:\u005c\u0022FUNCTION_RESULT\u005c\u0022,\u005c\u0022p\u005c\u0022:[\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022name\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d,\u007b\u005c\u0022name\u005c\u0022:\u005c\u0022value\u005c\u0022,\u005c\u0022type\u005c\u0022:\u005c\u0022String\u005c\u0022,\u005c\u0022description\u005c\u0022:\u005c\u0022\u005c\u0022,\u005c\u0022defaults\u005c\u0022:\u005c\u0022\u005c\u0022\u007d]\u007d\u0022\u007d", 866323734)!
    function _basNetworkSetHeader()
    {
@@ -246,22 +283,15 @@
 
    _call(_on_start, null)!
 
-   section_start("", 611971759)!
-   /*Dat:eyJzIjoib3BlbmJyb3dzZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOltdfQ==*/
-   /*Browser*/
-   /*ManualBrowser*/
-   open_browser()!
+   section_start("", 934154586)!
+   /*Dat:eyJzIjoibG9hZCIsInYiOjEsImYiOltdLCJ1dyI6IjEiLCJ1dCI6IjAiLCJ1dG8iOiIwIiwidW0iOiIwIiwiZCI6W3siaWQiOiJMb2FkVXJsIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJodHRwczovL3d3dy5nb29nbGUuY29tLyIsImNsYXNzIjoic3RyaW5nIn0seyJpZCI6IlJlZmVycmVyIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiIiLCJjbGFzcyI6InN0cmluZyJ9XX0=*/
+   _load("https://www.google.com/", "", false)!
    section_end()!
 
-   section_start("", 960567665)!
-   /*Dat:eyJzIjoiZXhlY3V0ZWZ1bmN0aW9uIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkZ1bmN0aW9uTmFtZSIsInR5cGUiOiJ0ZXh0IiwiZGF0YSI6Il9iYXNOZXR3b3JrU2V0SGVhZGVyIn0seyJpZCI6IlBhcmFtSWRfNmU2MTZkNjUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IkFjY2VwdEN1c3RvbUhlYWRlck5hbWUiLCJjbGFzcyI6InN0cmluZyJ9LHsiaWQiOiJQYXJhbUlkXzc2NjE2Yzc1NjUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IkFjY2VwdEN1c3RvbUhlYWRlclZhbHVlIiwiY2xhc3MiOiJzdHJpbmcifV19*/
-   _call_function(_basNetworkSetHeader,{ "name" : ("AcceptCustomHeaderName") ,  "value" : ("AcceptCustomHeaderValue")  })!
-   _result_function()
-   section_end()!
-
-   section_start("", 979717700)!
-   /*Dat:eyJzIjoibG9hZCIsInYiOjEsImYiOltdLCJ1dyI6IjEiLCJ1dCI6IjAiLCJ1dG8iOiIwIiwidW0iOiIwIiwiZCI6W3siaWQiOiJMb2FkVXJsIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJodHRwczovL2h0dHBiaW4ub3JnL2FueXRoaW5nIiwiY2xhc3MiOiJzdHJpbmcifSx7ImlkIjoiUmVmZXJyZXIiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IiIsImNsYXNzIjoic3RyaW5nIn1dfQ==*/
-   _load("https://httpbin.org/anything", "", false)!
+   section_start("", 822707353)!
+   /*Dat:eyJzIjoiZXhlY3V0ZWZ1bmN0aW9uIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkZ1bmN0aW9uTmFtZSIsInR5cGUiOiJ0ZXh0IiwiZGF0YSI6Il9iYXNHZXRSZXNvbHV0aW9uQW5kQ3Vyc29yUG9zaXRpb24ifSx7ImlkIjoiU2F2ZSIsInR5cGUiOiJ2YXIiLCJkYXRhIjoiRlVOQ1RJT05fUkVTVUxUIn1dfQ==*/
+   _call_function(_basGetResolutionAndCursorPosition,{})!
+   VAR_FUNCTION_RESULT = _result_function()
    section_end()!
 
 })!]]></Script>
@@ -296,7 +326,7 @@ EnableWidevine=false
 AutostartDebug=false
 SaveBrowserLog=false
 ProfilesCaching=true
-ToolboxHeight=359
+ToolboxHeight=507
 MaxBrowserStartSimultaneously=3
 MinFreeMemoryToStartBrowser=1500
 MinUnusedCpu=35
@@ -345,7 +375,7 @@ Detector=true
     &quot;MailDeprecated&quot;: false
 }
 </ModulesMetaJson>
-     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;NAME&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_COOKIES&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;VALUE&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
+     <InterfaceState>{&quot;variables&quot;:{&quot;sortings&quot;:[{&quot;name&quot;:&quot;frequency&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateModified&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;dateCreated&quot;,&quot;active&quot;:false},{&quot;name&quot;:&quot;alphabetically&quot;,&quot;active&quot;:true}],&quot;filters&quot;:[{&quot;name&quot;:&quot;undefined&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;boolean&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;object&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;string&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;number&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;array&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;date&quot;,&quot;active&quot;:true},{&quot;name&quot;:&quot;null&quot;,&quot;active&quot;:true}],&quot;options&quot;:[{&quot;name&quot;:&quot;groups&quot;,&quot;active&quot;:false}],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[{&quot;key&quot;:&quot;BROWSER_HEIGHT&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;BROWSER_WIDTH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;CURRENT_URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;CURSOR_X&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;CURSOR_Y&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;FUNCTION_RESULT&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_FINGERPRINT_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;LOAD_PROXY_FROM_PROFILE_FOLDER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;NAME&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;PROFILE_FOLDER_PATH&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;REFERER&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;RESULT&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_COOKIES&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SAVED_PAGE_HTML&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SCROLL_X&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;SCROLL_Y&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;URL&quot;,&quot;fixed&quot;:false},{&quot;key&quot;:&quot;VALUE&quot;,&quot;fixed&quot;:false}]}],&quot;nodes&quot;:{&quot;[\&quot;RESULT\&quot;]&quot;:true}},&quot;resources&quot;:{&quot;sortings&quot;:[],&quot;filters&quot;:[],&quot;options&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:0,&quot;name&quot;:&quot;Main&quot;,&quot;color&quot;:&quot;brown&quot;,&quot;expanded&quot;:true,&quot;items&quot;:[]}],&quot;nodes&quot;:{}},&quot;callstack&quot;:{&quot;filters&quot;:[]}}</InterfaceState>
      <OutputTitle1 ru="First Results" en="First Results"/>
      <OutputTitle2 ru="Second Results" en="Second Results"/>
      <OutputTitle3 ru="Third Results" en="Third Results"/>
