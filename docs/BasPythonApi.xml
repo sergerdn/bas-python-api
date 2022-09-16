@@ -246,6 +246,24 @@
 
    _call(_on_start, null)!
 
+   section_start("", 611971759)!
+   /*Dat:eyJzIjoib3BlbmJyb3dzZXIiLCJ2IjoxLCJmIjpbXSwidXciOiIwIiwidXQiOiIwIiwidXRvIjoiMCIsInVtIjoiMCIsImQiOltdfQ==*/
+   /*Browser*/
+   /*ManualBrowser*/
+   open_browser()!
+   section_end()!
+
+   section_start("", 960567665)!
+   /*Dat:eyJzIjoiZXhlY3V0ZWZ1bmN0aW9uIiwidiI6MSwiZiI6W10sInV3IjoiMCIsInV0IjoiMCIsInV0byI6IjAiLCJ1bSI6IjAiLCJkIjpbeyJpZCI6IkZ1bmN0aW9uTmFtZSIsInR5cGUiOiJ0ZXh0IiwiZGF0YSI6Il9iYXNOZXR3b3JrU2V0SGVhZGVyIn0seyJpZCI6IlBhcmFtSWRfNmU2MTZkNjUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IkFjY2VwdEN1c3RvbUhlYWRlck5hbWUiLCJjbGFzcyI6InN0cmluZyJ9LHsiaWQiOiJQYXJhbUlkXzc2NjE2Yzc1NjUiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IkFjY2VwdEN1c3RvbUhlYWRlclZhbHVlIiwiY2xhc3MiOiJzdHJpbmcifV19*/
+   _call_function(_basNetworkSetHeader,{ "name" : ("AcceptCustomHeaderName") ,  "value" : ("AcceptCustomHeaderValue")  })!
+   _result_function()
+   section_end()!
+
+   section_start("", 979717700)!
+   /*Dat:eyJzIjoibG9hZCIsInYiOjEsImYiOltdLCJ1dyI6IjEiLCJ1dCI6IjAiLCJ1dG8iOiIwIiwidW0iOiIwIiwiZCI6W3siaWQiOiJMb2FkVXJsIiwidHlwZSI6ImNvbnN0ciIsImRhdGEiOiJodHRwczovL2h0dHBiaW4ub3JnL2FueXRoaW5nIiwiY2xhc3MiOiJzdHJpbmcifSx7ImlkIjoiUmVmZXJyZXIiLCJ0eXBlIjoiY29uc3RyIiwiZGF0YSI6IiIsImNsYXNzIjoic3RyaW5nIn1dfQ==*/
+   _load("https://httpbin.org/anything", "", false)!
+   section_end()!
+
 })!]]></Script>
      <ModuleInfo><![CDATA[{
 }
@@ -278,7 +296,7 @@ EnableWidevine=false
 AutostartDebug=false
 SaveBrowserLog=false
 ProfilesCaching=true
-ToolboxHeight=514
+ToolboxHeight=359
 MaxBrowserStartSimultaneously=3
 MinFreeMemoryToStartBrowser=1500
 MinUnusedCpu=35
