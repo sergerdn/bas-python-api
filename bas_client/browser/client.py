@@ -377,10 +377,16 @@ class Browser(AbstractBrowser, ABC):
             except psutil.NoSuchProcess:
                 break
 
-            if not psutil.pid_exists(self._options.worker_pid):
+            try:
+                if not psutil.pid_exists(self._options.worker_pid):
+                    break
+            except psutil.NoSuchProcess:
                 break
 
-            if p.status() != psutil.STATUS_RUNNING:
+            try:
+                if p.status() != psutil.STATUS_RUNNING:
+                    break
+            except psutil.NoSuchProcess:
                 break
 
             await asyncio.sleep(1)
