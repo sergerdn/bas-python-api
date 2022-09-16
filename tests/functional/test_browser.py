@@ -1,5 +1,7 @@
 import pytest
 
+from bas_client.browser.exceptions import BrowserTimeout
+
 
 @pytest.mark.asyncio
 class TestBrowser:
@@ -37,11 +39,23 @@ class TestBrowser:
         current_url = await client.browser.current_url()
         assert current_url == google_url
 
-    @pytest.mark.skip("not implemented")
-    def test_previous_page(self):
-        assert False
+    async def test_previous_page(self, client, google_url):
+        await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
+        current_url = await client.browser.current_url()
+        assert current_url == google_url
 
-    @pytest.mark.skip("not implemented")
+        await client.browser.load("https://en.wikipedia.org/wiki/Main_Page")
+        await client.waiters.wait_full_page_load()
+        try:
+            await client.browser.previous_page()
+        except BrowserTimeout as exc:
+            # FIXME: this is a bug
+            pass
+
+        current_url = await client.browser.current_url()
+        assert current_url == google_url
+
     async def test_page_html(self, client, google_url):
         await client.browser.load(google_url)
         page_html = await client.browser.page_html()
