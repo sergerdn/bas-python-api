@@ -5,7 +5,7 @@ import random
 import pytest
 
 from bas_client import BasClient, BasClientSettings, BrowserOptions
-from tests.functional.tools import clean_dir
+from tests.functional.tools import clean_dir_async
 
 
 @pytest.mark.asyncio
@@ -27,7 +27,7 @@ class TestBasClient:
         await client.clean_up()
 
         browser_options = client.browser.options_get()
-        await clean_dir(browser_options.profile_folder_path)
+        await clean_dir_async(browser_options.profile_folder_path)
         assert os.path.exists(browser_options.profile_folder_path) is False
 
     async def test_client_browser_profile_dir_new(self, transport_options, google_url):
@@ -56,7 +56,7 @@ class TestBasClient:
         await client.clean_up()
 
         browser_options = client.browser.options_get()
-        await clean_dir(browser_options.profile_folder_path)
+        await clean_dir_async(browser_options.profile_folder_path)
         assert os.path.exists(browser_options.profile_folder_path) is False
 
     async def test_client_browser_profile_dir_old(self, transport_options, google_url):
@@ -106,7 +106,7 @@ class TestBasClient:
         while os.path.exists(os.path.join(profile_folder_path, "lockfile")):
             await asyncio.sleep(0.5)
 
-        await clean_dir(profile_folder_path)
+        await clean_dir_async(profile_folder_path)
         assert os.path.exists(profile_folder_path) is False
 
         # old cookies exists
