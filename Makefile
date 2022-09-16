@@ -5,7 +5,7 @@ tests_tox:
 	poetry run tox
 
 tests:
-	time poetry run pytest -n 10 tests/
+	time poetry run pytest tests/
 
 tests_coverage:
 	time poetry run pytest -n 10 --cov-report html --cov=bas_client tests/ &&	start "./htmlcov/index.html"
