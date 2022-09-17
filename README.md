@@ -17,8 +17,8 @@
 
 - `Create new user` and `Give script to user`: https://bablosoft.com/bas/users
 - Install BAS software
-- Open project in BAS, located in `./docs/BasPythonApi.xml`
-- Compile it and upload project to the BAS server:
+- Open project in BAS, located in `docs/BasPythonApi.xml`
+- Compile it and upload your project to the BAS server:
 
 ![](./docs/img/compile_1.jpg)
 ![](./docs/img/compile_2.jpg)
