@@ -3,8 +3,7 @@ import codecs
 import os.path
 
 from bas_client import BasClient
-from tools import ABS_PATH
-from tools import get_tr_options
+from tools import ABS_PATH, get_tr_options
 
 
 async def main():
