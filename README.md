@@ -13,11 +13,15 @@
     - check **Allow remote function execution.**
     - check **Allow remote function execution.**:
 
-![](docs/img/create_custom_project.jpg)
+![](./docs/img/create_custom_project_admin_panel.jpg)
 
+- `Create new user` and `Give script to user`: https://bablosoft.com/bas/users
 - Install BAS software
 - Open project in BAS, located in `./docs/BasPythonApi.xml`
--
+- Compile it:
+
+![](./docs/compile_1.jpg)
+
 
 Links that could help you:
 
