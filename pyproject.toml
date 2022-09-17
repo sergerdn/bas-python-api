@@ -1,12 +1,16 @@
 [tool.poetry]
 name = "bas-python-api"
-version = "0.1.0"
+version = "0.1.2"
 description = "Python library, which allows you to automate Google Chrome browser via BAS software."
 authors = ["Sergerdn <example@example.com>"]
 readme = "README.md"
 packages = [
     { include = "bas_client" }
 ]
+
+[tool.poetry_bumpversion.file."bas_client/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
 
 [tool.poetry.dependencies]
 python = "^3.7"
