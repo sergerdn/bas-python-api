@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Union
 
-import pydantic
 import yaml
 
 from bas_client.function import BasFunction
@@ -240,7 +239,7 @@ class Network(AbstractNetwork, ABC):
     async def get_all_items_from_cache(self, mask: str) -> NetworkCache:
         data = await self._tr.run_function_thread("_basNetworkGetAllItemsFromCache", {"mask": mask})
         data_obj = yaml.load(data, Loader=yaml.UnsafeLoader)
-        obj_model = pydantic.parse_obj_as(NetworkCache, data_obj)
+        obj_model = NetworkCache(items=data_obj)
         return obj_model
 
     async def restrict_popups(self) -> BasFunction:
