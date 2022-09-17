@@ -11,7 +11,7 @@
 - Create new script: https://bablosoft.com/bas/scripts:
     - provide some cool new name of script
     - check **Allow remote function execution.**
-    - check **Allow remote function execution.**:
+    - check **Is private.**:
 
 ![](./docs/img/create_custom_project_admin_panel.jpg)
 
