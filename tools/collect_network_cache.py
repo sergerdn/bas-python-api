@@ -3,8 +3,7 @@ import codecs
 import os.path
 
 from bas_client import BasClient
-from tools import ABS_PATH
-from tools import get_tr_options
+from tools import ABS_PATH, get_tr_options
 
 
 async def main():
@@ -18,7 +17,8 @@ async def main():
     urls = [
         "https://www.google.com/?hl=en" "https://en.wikipedia.org/wiki/Main_Page",
         "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
-        "https://www.bing.com/", "https://yandex.com/"
+        "https://www.bing.com/",
+        "https://yandex.com/",
     ]
     for url in urls:
         await client.browser.load(url)
