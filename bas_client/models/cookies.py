@@ -1,7 +1,3 @@
-"""
-JSON to Pydantic Converter: https://jsontopydantic.com/
-"""
-
 from typing import List, Optional
 
 from pydantic import BaseModel

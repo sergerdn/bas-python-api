@@ -90,3 +90,8 @@ def fixtures_dir():
 @pytest.fixture(scope="module")
 def google_url():
     return "https://www.google.com/?gl=us&hl=en"
+
+
+@pytest.fixture(scope="module")
+def wikipedia_url():
+    return "https://en.wikipedia.org/wiki/Main_Page"

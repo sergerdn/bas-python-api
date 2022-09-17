@@ -1,4 +1,5 @@
 import pytest
+from pydantic import HttpUrl
 
 from bas_client import BasClient
 from tests.functional.tools import json_from_httpbin
@@ -34,9 +35,19 @@ class TestApiNetwork:
     def test_request_mask_deny(self):
         assert False
 
-    @pytest.mark.skip("not implemented")
-    def test_clear_cached_data(self):
-        assert False
+    @pytest.mark.timeout(60)
+    async def test_clear_cached_data(self, client: BasClient, google_url: HttpUrl, wikipedia_url: HttpUrl):
+        await client.network.cache_mask_allow(mask="*")
+        await client.browser.load(google_url)
+        await client.waiters.wait_full_page_load()
+
+        data = await client.network.get_all_items_from_cache(mask="*")
+
+        assert len(data) > 1
+
+        await client.network.clear_cached_data()
+        data = await client.network.get_all_items_from_cache(mask="*")
+        assert len(data) == 0
 
     @pytest.mark.skip("not implemented")
     def test_clear_cache_masks(self):
