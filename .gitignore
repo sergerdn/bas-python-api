@@ -133,3 +133,4 @@ dmypy.json
 /tests/.tests_data/
 /tools/.tools_data/
 
+/one_example.py

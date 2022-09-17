@@ -19,7 +19,7 @@ lint:
 	mypy bas_client/
 
 lint_fix:
-	isort bas_client/ tests/
+	isort bas_client/ tests/ tools/
 	poetry run black .
 
 clean:
