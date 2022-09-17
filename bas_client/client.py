@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import os.path
 import random
 from typing import Dict, Optional, Union
@@ -11,6 +12,7 @@ from bas_client.browser.exceptions import BrowserProcessIsZero
 from bas_client.network import Network
 from bas_client.settings import BasClientSettings
 from bas_client.transport import RemoteTransport, RemoteTransportOptions
+from bas_client.typing import LoggerLike
 from bas_client.waiters import Waiters
 
 
@@ -23,6 +25,7 @@ class BasClient:
     browser_options: BrowserOptions
     waiters = Waiters
     network = Network
+    logger: LoggerLike
 
     def __init__(
         self,
@@ -32,6 +35,8 @@ class BasClient:
         loop: Optional[asyncio.AbstractEventLoop] = None,
     ):
         self._transport_options = transport_options
+
+        self.logger = logging.getLogger("[bas-client]")
 
         if bas_client_settings is not None:
             self._settings = bas_client_settings

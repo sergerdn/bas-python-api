@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import os
 from abc import ABC, abstractmethod
 from typing import Dict, Optional, Union
@@ -7,12 +8,15 @@ from bas_remote import BasRemoteClient, Options
 from bas_remote.runners import BasThread
 
 from bas_client.function import BasFunction
+from bas_client.typing import LoggerLike
 
 
 class AbstractTransport(ABC):
+    logger: LoggerLike
+
     @abstractmethod
-    def __init__(self):
-        pass
+    def __init__(self, *args, **kwargs):
+        self.logger = logging.getLogger("[bas-client:transport]")
 
     @abstractmethod
     async def connect(self):
@@ -60,6 +64,7 @@ class RemoteTransport(AbstractTransport):
     _thread: BasThread
 
     def __init__(self, options: RemoteTransportOptions, loop: Optional[asyncio.AbstractEventLoop] = None):
+
         self._client = BasRemoteClient(
             options=Options(
                 script_name=options.remote_script_name,
@@ -73,6 +78,9 @@ class RemoteTransport(AbstractTransport):
     async def connect(self):
         await self._client.start()
         self._thread = self._client.create_thread()
+        _thread1 = self._client.create_thread()
+        _thread2 = self._client.create_thread()
+        pass
 
     async def close(self):
         await self._thread.stop()

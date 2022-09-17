@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 from bas_client import BasClient, RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR, STORAGE_DIR
-from tests.functional.tools import clean_dir, clean_dir_async
+from tests.functional.utils import clean_dir, clean_dir_async
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
 if os.path.exists(dotenv_path):

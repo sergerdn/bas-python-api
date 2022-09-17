@@ -1,16 +1,20 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import Union
 
 from bas_client.function import BasFunction
 from bas_client.transport import AbstractTransport
+from bas_client.typing import LoggerLike
 
 
 class AbstractWaiters(ABC):
     _tr: Union[AbstractTransport]
+    logger: LoggerLike
 
     @abstractmethod
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
+        self.logger = logging.getLogger("[bas-client:waiters]")
 
     @abstractmethod
     async def wait_full_page_load(self) -> BasFunction:
@@ -68,12 +72,9 @@ class AbstractWaiters(ABC):
         """
 
 
-class Waiters(AbstractWaiters, ABC):
-    _tr: Union[AbstractTransport]
-
+class Waiters(AbstractWaiters):
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
-        self._tr = tr
-        super().__init__(tr=self._tr, *args, **kwargs)
+        super().__init__(tr=tr, *args, **kwargs)
 
     async def wait_full_page_load(self) -> BasFunction:
         return await self._tr.run_function_thread("_basWaitersWaitFullPageLoad")

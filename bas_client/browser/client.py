@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+import logging
 from abc import ABC, abstractmethod
 from typing import Optional, Union
 
@@ -12,6 +13,7 @@ from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
 from bas_client.transport import AbstractTransport
+from bas_client.typing import LoggerLike
 
 
 class BrowserOptions:
@@ -40,10 +42,11 @@ class AbstractBrowser(ABC):
     """
 
     _tr: Union[AbstractTransport]
-    _options: BrowserOptions
+    logger: LoggerLike
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
+        self.logger = logging.getLogger("[bas-client:browser]")
 
     @abstractmethod
     async def open(self):
@@ -288,16 +291,13 @@ class AbstractBrowser(ABC):
         """
 
 
-class Browser(AbstractBrowser, ABC):
+class Browser(AbstractBrowser):
     __doc__ = inspect.getdoc(AbstractBrowser)
-
-    _tr: Union[AbstractTransport]
     _options: BrowserOptions
 
     def __init__(self, tr: Union[AbstractTransport], options: BrowserOptions, *args, **kwargs):
-        self._tr = tr
+        super().__init__(tr=tr, *args, **kwargs)
         self._options = options
-        super().__init__(tr=self._tr, *args, **kwargs)
 
     def options_get(self):
         return self._options

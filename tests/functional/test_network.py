@@ -2,7 +2,7 @@ import pytest
 from pydantic import HttpUrl
 
 from bas_client import BasClient
-from tests.functional.tools import json_from_httpbin
+from tests.functional.utils import json_from_httpbin
 
 
 @pytest.mark.asyncio
