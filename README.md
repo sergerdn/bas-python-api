@@ -20,14 +20,8 @@
 - Open project in BAS, located in `./docs/BasPythonApi.xml`
 - Compile it:
 
-![](./docs/compile_1.jpg)
+![](./docs/img/compile_1.jpg)
 
-
-Links that could help you:
-
--
-- https://wiki.bablosoft.com/doku.php?id=how_to_protect_your_script
-- Compile it and give it a name. Check this article more instruction for compilation.
 
 ## Example usage:
 
