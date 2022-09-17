@@ -2,6 +2,29 @@
 
 ## WARNING: this is proof of concept, work in progress
 
+## Prerequisites:
+
+- You need to be a premium user in order to create project with custom functions: https://bablosoft.com/shop/BASPremium
+
+## Prepare:
+
+- Create new script: https://bablosoft.com/bas/scripts:
+    - provide some cool new name of script
+    - check **Allow remote function execution.**
+    - check **Allow remote function execution.**:
+
+![](docs/img/create_custom_project.jpg)
+
+- Install BAS software
+- Open project in BAS, located in `./docs/BasPythonApi.xml`
+-
+
+Links that could help you:
+
+-
+- https://wiki.bablosoft.com/doku.php?id=how_to_protect_your_script
+- Compile it and give it a name. Check this article more instruction for compilation.
+
 ## Example usage:
 
 ```python
