@@ -6,7 +6,7 @@ import sys
 ABS_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))  # root project directory
 
 try:
-    from bas_api.version import __version__ as _v
+    from bas_api import __version__ as _v
 except ImportError:
     sys.path.insert(0, ABS_PATH)
 

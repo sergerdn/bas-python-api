@@ -37,6 +37,9 @@ build:
 	poetry build -f wheel -n
 	poetry build -f sdist -n
 
+bump_version:
+	poetry version patch
+
 upload_pypi:
 	$(clean)
 	$(build)
