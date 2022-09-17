@@ -56,5 +56,5 @@ if __name__ == "__main__":
 
 ## Prerequisites:
 
-- install development tools and deps,[BAS.md](./BAS.md)
-- install BAS,[CONTRIBUTING.md](./CONTRIBUTING.md)  
+- install development tools and deps: [CONTRIBUTING.md](./CONTRIBUTING.md)  
+- install BAS Software: [BAS.md](./BAS.md) 
