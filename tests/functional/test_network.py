@@ -40,12 +40,12 @@ class TestApiNetwork:
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
 
-        data = await client.network.get_all_items_from_cache(mask="*")
-        assert len(data.items) > 1
+        items = await client.network.get_all_items_from_cache(mask="*")
+        assert len(items) > 1
 
         await client.network.clear_cached_data()
-        data = await client.network.get_all_items_from_cache(mask="*")
-        assert len(data.items) == 0
+        items = await client.network.get_all_items_from_cache(mask="*")
+        assert len(items) == 0
 
     @pytest.mark.skip("not implemented")
     def test_clear_cache_masks(self):

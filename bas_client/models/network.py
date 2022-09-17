@@ -13,7 +13,3 @@ class NetworkCacheEntry(BaseModel):
     response_headers: List[List[str]]
     status: int
     url: str
-
-
-class NetworkCache(BaseModel):
-    __root__: List[NetworkCacheEntry]

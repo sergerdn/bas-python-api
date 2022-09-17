@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import List, Union
 
 import yaml
 
 from bas_client.function import BasFunction
 from bas_client.models import Cookies
-from bas_client.models.network import NetworkCache
+from bas_client.models.network import NetworkCacheEntry
 from bas_client.transport import AbstractTransport
 
 
@@ -128,7 +128,7 @@ class AbstractNetwork(ABC):
         """
 
     @abstractmethod
-    async def get_all_items_from_cache(self, mask: str) -> NetworkCache:
+    async def get_all_items_from_cache(self, mask: str) -> List[NetworkCacheEntry]:
         """
         Get all cache items for specified Url and save them to list. This action won't work by itself. In order to
         obtain cache items, you need to use "Cache Mask Allow" action first, it will specify pages, that will be
@@ -236,11 +236,16 @@ class Network(AbstractNetwork, ABC):
     async def get_last_item_from_cache(self) -> BasFunction:
         raise NotImplementedError("function not implemented")
 
-    async def get_all_items_from_cache(self, mask: str) -> NetworkCache:
+    async def get_all_items_from_cache(self, mask: str) -> List[NetworkCacheEntry]:
         data = await self._tr.run_function_thread("_basNetworkGetAllItemsFromCache", {"mask": mask})
         data_obj = yaml.load(data, Loader=yaml.UnsafeLoader)
-        obj_model = NetworkCache(items=data_obj)
-        return obj_model
+
+        obj_model_cache: List[NetworkCacheEntry] = []
+        for one in data_obj:
+            obj_model = NetworkCacheEntry(**one)
+            obj_model_cache.append(obj_model)
+
+        return obj_model_cache
 
     async def restrict_popups(self) -> BasFunction:
         raise NotImplementedError("function not implemented")

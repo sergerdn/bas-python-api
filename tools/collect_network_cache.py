@@ -8,11 +8,12 @@ from tools import get_tr_options
 
 
 async def main():
-    dest_filename = os.path.join(ABS_PATH, "tests", "fixtures", "cookies", "collected.json")
+    dest_filename = os.path.join(ABS_PATH, "tests", "fixtures", "network", "collected.json")
     tr_options = get_tr_options()
     client = BasClient(transport_options=tr_options)
 
     await client.set_up()
+    await client.network.cache_mask_allow(mask="*")
 
     urls = [
         "https://www.google.com/?hl=en" "https://en.wikipedia.org/wiki/Main_Page",
@@ -21,10 +22,10 @@ async def main():
     ]
     for url in urls:
         await client.browser.load(url)
-        await asyncio.sleep(5)
         await client.waiters.wait_full_page_load()
+        break
 
-    data = await client.run_function_thread("_basNetworkSaveCookies")
+    data = await client.run_function_thread("_basNetworkGetAllItemsFromCache", {"mask": "*"})
     await client.clean_up()
 
     with codecs.open(dest_filename, "w", "utf-8") as fp:
