@@ -1,4 +1,4 @@
-# Python library, which allows you to automate Google Chrome browser via BAS software.
+## Python library, which allows you to automate Google Chrome browser via BAS software.
 
 ## WARNING: this is proof of concept, work in progress
 
