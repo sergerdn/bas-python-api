@@ -23,7 +23,6 @@ async def main():
     for url in urls:
         await client.browser.load(url)
         await client.waiters.wait_full_page_load()
-        break
 
     data = await client.run_function_thread("_basNetworkGetAllItemsFromCache", {"mask": "*"})
     await client.clean_up()
