@@ -5,7 +5,7 @@ import random
 import pytest
 
 from bas_client import BasClient, BasClientSettings, BrowserOptions
-from tests.functional.tools import clean_dir_async
+from tests.functional.utils import clean_dir_async
 
 
 @pytest.mark.asyncio
