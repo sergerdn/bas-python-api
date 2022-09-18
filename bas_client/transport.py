@@ -64,7 +64,6 @@ class RemoteTransport(AbstractTransport):
     _thread: BasThread
 
     def __init__(self, options: RemoteTransportOptions, loop: Optional[asyncio.AbstractEventLoop] = None):
-
         self._client = BasRemoteClient(
             options=Options(
                 script_name=options.remote_script_name,
@@ -78,9 +77,6 @@ class RemoteTransport(AbstractTransport):
     async def connect(self):
         await self._client.start()
         self._thread = self._client.create_thread()
-        _thread1 = self._client.create_thread()
-        _thread2 = self._client.create_thread()
-        pass
 
     async def close(self):
         await self._thread.stop()

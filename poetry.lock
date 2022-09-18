@@ -94,7 +94,7 @@ websockets = "^10.3"
 type = "git"
 url = "https://github.com/sergerdn/bas-remote-python-v2#develop"
 reference = "HEAD"
-resolved_reference = "e3a0291652c44c68fd29871d37dfe18d60f2107f"
+resolved_reference = "89e074716abc56032ae99ca4b2098a6e1912d5f8"
 
 [[package]]
 name = "black"

@@ -2,10 +2,11 @@ import asyncio
 import logging
 import os.path
 import random
+from asyncio.exceptions import CancelledError as AsyncioCancelledError
 from typing import Dict, Optional, Union
 
 from bas_remote.runners import BasFunction
-from websockets.exceptions import ConnectionClosedError
+from websockets.exceptions import ConnectionClosedError as WebsocketsConnectionClosedError
 
 from bas_client.browser import Browser, BrowserOptions
 from bas_client.browser.exceptions import BrowserProcessIsZero
@@ -73,7 +74,7 @@ class BasClient:
         if force_close_browser:
             try:
                 await self._tr.close()
-            except ConnectionClosedError:
+            except (WebsocketsConnectionClosedError, AsyncioCancelledError):
                 pass
         else:
             await self._tr.close()
