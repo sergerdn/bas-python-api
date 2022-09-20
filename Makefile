@@ -16,7 +16,7 @@ tests_coverage_multi:
 lint:
 	poetry run black . --check
 	poetry run flake8
-	mypy bas_client/
+	mypy bas_client/ tests/
 
 lint_fix:
 	isort bas_client/ tests/ tools/

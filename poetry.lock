@@ -94,11 +94,11 @@ websockets = "^10.3"
 type = "git"
 url = "https://github.com/sergerdn/bas-remote-python-v2#develop"
 reference = "HEAD"
-resolved_reference = "3684d04557f10776f9d8c063e9c3eeb6cafbea7b"
+resolved_reference = "8ca0a715a53bc0f79f40e3a6c0a83b537f4e1cfd"
 
 [[package]]
 name = "black"
-version = "22.8.1.dev8+gd852af71"
+version = "22.8.1.dev9+g6ae8457a"
 description = "The uncompromising code formatter."
 category = "dev"
 optional = false
@@ -124,7 +124,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 type = "git"
 url = "https://github.com/psf/black"
 reference = "HEAD"
-resolved_reference = "d852af71672ce22646017e4ca7a8878ca7bdfe39"
+resolved_reference = "6ae8457a8628345c59fed22c58728ffa258a3e76"
 
 [[package]]
 name = "bleach"
@@ -400,7 +400,7 @@ trio = ["async_generator", "trio"]
 
 [[package]]
 name = "keyring"
-version = "23.9.1"
+version = "23.9.3"
 description = "Store and access your passwords safely."
 category = "dev"
 optional = false
@@ -1470,8 +1470,8 @@ jeepney = [
     {file = "jeepney-0.8.0.tar.gz", hash = "sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806"},
 ]
 keyring = [
-    {file = "keyring-23.9.1-py3-none-any.whl", hash = "sha256:3565b9e4ea004c96e158d2d332a49f466733d565bb24157a60fd2e49f41a0fd1"},
-    {file = "keyring-23.9.1.tar.gz", hash = "sha256:39e4f6572238d2615a82fcaa485e608b84b503cf080dc924c43bbbacb11c1c18"},
+    {file = "keyring-23.9.3-py3-none-any.whl", hash = "sha256:69732a15cb1433bdfbc3b980a8a36a04878a6cfd7cb99f497b573f31618001c0"},
+    {file = "keyring-23.9.3.tar.gz", hash = "sha256:69b01dd83c42f590250fe7a1f503fc229b14de83857314b1933a3ddbf595c4a5"},
 ]
 lxml = [
     {file = "lxml-4.9.1-cp27-cp27m-macosx_10_15_x86_64.whl", hash = "sha256:98cafc618614d72b02185ac583c6f7796202062c41d2eeecdf07820bad3295ed"},

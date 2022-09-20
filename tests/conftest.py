@@ -1,5 +1,4 @@
 import asyncio
-import logging
 import os
 import random
 import shutil
@@ -9,7 +8,7 @@ from dotenv import load_dotenv
 
 from bas_client import BasClient, RemoteTransportOptions
 from tests import ABS_PATH, DATA_DIR, STORAGE_DIR
-from tests.functional.tools import clean_dir, clean_dir_async
+from tests.functional.utils import clean_dir
 
 dotenv_path = os.path.join(ABS_PATH, ".env")
 if os.path.exists(dotenv_path):
@@ -28,22 +27,9 @@ def event_loop():
 def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     client_api = BasClient(transport_options=transport_options, loop=event_loop)
 
-    def fin():
-        async def afin():
-            logging.debug("teardown bas client....")
-            await client_api.clean_up(force_close_browser=True)
-
-            browser_options = client_api.browser.options_get()
-
-            logging.debug("teardown bas client: clean profile dir....")
-            await clean_dir_async(browser_options.profile_folder_path)
-
-        event_loop.run_until_complete(afin())
-
-    request.addfinalizer(fin)
     event_loop.run_until_complete(client_api.set_up())
 
-    return client_api
+    yield client_api
 
 
 def working_dir():
@@ -69,17 +55,18 @@ def transport_options(request):
     if os.path.exists(STORAGE_DIR):
         shutil.copytree(src=STORAGE_DIR, dst=dir_name, dirs_exist_ok=True)
 
-    def fin():
-        clean_dir(dir_name)
+    def fin(dir_name):
+        if os.path.exists(dir_name) and os.path.isdir(dir_name):
+            clean_dir(dir_name)
 
-    request.addfinalizer(fin)
-
-    return RemoteTransportOptions(
+    yield RemoteTransportOptions(
         remote_script_name=remote_script_name,
         remote_script_user=remote_script_user,
         remote_script_password=remote_script_password,
         working_dir=dir_name,
     )
+
+    fin(dir_name)
 
 
 @pytest.fixture(scope="module")

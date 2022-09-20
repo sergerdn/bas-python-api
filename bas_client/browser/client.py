@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+import logging
 from abc import ABC, abstractmethod
 from typing import Optional, Union
 
@@ -12,6 +13,7 @@ from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
 from bas_client.transport import AbstractTransport
+from bas_client.typing import LoggerLike
 
 
 class BrowserOptions:
@@ -40,10 +42,11 @@ class AbstractBrowser(ABC):
     """
 
     _tr: Union[AbstractTransport]
-    _options: BrowserOptions
+    logger: LoggerLike
 
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
         self._tr = tr
+        self.logger = logging.getLogger("[bas-client:browser]")
 
     @abstractmethod
     async def open(self):
@@ -288,16 +291,13 @@ class AbstractBrowser(ABC):
         """
 
 
-class Browser(AbstractBrowser, ABC):
+class Browser(AbstractBrowser):
     __doc__ = inspect.getdoc(AbstractBrowser)
-
-    _tr: Union[AbstractTransport]
     _options: BrowserOptions
 
     def __init__(self, tr: Union[AbstractTransport], options: BrowserOptions, *args, **kwargs):
-        self._tr = tr
+        super().__init__(tr=tr, *args, **kwargs)
         self._options = options
-        super().__init__(tr=self._tr, *args, **kwargs)
 
     def options_get(self):
         return self._options
@@ -349,47 +349,22 @@ class Browser(AbstractBrowser, ABC):
     async def open(self) -> BasFunction:
         return await self._tr.run_function_thread("_basOpenBrowser")
 
-    async def close(self, force: bool = False) -> BasFunction:
+    async def close(self) -> BasFunction:
         if self._options.worker_pid == 0:
             raise BrowserProcessIsZero("worker pid is 0")
 
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)
 
-        def _kill_proc(worker_pid: int):
-            try:
-                p = psutil.Process(worker_pid)
-            except psutil.NoSuchProcess:
-                return
+        async def _wait_closed(worker_pid: int) -> None:
+            while 1:
+                await asyncio.sleep(1)
+                try:
+                    psutil.Process(worker_pid)
+                except psutil.NoSuchProcess:
+                    return
 
-            try:
-                p.terminate()
-            except psutil.NoSuchProcess:
-                return
-
-        if force:
-            _kill_proc(self._options.worker_pid)
-
-        """wait for browser closed"""
-        for _ in range(0, 60):
-            try:
-                p = psutil.Process(self._options.worker_pid)
-            except psutil.NoSuchProcess:
-                break
-
-            try:
-                if not psutil.pid_exists(self._options.worker_pid):
-                    break
-            except psutil.NoSuchProcess:
-                break
-
-            try:
-                if p.status() != psutil.STATUS_RUNNING:
-                    break
-            except psutil.NoSuchProcess:
-                break
-
-            await asyncio.sleep(1)
+        await _wait_closed(self._options.worker_pid)
 
         self._options.worker_pid = 0
 

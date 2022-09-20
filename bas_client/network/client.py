@@ -1,3 +1,4 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import List, Union
 
@@ -7,6 +8,7 @@ from bas_client.function import BasFunction
 from bas_client.models import Cookies
 from bas_client.models.network import NetworkCacheEntry
 from bas_client.transport import AbstractTransport
+from bas_client.typing import LoggerLike
 
 
 class AbstractNetwork(ABC):
@@ -16,10 +18,12 @@ class AbstractNetwork(ABC):
     """
 
     _tr: Union[AbstractTransport]
+    logger: LoggerLike
 
     @abstractmethod
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
-        pass
+        self._tr = tr
+        self.logger = logging.getLogger("[bas-client:network]")
 
     @abstractmethod
     async def set_header(self, name: str, value: str) -> BasFunction:
@@ -190,12 +194,9 @@ class AbstractNetwork(ABC):
         """
 
 
-class Network(AbstractNetwork, ABC):
-    _tr: Union[AbstractTransport]
-
+class Network(AbstractNetwork):
     def __init__(self, tr: Union[AbstractTransport], *args, **kwargs):
-        self._tr = tr
-        super().__init__(tr=self._tr, *args, **kwargs)
+        super().__init__(tr=tr, *args, **kwargs)
 
     async def save_cookies(self) -> Cookies:
         data = await self._tr.run_function_thread("_basNetworkSaveCookies")
