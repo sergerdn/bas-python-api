@@ -34,9 +34,10 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
             await client_api.clean_up()
 
             browser_options = client_api.browser.options_get()
-
-            logging.debug("teardown bas client: clean profile dir....")
-            await clean_dir_async(browser_options.profile_folder_path)
+            dir_name = browser_options.profile_folder_path
+            if dir_name and os.path.exists(dir_name) and os.path.isdir(dir_name):
+                logging.debug("teardown bas client: clean profile dir....")
+                await clean_dir_async(dir_name)
 
         event_loop.run_until_complete(afin())
 
