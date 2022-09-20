@@ -35,23 +35,23 @@ async def main():
     client = BasClient(transport_options=transport_options)
     await client.set_up()
 
-    await client.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
-    current_url = await client.browser.current_url()
-    print(current_url)
+    try:
+        await client.browser.load(url="https://www.google.com/", referer="https://www.google.com/")
+        current_url = await client.browser.current_url()
+        print(current_url)
 
-    page_html = await client.browser.page_html()
-    print(page_html[:100])
+        page_html = await client.browser.page_html()
+        print(page_html[:100])
 
-    await client.browser.load(url="https://www.python.org/")
-    current_url = await client.browser.current_url()
-    print(current_url)
-
-    await client.clean_up()
+        await client.browser.load(url="https://www.python.org/")
+        current_url = await client.browser.current_url()
+        print(current_url)
+    finally:
+        await client.clean_up()
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-
 ```
 
 ## Prerequisites:
