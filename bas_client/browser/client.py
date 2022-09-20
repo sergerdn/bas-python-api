@@ -367,6 +367,7 @@ class Browser(AbstractBrowser):
         await _wait_closed(self._options.worker_pid)
 
         self._options.worker_pid = 0
+        self._options.profile_folder_path = None
 
         return result
 
