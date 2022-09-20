@@ -5,7 +5,6 @@ import pytest
 
 from bas_client import BasClient, BasClientSettings, BrowserOptions
 from bas_client.transport import AbstractTransportOptions
-from tests.functional.utils import clean_dir_async
 
 
 @pytest.mark.asyncio
@@ -25,10 +24,6 @@ class TestBasClient:
         await client.waiters.wait_full_page_load()
 
         await client.clean_up()
-
-        browser_options = client.browser.options_get()
-        await clean_dir_async(browser_options.profile_folder_path)
-        assert os.path.exists(browser_options.profile_folder_path) is False
 
     async def test_client_browser_profile_created(self, transport_options, google_url):
         """
@@ -75,13 +70,13 @@ class TestBasClient:
 
         browser_options = client.browser.options_get()
         profile_folder_path = browser_options.profile_folder_path
-        await client.clean_up()
+        await client.browser.close()
 
         assert os.path.exists(profile_folder_path) is True
 
         """using old profile"""
-        await client.set_up()
-
+        await client.browser.options_set()
+        await client.browser.set_visible(force=True)
         await client.browser.load("about:blank")
         await client.waiters.wait_full_page_load()
         cookies_second_obj = await client.network.save_cookies()
