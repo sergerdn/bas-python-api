@@ -38,11 +38,11 @@ class RemoteTransportOptions:
     working_dir: str
 
     def __init__(
-        self,
-        remote_script_name: Union[str, None] = None,
-        remote_script_user: Union[str, None] = None,
-        remote_script_password: Union[str, None] = None,
-        working_dir: Union[str, None] = None,
+            self,
+            remote_script_name: Union[str, None] = None,
+            remote_script_user: Union[str, None] = None,
+            remote_script_password: Union[str, None] = None,
+            working_dir: Union[str, None] = None,
     ):
         if remote_script_name is not None:
             self.remote_script_name = remote_script_name
@@ -77,6 +77,7 @@ class RemoteTransport(AbstractTransport):
     async def connect(self):
         await self._client.start()
         self._thread = self._client.create_thread()
+        await self._thread.start()
 
     async def close(self):
         await self._thread.stop()
