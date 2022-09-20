@@ -31,18 +31,22 @@ class AbstractTransport(ABC):
         pass
 
 
-class RemoteTransportOptions:
+class AbstractTransportOptions(ABC):
+    pass
+
+
+class RemoteTransportOptions(AbstractTransportOptions):
     remote_script_name: str = "BasPythonApi"
     remote_script_user: Union[str, None] = None
     remote_script_password: Union[str, None] = None
     working_dir: str
 
     def __init__(
-        self,
-        remote_script_name: Union[str, None] = None,
-        remote_script_user: Union[str, None] = None,
-        remote_script_password: Union[str, None] = None,
-        working_dir: Union[str, None] = None,
+            self,
+            remote_script_name: Union[str, None] = None,
+            remote_script_user: Union[str, None] = None,
+            remote_script_password: Union[str, None] = None,
+            working_dir: Union[str, None] = None,
     ):
         if remote_script_name is not None:
             self.remote_script_name = remote_script_name

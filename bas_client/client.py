@@ -10,13 +10,13 @@ from bas_client.browser import Browser, BrowserOptions
 from bas_client.browser.exceptions import BrowserProcessIsZero
 from bas_client.network import Network
 from bas_client.settings import BasClientSettings
-from bas_client.transport import RemoteTransport, RemoteTransportOptions
+from bas_client.transport import RemoteTransport, RemoteTransportOptions, AbstractTransportOptions
 from bas_client.typing import LoggerLike
 from bas_client.waiters import Waiters
 
 
 class BasClient:
-    _transport_options: RemoteTransportOptions
+    _transport_options: AbstractTransportOptions
     _settings: BasClientSettings
     _tr: Union[RemoteTransport]
     _loop: Optional[asyncio.AbstractEventLoop]
@@ -28,7 +28,7 @@ class BasClient:
 
     def __init__(
         self,
-        transport_options: RemoteTransportOptions,
+        transport_options: AbstractTransportOptions,
         bas_client_settings: Optional[BasClientSettings] = None,
         browser_options: Optional[BrowserOptions] = None,
         loop: Optional[asyncio.AbstractEventLoop] = None,

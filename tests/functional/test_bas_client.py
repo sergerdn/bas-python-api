@@ -4,6 +4,7 @@ import random
 import pytest
 
 from bas_client import BasClient, BasClientSettings, BrowserOptions
+from bas_client.transport import AbstractTransportOptions
 from tests.functional.utils import clean_dir_async
 
 
@@ -56,7 +57,7 @@ class TestBasClient:
         """ closed profile"""
         assert not os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 
-    async def test_client_browser_profile_old_used(self, transport_options, google_url):
+    async def test_client_browser_profile_old_used(self, transport_options: AbstractTransportOptions, google_url: str):
         """
         Extended settings to bas client: custom profile folder for existing profile.
         :param transport_options:
@@ -81,7 +82,7 @@ class TestBasClient:
         """using old profile"""
         await client.set_up()
 
-        await client.browser.load("https://duckduckgo.com/")
+        await client.browser.load("about:blank")
         await client.waiters.wait_full_page_load()
         cookies_second_obj = await client.network.save_cookies()
 
