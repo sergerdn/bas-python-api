@@ -27,11 +27,11 @@ class BasClient:
     logger: LoggerLike
 
     def __init__(
-            self,
-            transport_options: RemoteTransportOptions,
-            bas_client_settings: Optional[BasClientSettings] = None,
-            browser_options: Optional[BrowserOptions] = None,
-            loop: Optional[asyncio.AbstractEventLoop] = None,
+        self,
+        transport_options: RemoteTransportOptions,
+        bas_client_settings: Optional[BasClientSettings] = None,
+        browser_options: Optional[BrowserOptions] = None,
+        loop: Optional[asyncio.AbstractEventLoop] = None,
     ):
         self._transport_options = transport_options
 

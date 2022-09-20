@@ -31,7 +31,7 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     def fin():
         async def afin():
             logging.debug("teardown bas client....")
-            await client_api.clean_up(force_close_browser=True)
+            await client_api.clean_up()
 
             browser_options = client_api.browser.options_get()
 
