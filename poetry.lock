@@ -94,11 +94,11 @@ websockets = "^10.3"
 type = "git"
 url = "https://github.com/sergerdn/bas-remote-python-v2#develop"
 reference = "HEAD"
-resolved_reference = "89e074716abc56032ae99ca4b2098a6e1912d5f8"
+resolved_reference = "6ea3aa583ba79461b51c652887d2c984664a3521"
 
 [[package]]
 name = "black"
-version = "22.8.1.dev8+gd852af71"
+version = "22.8.1.dev9+g6ae8457a"
 description = "The uncompromising code formatter."
 category = "dev"
 optional = false
@@ -124,7 +124,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 type = "git"
 url = "https://github.com/psf/black"
 reference = "HEAD"
-resolved_reference = "d852af71672ce22646017e4ca7a8878ca7bdfe39"
+resolved_reference = "6ae8457a8628345c59fed22c58728ffa258a3e76"
 
 [[package]]
 name = "bleach"

@@ -24,10 +24,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -349,47 +349,22 @@ class Browser(AbstractBrowser):
     async def open(self) -> BasFunction:
         return await self._tr.run_function_thread("_basOpenBrowser")
 
-    async def close(self, force: bool = False) -> BasFunction:
+    async def close(self) -> BasFunction:
         if self._options.worker_pid == 0:
             raise BrowserProcessIsZero("worker pid is 0")
 
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)
 
-        def _kill_proc(worker_pid: int):
-            try:
-                p = psutil.Process(worker_pid)
-            except psutil.NoSuchProcess:
-                return
+        async def _wait_closed(worker_pid: int) -> None:
+            while 1:
+                await asyncio.sleep(1)
+                try:
+                    psutil.Process(worker_pid)
+                except psutil.NoSuchProcess:
+                    return
 
-            try:
-                p.terminate()
-            except psutil.NoSuchProcess:
-                return
-
-        if force:
-            _kill_proc(self._options.worker_pid)
-
-        """wait for browser closed"""
-        for _ in range(0, 60):
-            try:
-                p = psutil.Process(self._options.worker_pid)
-            except psutil.NoSuchProcess:
-                break
-
-            try:
-                if not psutil.pid_exists(self._options.worker_pid):
-                    break
-            except psutil.NoSuchProcess:
-                break
-
-            try:
-                if p.status() != psutil.STATUS_RUNNING:
-                    break
-            except psutil.NoSuchProcess:
-                break
-
-            await asyncio.sleep(1)
+        await _wait_closed(self._options.worker_pid)
 
         self._options.worker_pid = 0
 

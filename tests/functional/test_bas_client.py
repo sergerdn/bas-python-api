@@ -84,8 +84,8 @@ class TestBasClient:
         # wait for browser closed
         while os.path.exists(os.path.join(profile_folder_path, "lockfile")):
             await asyncio.sleep(0.5)
-
         """using old profile"""
+
         bas_api_settings = BasClientSettings(working_dir=transport_options.working_dir)
         browser_options = BrowserOptions(profile_folder_path=profile_folder_path)
 

@@ -2,11 +2,9 @@ import asyncio
 import logging
 import os.path
 import random
-from asyncio.exceptions import CancelledError as AsyncioCancelledError
 from typing import Dict, Optional, Union
 
 from bas_remote.runners import BasFunction
-from websockets.exceptions import ConnectionClosedError as WebsocketsConnectionClosedError
 
 from bas_client.browser import Browser, BrowserOptions
 from bas_client.browser.exceptions import BrowserProcessIsZero
@@ -29,11 +27,11 @@ class BasClient:
     logger: LoggerLike
 
     def __init__(
-        self,
-        transport_options: RemoteTransportOptions,
-        bas_client_settings: Optional[BasClientSettings] = None,
-        browser_options: Optional[BrowserOptions] = None,
-        loop: Optional[asyncio.AbstractEventLoop] = None,
+            self,
+            transport_options: RemoteTransportOptions,
+            bas_client_settings: Optional[BasClientSettings] = None,
+            browser_options: Optional[BrowserOptions] = None,
+            loop: Optional[asyncio.AbstractEventLoop] = None,
     ):
         self._transport_options = transport_options
 
@@ -65,19 +63,13 @@ class BasClient:
         await self.browser.set_visible()
         return self
 
-    async def clean_up(self, force_close_browser=False):
+    async def clean_up(self):
         try:
-            await self.browser.close(force=force_close_browser)
+            await self.browser.close()
         except BrowserProcessIsZero:
             pass
 
-        if force_close_browser:
-            try:
-                await self._tr.close()
-            except (WebsocketsConnectionClosedError, AsyncioCancelledError):
-                pass
-        else:
-            await self._tr.close()
+        return await self._tr.close()
 
     async def run_function(self, function_name: str, function_params: Optional[Dict] = None) -> BasFunction:
         return await self._tr.run_function(function_name=function_name, function_params=function_params)
