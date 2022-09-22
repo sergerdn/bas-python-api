@@ -68,14 +68,14 @@ class TestBasClient:
         await client.waiters.wait_full_page_load()
         cookies_first_obj = await client.network.save_cookies()
 
-        browser_options = client.browser.options_get()
+        browser_options = client.browser.bas_options_get()
         profile_folder_path = browser_options.profile_folder_path
         await client.browser.close()
 
         assert os.path.exists(profile_folder_path) is True
 
         """using old profile"""
-        await client.browser.options_set()
+        await client.browser.bas_options_set()
         await client.browser.set_visible(force=True)
         await client.browser.load("about:blank")
         await client.waiters.wait_full_page_load()

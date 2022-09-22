@@ -24,10 +24,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-        self,
-        profile_folder_path: str,
-        load_fingerprint_from_profile_folder: bool = True,
-        load_proxy_from_profile_folder: bool = True,
+            self,
+            profile_folder_path: str,
+            load_fingerprint_from_profile_folder: bool = True,
+            load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -294,29 +294,36 @@ class AbstractBrowser(ABC):
 class Browser(AbstractBrowser):
     __doc__ = inspect.getdoc(AbstractBrowser)
     _options: BrowserOptions
+    _running: bool = False
 
     def __init__(self, tr: Union[AbstractTransport], options: BrowserOptions, *args, **kwargs):
         super().__init__(tr=tr, *args, **kwargs)
         self._options = options
+        self._running = False
 
-    def options_get(self):
+    def is_running(self):
+        return self._running
+
+    def bas_options_get(self):
         return self._options
 
-    async def options_set(self):
+    async def bas_options_set(self, options: Optional[BrowserOptions] = None):
         """
         Tells browser to use specified folder as a place to store cookies, cache, localstorage, etc.
         :return:
         """
+        if not options:
+            options = self._options
         await self._tr.run_function_thread(
             "_basCreateOrSwitchToRegularProfile",
             {
-                "profile_folder_path": self._options.profile_folder_path,
-                "load_fingerprint_from_profile_folder": self._options.load_fingerprint_from_profile_folder,
-                "load_proxy_from_profile_folder": self._options.load_proxy_from_profile_folder,
+                "profile_folder_path": options.profile_folder_path,
+                "load_fingerprint_from_profile_folder": options.load_fingerprint_from_profile_folder,
+                "load_proxy_from_profile_folder": options.load_proxy_from_profile_folder,
             },
         )
 
-    def options_update(self) -> None:
+    def _set_browser_pid(self) -> None:
         if self._options.worker_pid > 0:
             return
 
@@ -341,9 +348,10 @@ class Browser(AbstractBrowser):
     async def set_visible(self, force: bool = False) -> None:
         if self._options.show_browser is not True and force is not True:
             return
+        if not self._running:
+            await self.open()
 
-        await self.open()
-        self.options_update()
+        self._set_browser_pid()
         window_set_visible(self._options.worker_pid)
 
     async def open(self) -> BasFunction:

@@ -59,7 +59,7 @@ class BasClient:
 
     async def set_up(self):
         await self._tr.connect()
-        await self.browser.options_set()
+        await self.browser.bas_options_set()
         await self.browser.set_visible()
         return self
 
