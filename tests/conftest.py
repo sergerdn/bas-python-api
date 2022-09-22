@@ -55,9 +55,9 @@ def transport_options(request):
     if os.path.exists(STORAGE_DIR):
         shutil.copytree(src=STORAGE_DIR, dst=dir_name, dirs_exist_ok=True)
 
-    def fin(dir_name):
-        if os.path.exists(dir_name) and os.path.isdir(dir_name):
-            clean_dir(dir_name)
+    def fin(_dir_name):
+        if os.path.exists(_dir_name) and os.path.isdir(_dir_name):
+            clean_dir(_dir_name)
 
     yield RemoteTransportOptions(
         remote_script_name=remote_script_name,
