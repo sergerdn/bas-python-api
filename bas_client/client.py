@@ -57,7 +57,7 @@ class BasClient:
         self.waiters = Waiters(tr=self._tr)
         self.network = Network(tr=self._tr)
 
-    async def set_up(self):
+    async def setup(self):
         await self._tr.connect()
         await self.browser.bas_options_set()
         await self.browser.set_visible()

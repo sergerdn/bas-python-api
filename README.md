@@ -33,7 +33,7 @@ async def main():
         remote_script_password=remote_script_password,
     )
     client = BasClient(transport_options=transport_options)
-    await client.set_up()
+    await client.setup()
 
     try:
         await client.browser.load(url="https://www.google.com/", referer="https://www.google.com/")

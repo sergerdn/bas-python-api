@@ -27,7 +27,7 @@ def event_loop():
 def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     client_api = BasClient(transport_options=transport_options, loop=event_loop)
 
-    event_loop.run_until_complete(client_api.set_up())
+    event_loop.run_until_complete(client_api.setup())
 
     yield client_api
 

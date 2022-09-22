@@ -11,7 +11,7 @@ async def main():
     tr_options = get_tr_options()
     client = BasClient(transport_options=tr_options)
 
-    await client.set_up()
+    await client.setup()
 
     urls = [
         "https://www.google.com/?hl=en" "https://en.wikipedia.org/wiki/Main_Page",

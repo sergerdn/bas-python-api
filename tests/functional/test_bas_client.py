@@ -18,7 +18,7 @@ class TestBasClient:
         """
         client = BasClient(transport_options=transport_options)
 
-        await client.set_up()
+        await client.setup()
 
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
@@ -41,7 +41,7 @@ class TestBasClient:
             bas_client_settings=bas_client_settings,
             browser_options=browser_options,
         )
-        await client.set_up()
+        await client.setup()
 
         assert os.path.exists(profile_folder_path) is True
         assert os.path.isdir(profile_folder_path) is True
@@ -62,7 +62,7 @@ class TestBasClient:
         """create new profile"""
         client = BasClient(transport_options=transport_options)
 
-        await client.set_up()
+        await client.setup()
 
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()

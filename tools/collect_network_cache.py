@@ -11,7 +11,7 @@ async def main():
     tr_options = get_tr_options()
     client = BasClient(transport_options=tr_options)
 
-    await client.set_up()
+    await client.setup()
     await client.network.cache_mask_allow(mask="*")
 
     urls = [
