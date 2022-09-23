@@ -8,19 +8,19 @@ class BrowserTimeout(AbstractException):
 
 @docstring_message_exception
 class BrowserNotRunning(AbstractException):
-    """Browser not running"""
+    """Browser not running."""
 
 
 @docstring_message_exception
 class BrowserRunning(AbstractException):
-    """Browser should be closed"""
+    """Browser should be closed."""
 
 
 @docstring_message_exception
 class BrowserProcessNotFound(AbstractException):
-    """Pid of running browser not found"""
+    """Pid of running browser not found."""
 
 
 @docstring_message_exception
 class BrowserProcessIsZero(AbstractException):
-    """Worker pid is 0"""
+    """Worker pid is 0."""

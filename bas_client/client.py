@@ -59,8 +59,8 @@ class BasClient:
 
     async def setup(self):
         await self._tr.connect()
-        await self.browser.bas_options_set()
-        await self.browser.set_visible()
+        # await self.browser.bas_options_set()
+        # await self.browser.set_visible()
         return self
 
     async def clean_up(self):
