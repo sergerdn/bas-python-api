@@ -303,11 +303,11 @@ class Browser(AbstractBrowser):
         return self._options.worker_pid > 0
 
     def _must_running(self):
-        if not self.is_running:
+        if not self.is_running():
             raise BrowserNotRunning()
 
     def _must_not_running(self):
-        if self.is_running:
+        if self.is_running():
             raise BrowserRunning()
 
     def bas_options_get(self):
@@ -333,8 +333,6 @@ class Browser(AbstractBrowser):
         )
 
     def _options_find_and_set_browser_pid(self) -> None:
-        self._must_running()
-
         process_name = "Worker.exe"
         pid: int = 0
 
@@ -352,6 +350,8 @@ class Browser(AbstractBrowser):
             raise BrowserProcessNotFound("Pid of running browser not found: %s." % self._options.profile_folder_path)
 
         self._options.worker_pid = pid
+
+        self._must_running()
 
     async def set_visible(self, force: bool = False) -> None:
         self._must_running()
@@ -371,7 +371,13 @@ class Browser(AbstractBrowser):
         except Exception as exc:
             raise exc
 
+        await asyncio.sleep(0)
+
+        self._options_find_and_set_browser_pid()
         await self.set_visible()
+
+        self._must_running()
+
         return result
 
     async def close(self) -> BasFunction:
@@ -395,6 +401,11 @@ class Browser(AbstractBrowser):
         return result
 
     async def load(self, url: str, referer: Optional[str] = None) -> BasFunction:
+        if not self.is_running():
+            await self.open()
+
+        self._must_running()
+
         return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
 
     async def current_url(self) -> BasFunction:
