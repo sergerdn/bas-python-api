@@ -1,3 +1,5 @@
+import asyncio
+
 import pytest
 from pydantic import HttpUrl
 
@@ -41,6 +43,7 @@ class TestApiNetwork:
         await client.waiters.wait_full_page_load()
 
         items = await client.network.get_all_items_from_cache(mask="*")
+        await asyncio.sleep(0)
         assert len(items) > 1
 
         await client.network.clear_cached_data()
