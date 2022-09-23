@@ -38,6 +38,7 @@ class TestApiNetwork:
         assert False
 
     async def test_clear_cached_data(self, client: BasClient, google_url: HttpUrl, wikipedia_url: HttpUrl):
+        # await client.browser.open()
         await client.network.cache_mask_allow(mask="*")
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()

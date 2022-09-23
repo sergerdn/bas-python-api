@@ -24,10 +24,10 @@ class BrowserOptions:
     show_browser: bool = True
 
     def __init__(
-            self,
-            profile_folder_path: str,
-            load_fingerprint_from_profile_folder: bool = True,
-            load_proxy_from_profile_folder: bool = True,
+        self,
+        profile_folder_path: str,
+        load_fingerprint_from_profile_folder: bool = True,
+        load_proxy_from_profile_folder: bool = True,
     ):
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
@@ -365,7 +365,8 @@ class Browser(AbstractBrowser):
     async def open(self) -> BasFunction:
         self._must_not_running()
 
-        await self.bas_options_set()
+        # await self.bas_options_set()
+
         try:
             result = await self._tr.run_function_thread("_basOpenBrowser")
         except Exception as exc:
