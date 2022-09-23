@@ -8,7 +8,12 @@ import bas_remote
 import psutil
 import yaml
 
-from bas_client.browser.exceptions import BrowserProcessIsZero, BrowserProcessNotFound, BrowserTimeout
+from bas_client.browser.exceptions import (
+    BrowserNotRunning,
+    BrowserProcessIsZero,
+    BrowserProcessNotFound,
+    BrowserTimeout,
+)
 from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
@@ -304,6 +309,10 @@ class Browser(AbstractBrowser):
     def is_running(self):
         return self._running
 
+    def _check_running(self):
+        if not self._running:
+            raise BrowserNotRunning()
+
     def bas_options_get(self):
         return self._options
 
@@ -323,7 +332,7 @@ class Browser(AbstractBrowser):
             },
         )
 
-    def _set_browser_pid(self) -> None:
+    def _options_find_and_set_browser_pid(self) -> None:
         if self._options.worker_pid > 0:
             return
 
@@ -341,7 +350,7 @@ class Browser(AbstractBrowser):
                 break
 
         if pid == 0:
-            raise BrowserProcessNotFound("pid of running browser not found: %s" % self._options.profile_folder_path)
+            raise BrowserProcessNotFound("Pid of running browser not found: %s" % self._options.profile_folder_path)
 
         self._options.worker_pid = pid
 
@@ -351,7 +360,7 @@ class Browser(AbstractBrowser):
         if not self._running:
             await self.open()
 
-        self._set_browser_pid()
+        self._options_find_and_set_browser_pid()
         window_set_visible(self._options.worker_pid)
 
     async def open(self) -> BasFunction:
@@ -359,7 +368,7 @@ class Browser(AbstractBrowser):
 
     async def close(self) -> BasFunction:
         if self._options.worker_pid == 0:
-            raise BrowserProcessIsZero("worker pid is 0")
+            raise BrowserProcessIsZero("Worker pid is 0")
 
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)

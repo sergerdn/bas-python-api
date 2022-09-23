@@ -35,7 +35,7 @@ class AbstractTransportOptions(ABC):
     pass
 
 
-class RemoteTransportOptions(AbstractTransportOptions):
+class RemoteTransportOptions(AbstractTransportOptions, ABC):
     remote_script_name: str = "BasPythonApi"
     remote_script_user: Union[str, None] = None
     remote_script_password: Union[str, None] = None

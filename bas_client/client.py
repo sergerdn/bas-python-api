@@ -10,7 +10,7 @@ from bas_client.browser import Browser, BrowserOptions
 from bas_client.browser.exceptions import BrowserProcessIsZero
 from bas_client.network import Network
 from bas_client.settings import BasClientSettings
-from bas_client.transport import AbstractTransportOptions, RemoteTransport, RemoteTransportOptions
+from bas_client.transport import AbstractTransportOptions, RemoteTransport
 from bas_client.typing import LoggerLike
 from bas_client.waiters import Waiters
 
