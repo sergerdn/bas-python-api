@@ -82,8 +82,8 @@ class TestBasClient:
 
         """using old profile"""
         await client.browser.bas_options_set()
-        await client.browser.set_visible(force=True)
         await client.browser.load("about:blank")
+        await client.browser.set_visible(force=True)
         await client.waiters.wait_full_page_load()
         cookies_second_obj = await client.network.save_cookies()
 
