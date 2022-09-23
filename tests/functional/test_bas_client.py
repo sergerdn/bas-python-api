@@ -23,7 +23,7 @@ class TestBasClient:
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
 
-        await client.clean_up()
+        await client.close()
 
     async def test_client_browser_profile_created(self, transport_options, google_url):
         """
@@ -49,7 +49,7 @@ class TestBasClient:
         assert os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 
         await client.browser.close()
-        await client.clean_up()
+        await client.close()
 
         assert client.browser.is_running() is False
         options = client.browser.bas_options_get()
@@ -89,7 +89,7 @@ class TestBasClient:
 
         # old profile loaded
         assert os.path.exists(os.path.join(profile_folder_path, "lockfile"))
-        await client.clean_up()
+        await client.close()
 
         # old cookies exists
         for one in cookies_first_obj.cookies:

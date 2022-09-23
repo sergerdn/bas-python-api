@@ -31,7 +31,7 @@ def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
 
     yield client_api
 
-    event_loop.run_until_complete(client_api.clean_up())
+    event_loop.run_until_complete(client_api.close())
 
 
 def working_dir():

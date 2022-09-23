@@ -60,7 +60,7 @@ class BasClient:
         await self._tr.connect()
         await self.browser.bas_options_set()
 
-    async def clean_up(self):
+    async def close(self):
         if self.browser.is_running():
             await self.browser.close()
 

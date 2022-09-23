@@ -24,7 +24,7 @@ async def main():
         await client.waiters.wait_full_page_load()
 
     data = await client.run_function_thread("_basNetworkSaveCookies")
-    await client.clean_up()
+    await client.close()
 
     with codecs.open(dest_filename, "w", "utf-8") as fp:
         fp.write(str(data))

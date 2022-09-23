@@ -47,7 +47,7 @@ async def main():
         current_url = await client.browser.current_url()
         print(current_url)
     finally:
-        await client.clean_up()
+        await client.close()
 
 
 if __name__ == "__main__":
