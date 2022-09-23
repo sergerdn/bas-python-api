@@ -8,12 +8,7 @@ import bas_remote
 import psutil
 import yaml
 
-from bas_client.browser.exceptions import (
-    BrowserNotRunning,
-    BrowserProcessIsZero,
-    BrowserProcessNotFound,
-    BrowserTimeout,
-)
+from bas_client.browser.exceptions import BrowserProcessIsZero, BrowserProcessNotFound, BrowserRunning, BrowserTimeout
 from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
@@ -306,24 +301,24 @@ class Browser(AbstractBrowser):
         self._options = options
         self._running = False
 
+    @staticmethod
     def is_running(self):
         return self._running
-
-    def _check_running(self):
-        if not self._running:
-            raise BrowserNotRunning()
 
     def bas_options_get(self):
         return self._options
 
-    async def bas_options_set(self, options: Optional[BrowserOptions] = None):
+    async def bas_options_set(self, options: Optional[BrowserOptions] = None) -> BasFunction:
         """
         Tells browser to use specified folder as a place to store cookies, cache, localstorage, etc.
         :return:
         """
+        if self.is_running:
+            raise BrowserRunning("Browser should be closed before setting option.")
+
         if not options:
             options = self._options
-        await self._tr.run_function_thread(
+        return await self._tr.run_function_thread(
             "_basCreateOrSwitchToRegularProfile",
             {
                 "profile_folder_path": options.profile_folder_path,

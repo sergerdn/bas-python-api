@@ -12,6 +12,11 @@ class BrowserNotRunning(AbstractException):
 
 
 @docstring_message_exception
+class BrowserRunning(AbstractException):
+    """Browser should be closed"""
+
+
+@docstring_message_exception
 class BrowserProcessNotFound(AbstractException):
     """Pid of running browser not found"""
 
