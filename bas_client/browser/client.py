@@ -314,10 +314,11 @@ class Browser(AbstractBrowser):
         :return:
         """
         if self.is_running:
-            raise BrowserRunning("Browser should be closed before setting option.")
+            raise BrowserRunning("Browser should be closed before setting options.")
 
         if not options:
             options = self._options
+
         return await self._tr.run_function_thread(
             "_basCreateOrSwitchToRegularProfile",
             {
