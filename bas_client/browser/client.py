@@ -398,6 +398,8 @@ class Browser(AbstractBrowser):
 
         self._options.worker_pid = 0
 
+        self._must_not_running()
+
         return result
 
     async def load(self, url: str, referer: Optional[str] = None) -> BasFunction:
@@ -410,10 +412,12 @@ class Browser(AbstractBrowser):
 
     async def current_url(self) -> BasFunction:
         self._must_running()
+
         return await self._tr.run_function_thread("_basBrowserCurrentUrl")
 
     async def previous_page(self) -> BasFunction:
         self._must_running()
+
         try:
             return await self._tr.run_function_thread("_basBrowserPreviousPage")
         except bas_remote.errors.FunctionError as exc:
@@ -423,6 +427,7 @@ class Browser(AbstractBrowser):
 
     async def page_html(self) -> BasFunction:
         self._must_running()
+
         return await self._tr.run_function_thread("_basPageHtml")
 
     async def type(self) -> BasFunction:
@@ -433,6 +438,7 @@ class Browser(AbstractBrowser):
 
     async def get_resolution_and_cursor_position(self) -> BrowserResolutionCursorScroll:
         self._must_running()
+
         data = await self._tr.run_function_thread("_basGetResolutionAndCursorPosition")
         data_json = yaml.load(data, Loader=yaml.UnsafeLoader)
         obj_model = BrowserResolutionCursorScroll(**data_json)
