@@ -43,12 +43,18 @@ class TestBasClient:
         )
         await client.setup()
 
+        await client.browser.open()
         assert os.path.exists(profile_folder_path) is True
         assert os.path.isdir(profile_folder_path) is True
         assert os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 
         await client.browser.close()
         await client.clean_up()
+
+        assert client.browser.is_running() is False
+        options = client.browser.bas_options_get()
+        assert options.worker_pid == 0
+
         """ closed profile"""
         assert not os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 

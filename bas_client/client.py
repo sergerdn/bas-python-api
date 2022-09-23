@@ -7,7 +7,6 @@ from typing import Dict, Optional, Union
 from bas_remote.runners import BasFunction
 
 from bas_client.browser import Browser, BrowserOptions
-from bas_client.browser.exceptions import BrowserProcessIsZero
 from bas_client.network import Network
 from bas_client.settings import BasClientSettings
 from bas_client.transport import AbstractTransportOptions, RemoteTransport
@@ -62,10 +61,8 @@ class BasClient:
         await self.browser.bas_options_set()
 
     async def clean_up(self):
-        try:
+        if self.browser.is_running():
             await self.browser.close()
-        except BrowserProcessIsZero:
-            pass
 
         return await self._tr.close()
 
