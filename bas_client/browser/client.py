@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+import json
 import logging
 from abc import ABC, abstractmethod
 from typing import Optional, Union
@@ -32,6 +33,15 @@ class BrowserOptions:
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
         self.load_proxy_from_profile_folder = load_proxy_from_profile_folder
+
+    def __str__(self):
+        return json.dumps(
+            {
+                "profile_folder_path": self.profile_folder_path,
+                "load_fingerprint_from_profile_folder": self.load_fingerprint_from_profile_folder,
+                "load_proxy_from_profile_folder": self.load_proxy_from_profile_folder,
+            }
+        )
 
 
 class AbstractBrowser(ABC):
@@ -378,7 +388,7 @@ class Browser(AbstractBrowser):
         await self.set_visible()
 
         self._must_running()
-        await self.load("about:blank")
+        # await self.load("about:blank")
 
         return result
 
@@ -410,7 +420,7 @@ class Browser(AbstractBrowser):
 
         self._must_running()
 
-        return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
+        return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, "referer": referer})
 
     async def current_url(self) -> BasFunction:
         self._must_running()
