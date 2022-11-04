@@ -7,10 +7,9 @@ from typing import Dict, Optional, Union
 from bas_remote.runners import BasFunction
 
 from bas_client.browser import Browser, BrowserOptions
-from bas_client.browser.exceptions import BrowserProcessIsZero
 from bas_client.network import Network
 from bas_client.settings import BasClientSettings
-from bas_client.transport import AbstractTransportOptions, RemoteTransport, RemoteTransportOptions
+from bas_client.transport import AbstractTransportOptions, RemoteTransport
 from bas_client.typing import LoggerLike
 from bas_client.waiters import Waiters
 
@@ -57,17 +56,13 @@ class BasClient:
         self.waiters = Waiters(tr=self._tr)
         self.network = Network(tr=self._tr)
 
-    async def set_up(self):
+    async def setup(self):
         await self._tr.connect()
-        await self.browser.options_set()
-        await self.browser.set_visible()
-        return self
+        await self.browser.bas_options_set()
 
-    async def clean_up(self):
-        try:
+    async def close(self):
+        if self.browser.is_running():
             await self.browser.close()
-        except BrowserProcessIsZero:
-            pass
 
         return await self._tr.close()
 

@@ -11,7 +11,7 @@ async def main():
     tr_options = get_tr_options()
     client = BasClient(transport_options=tr_options)
 
-    await client.set_up()
+    await client.setup()
 
     urls = [
         "https://www.google.com/?hl=en" "https://en.wikipedia.org/wiki/Main_Page",
@@ -24,7 +24,7 @@ async def main():
         await client.waiters.wait_full_page_load()
 
     data = await client.run_function_thread("_basNetworkSaveCookies")
-    await client.clean_up()
+    await client.close()
 
     with codecs.open(dest_filename, "w", "utf-8") as fp:
         fp.write(str(data))

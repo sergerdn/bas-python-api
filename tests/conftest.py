@@ -27,9 +27,11 @@ def event_loop():
 def client(request, transport_options, event_loop: asyncio.AbstractEventLoop):
     client_api = BasClient(transport_options=transport_options, loop=event_loop)
 
-    event_loop.run_until_complete(client_api.set_up())
+    event_loop.run_until_complete(client_api.setup())
 
     yield client_api
+
+    event_loop.run_until_complete(client_api.close())
 
 
 def working_dir():
@@ -55,9 +57,9 @@ def transport_options(request):
     if os.path.exists(STORAGE_DIR):
         shutil.copytree(src=STORAGE_DIR, dst=dir_name, dirs_exist_ok=True)
 
-    def fin(dir_name):
-        if os.path.exists(dir_name) and os.path.isdir(dir_name):
-            clean_dir(dir_name)
+    def fin(_dir_name):
+        if os.path.exists(_dir_name) and os.path.isdir(_dir_name):
+            clean_dir(_dir_name)
 
     yield RemoteTransportOptions(
         remote_script_name=remote_script_name,

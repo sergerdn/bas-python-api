@@ -11,7 +11,7 @@ tests_multi:
 	poetry run pytest -n auto tests/
 
 tests_coverage_multi:
-	poetry run pytest -n auto --cov-report html --cov=bas_client tests/ &&	start "./htmlcov/index.html"
+	poetry run pytest -n auto --cov-report html --cov=bas_client tests/ && start "./htmlcov/index.html"
 
 lint:
 	poetry run black . --check

@@ -30,13 +30,13 @@ class TestBrowser:
 
     async def test_close(self, client: BasClient):
         await client.browser.load("about:blank")
-        options = client.browser.options_get()
+        options = client.browser.bas_options_get()
 
         p = psutil.Process(options.worker_pid)
         assert p.status() == psutil.STATUS_RUNNING
         await client.browser.close()
 
-        options = client.browser.options_get()
+        options = client.browser.bas_options_get()
         assert options.worker_pid == 0
 
         assert psutil.Process(options.worker_pid) != psutil.STATUS_RUNNING

@@ -18,12 +18,12 @@ class TestBasClient:
         """
         client = BasClient(transport_options=transport_options)
 
-        await client.set_up()
+        await client.setup()
 
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
 
-        await client.clean_up()
+        await client.close()
 
     async def test_client_browser_profile_created(self, transport_options, google_url):
         """
@@ -41,14 +41,20 @@ class TestBasClient:
             bas_client_settings=bas_client_settings,
             browser_options=browser_options,
         )
-        await client.set_up()
+        await client.setup()
 
+        await client.browser.open()
         assert os.path.exists(profile_folder_path) is True
         assert os.path.isdir(profile_folder_path) is True
         assert os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 
         await client.browser.close()
-        await client.clean_up()
+        await client.close()
+
+        assert client.browser.is_running() is False
+        options = client.browser.bas_options_get()
+        assert options.worker_pid == 0
+
         """ closed profile"""
         assert not os.path.isfile(os.path.join(profile_folder_path, "lockfile"))
 
@@ -62,28 +68,28 @@ class TestBasClient:
         """create new profile"""
         client = BasClient(transport_options=transport_options)
 
-        await client.set_up()
+        await client.setup()
 
         await client.browser.load(google_url)
         await client.waiters.wait_full_page_load()
         cookies_first_obj = await client.network.save_cookies()
 
-        browser_options = client.browser.options_get()
+        browser_options = client.browser.bas_options_get()
         profile_folder_path = browser_options.profile_folder_path
         await client.browser.close()
 
         assert os.path.exists(profile_folder_path) is True
 
         """using old profile"""
-        await client.browser.options_set()
-        await client.browser.set_visible(force=True)
+        await client.browser.bas_options_set()
         await client.browser.load("about:blank")
+        await client.browser.set_visible(force=True)
         await client.waiters.wait_full_page_load()
         cookies_second_obj = await client.network.save_cookies()
 
         # old profile loaded
         assert os.path.exists(os.path.join(profile_folder_path, "lockfile"))
-        await client.clean_up()
+        await client.close()
 
         # old cookies exists
         for one in cookies_first_obj.cookies:

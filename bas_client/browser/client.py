@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+import json
 import logging
 from abc import ABC, abstractmethod
 from typing import Optional, Union
@@ -8,7 +9,7 @@ import bas_remote
 import psutil
 import yaml
 
-from bas_client.browser.exceptions import BrowserProcessIsZero, BrowserProcessNotFound, BrowserTimeout
+from bas_client.browser.exceptions import BrowserNotRunning, BrowserProcessNotFound, BrowserRunning, BrowserTimeout
 from bas_client.browser.gui import window_set_visible
 from bas_client.function import BasFunction
 from bas_client.models.browser import BrowserResolutionCursorScroll
@@ -32,6 +33,15 @@ class BrowserOptions:
         self.profile_folder_path = profile_folder_path
         self.load_fingerprint_from_profile_folder = load_fingerprint_from_profile_folder
         self.load_proxy_from_profile_folder = load_proxy_from_profile_folder
+
+    def __str__(self):
+        return json.dumps(
+            {
+                "profile_folder_path": self.profile_folder_path,
+                "load_fingerprint_from_profile_folder": self.load_fingerprint_from_profile_folder,
+                "load_proxy_from_profile_folder": self.load_proxy_from_profile_folder,
+            }
+        )
 
 
 class AbstractBrowser(ABC):
@@ -299,27 +309,40 @@ class Browser(AbstractBrowser):
         super().__init__(tr=tr, *args, **kwargs)
         self._options = options
 
-    def options_get(self):
+    def is_running(self):
+        return self._options.worker_pid > 0
+
+    def _must_running(self):
+        if not self.is_running():
+            raise BrowserNotRunning()
+
+    def _must_not_running(self):
+        if self.is_running():
+            raise BrowserRunning()
+
+    def bas_options_get(self):
         return self._options
 
-    async def options_set(self):
+    async def bas_options_set(self, options: Optional[BrowserOptions] = None) -> BasFunction:
         """
         Tells browser to use specified folder as a place to store cookies, cache, localstorage, etc.
         :return:
         """
-        await self._tr.run_function_thread(
+        self._must_not_running()
+
+        if not options:
+            options = self._options
+
+        return await self._tr.run_function_thread(
             "_basCreateOrSwitchToRegularProfile",
             {
-                "profile_folder_path": self._options.profile_folder_path,
-                "load_fingerprint_from_profile_folder": self._options.load_fingerprint_from_profile_folder,
-                "load_proxy_from_profile_folder": self._options.load_proxy_from_profile_folder,
+                "profile_folder_path": options.profile_folder_path,
+                "load_fingerprint_from_profile_folder": options.load_fingerprint_from_profile_folder,
+                "load_proxy_from_profile_folder": options.load_proxy_from_profile_folder,
             },
         )
 
-    def options_update(self) -> None:
-        if self._options.worker_pid > 0:
-            return
-
+    def _options_find_and_set_browser_pid(self) -> None:
         process_name = "Worker.exe"
         pid: int = 0
 
@@ -334,24 +357,43 @@ class Browser(AbstractBrowser):
                 break
 
         if pid == 0:
-            raise BrowserProcessNotFound("pid of running browser not found: %s" % self._options.profile_folder_path)
+            raise BrowserProcessNotFound("Pid of running browser not found: %s." % self._options.profile_folder_path)
 
         self._options.worker_pid = pid
 
+        self._must_running()
+
     async def set_visible(self, force: bool = False) -> None:
+        self._must_running()
+
         if self._options.show_browser is not True and force is not True:
             return
 
-        await self.open()
-        self.options_update()
+        self._options_find_and_set_browser_pid()
         window_set_visible(self._options.worker_pid)
 
     async def open(self) -> BasFunction:
-        return await self._tr.run_function_thread("_basOpenBrowser")
+        self._must_not_running()
+
+        # await self.bas_options_set()
+
+        try:
+            result = await self._tr.run_function_thread("_basOpenBrowser")
+        except Exception as exc:
+            raise exc
+
+        await asyncio.sleep(0)
+
+        self._options_find_and_set_browser_pid()
+        await self.set_visible()
+
+        self._must_running()
+        # await self.load("about:blank")
+
+        return result
 
     async def close(self) -> BasFunction:
-        if self._options.worker_pid == 0:
-            raise BrowserProcessIsZero("worker pid is 0")
+        self._must_running()
 
         result = await self._tr.run_function_thread("_basCloseBrowser")
         await asyncio.sleep(1)
@@ -368,15 +410,26 @@ class Browser(AbstractBrowser):
 
         self._options.worker_pid = 0
 
+        self._must_not_running()
+
         return result
 
     async def load(self, url: str, referer: Optional[str] = None) -> BasFunction:
-        return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, referer: referer})
+        if not self.is_running():
+            await self.open()
+
+        self._must_running()
+
+        return await self._tr.run_function_thread("_basBrowserLoad", {"url": url, "referer": referer})
 
     async def current_url(self) -> BasFunction:
+        self._must_running()
+
         return await self._tr.run_function_thread("_basBrowserCurrentUrl")
 
     async def previous_page(self) -> BasFunction:
+        self._must_running()
+
         try:
             return await self._tr.run_function_thread("_basBrowserPreviousPage")
         except bas_remote.errors.FunctionError as exc:
@@ -385,6 +438,8 @@ class Browser(AbstractBrowser):
             raise exc
 
     async def page_html(self) -> BasFunction:
+        self._must_running()
+
         return await self._tr.run_function_thread("_basPageHtml")
 
     async def type(self) -> BasFunction:
@@ -394,6 +449,8 @@ class Browser(AbstractBrowser):
         raise NotImplementedError("function not implemented")
 
     async def get_resolution_and_cursor_position(self) -> BrowserResolutionCursorScroll:
+        self._must_running()
+
         data = await self._tr.run_function_thread("_basGetResolutionAndCursorPosition")
         data_json = yaml.load(data, Loader=yaml.UnsafeLoader)
         obj_model = BrowserResolutionCursorScroll(**data_json)
